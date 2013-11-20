@@ -1,0 +1,157 @@
+curl REST client
+
+command example
+curl -X HTTP_METHOD -i -H "headers" -d "parameters" url
+
+where,
+i – show response headers
+H – pass request headers to the resource
+X – pass a HTTP method name
+d – pass in parameters enclosed in quotes; multiple parameters are separated by ‘&’
+
+Task Protocol
+{
+        "id": 4,
+        "description": "Fix database",
+        "completed": "False",
+        "created_at": "2012-06-14 12:43:43",
+        "date_due": "2012-07-14 12:43:43"
+ }
+
+
+--GET all tasks
+
+======================================================================================
+
+#>curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Content-Length: 241
+Date:TUE,09 JUL 2013 19:08:20.00 GMT
+Connection: close
+
+[{"id":13,"description":"todo1","completed":"False","created_at":"1970-01-01 00:
+00:00","date_due":"1970-01-01 00:00:00"},{"id":14,"description":"todo2","complet
+ed":"False","created_at":"1970-01-01 00:00:00","date_due":"1970-01-01 00:00:00"}
+]
+
+======================================================================================
+
+--GET an specific task
+
+#>curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks/14
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Content-Length: 134
+Date:TUE,09 JUL 2013 19:09:32.00 GMT
+etag:CEAAB9EC7332DE7799BE805A75A4D924
+Connection: close
+
+{"content" : {"id":14,"description":"todo2","completed":"False","created_at":"19
+70-01-01 00:00:00","date_due":"1970-01-01 00:00:00"} }
+
+=======================================================================================
+
+-- DELETE on http://localhost:9090/tasks not allowed
+
+#>curl -X DELETE -i -H "Accept: application/json"  http://localhost:9090/tas
+ks
+HTTP/1.1 405 Method Not Allowed
+Access-Control-Allow-Origin: *
+Allow: OPTIONS, GET, POST
+Content-Type: text/plain
+Content-Length: 213
+Connection: close
+
+Error 405 (Method Not Allowed): the request method DELETE is inappropriate for t
+he URL for '/tasks'.
+Allowed methods: OPTIONS GET POST
+
+Perhaps your are looking for:
+ - /tasks/{task_id} [ OPTIONS GET DELETE PUT ]
+
+====================================================================================== 
+-- CREATE a new Task
+#>curl -X POST -i -H "Accept: application/json" -d "{\"description\": \"Fix database\",\"completed\": \"False\"}" http://localhost:9090/tasks
+hTTP/1.1 201 Created
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Content-Length: 125
+Location: http://localhost:9090/tasks/15
+Date: Tue, 09 Jul 2013 19:21:57 GMT
+Connection: close
+
+{"id":15,"description":"Fix database","completed":"False","created_at":"1970-01-0
+1 00:00:00","date_due":"1970-01-01 00:00:00"}
+
+====================================================================================== 
+
+-- Update a task
+
+#>curl -X PUT -i -H "Accept: application/json" -d "{\"id\":15,\"description
+\":\"Fix database Oracle\",\"completed\":\"False\",\"created_at\":\"1970-01-01 0
+0:00:00\",\"date_due\":\"2013-07-23 00:00:00\"}" http://localhost:9090/tasks/15
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Date:TUE,09 JUL 2013 19:44:00.00 GMT
+etag:4A856AD86C2B627F3DB54CAAC198CE9E
+Content-Length: 133
+Connection: close
+
+{"id":15,"description":"Fix database Oracle","completed":"False","created_at":"1
+970-01-01 00:00:00","date_due":"2013-07-23 00:00:00"}
+
+
+UPDATE resource does not exist
+#>curl -X PUT -i -H "Accept: application/json" -d "{\"id\":15,\"description
+\":\"Fix database Oracle\",\"completed\":\"False\",\"created_at\":\"1970-01-01 0
+0:00:00\",\"date_due\":\"2013-07-23 00:00:00\"}" http://localhost:9090/tasks/29
+HTTP/1.1 400 Bad Request
+Access-Control-Allow-Origin: *
+Content-Type: text/plain
+Content-Length: 199
+Date: Tue, 09 Jul 2013 19:44:46 GMT
+Connection: close
+
+{"id":15,"description":"Fix database Oracle","completed":"False","created_at":"1
+970-01-01 00:00:00","date_due":"2013-07-23 00:00:00"}
+ is not a valid task, maybe the task does not exist in the system
+
+======================================================================================  
+DELETE a valid task 
+1) the task exist
+2) delete
+3) check
+
+#>curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks/17
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Content-Length: 141
+Date:TUE,09 JUL 2013 19:52:30.00 GMT
+etag:2DE4AAF8E466F8CF6BD2521CCA0A2068
+Connection: close
+
+{"content" : {"id":17,"description":"Fix database","completed":"False","created_
+at":"1970-01-01 00:00:00","date_due":"1970-01-01 00:00:00"} }
+
+#>curl -X DELETE -i -H "Accept: application/json" http://localhost:9090/tasks/17
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+Date: Tue, 09 Jul 2013 19:52:39 GMT
+Connection: close
+
+
+#>curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks/17
+HTTP/1.1 404 Not Found
+Access-Control-Allow-Origin: *
+Content-Type: text/plain
+Content-Length: 45
+Date: Tue, 09 Jul 2013 19:52:42 GMT
+Connection: close
+
+The following resource/tasks/17 is not found

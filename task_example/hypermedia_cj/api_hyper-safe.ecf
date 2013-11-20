@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-11-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-11-0 http://www.eiffel.com/developers/xml/configuration-1-11-0.xsd" name="api_hyper" uuid="2D2F8CD7-5AF2-478A-B47D-E335F03D0C93">
+	<target name="common">
+		<file_rule>
+			<exclude>/EIFGENs$</exclude>
+			<exclude>/\.git$</exclude>
+			<exclude>/\.svn$</exclude>
+		</file_rule>
+		<option debug="true" warning="true" full_class_checking="true" is_attached_by_default="true" void_safety="transitional" syntax="provisional">
+			<debug name="nino" enabled="true"/>
+			<assertions precondition="true" postcondition="true" invariant="true" supplier_precondition="true"/>
+		</option>
+		<setting name="concurrency" value="thread"/>
+		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
+		<library name="connector_nino" location="$ISE_LIBRARY/contrib/library/web/framework/ewf/ewsgi/connectors/nino/nino-safe.ecf" readonly="false">
+			<option debug="true">
+				<debug name="nino" enabled="true"/>
+			</option>
+		</library>
+		<library name="eel" location="$ISE_LIBRARY\contrib\library\text\encryption\eel\eel-safe.ecf" readonly="false"/>
+		<library name="encoder" location="$ISE_LIBRARY/contrib/library/web/framework/ewf/text/encoder/encoder-safe.ecf" readonly="false"/>
+		<library name="http" location="$ISE_LIBRARY/contrib/library/network/protocol/http/http-safe.ecf" readonly="false"/>
+		<library name="http_authorization" location="$ISE_LIBRARY/contrib/library/network/authentication/http_authorization/http_authorization-safe.ecf" readonly="false"/>
+		<library name="json" location="$ISE_LIBRARY/contrib/library/text/parser/json/library/json-safe.ecf" readonly="false"/>
+		<library name="uri_template" location="$ISE_LIBRARY/contrib/library/text/parser/uri_template/uri_template-safe.ecf" readonly="false"/>
+		<library name="wsf" location="$ISE_LIBRARY/contrib/library/web/framework/ewf/wsf/wsf-safe.ecf" readonly="false"/>
+		<library name="wsf_extension" location="$ISE_LIBRARY/contrib/library/web/framework/ewf/wsf/wsf_extension-safe.ecf" readonly="false"/>
+		<library name="wsf_router_context" location="$ISE_LIBRARY/contrib/library/web/framework/ewf/wsf/wsf_router_context-safe.ecf" readonly="false"/>
+		
+		<!-- Specific Libraries -->
+		<library name="collection_json" location="$ISE_LIBRARY/contrib/library/web/communication/mediatype/collection+json/library/collection+json-safe.ecf" readonly="false"/>
+		<library name="task_domain" location="../domain/task_domain.ecf" readonly="false"/>
+	</target>
+	
+	<target name="api_hyper_nino" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="dft_nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\nino-safe.ecf"/>
+		<library name="nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\nino-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/any$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>
+
+	<target name="api_hyper_libfcgi" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="dft_libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\libfcgi-safe.ecf"/>
+		<library name="libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\libfcgi-safe.ecf"/>
+			<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/default$</exclude>
+				</file_rule>	
+			</cluster>
+	</target>
+	
+	<target name="app_cgi" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\cgi-safe.ecf"/>
+		<library name="dft_cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\cgi-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/any$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>
+	
+	<target name="app_any" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\cgi-safe.ecf"/>
+		<library name="libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\libfcgi-safe.ecf"/>
+		<library name="nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\nino-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/default$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>
+	
+	<target name="app" extends="app_any">
+	</target>
+	
+</system>

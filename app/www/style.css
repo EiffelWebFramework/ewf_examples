@@ -1,0 +1,22 @@
+body {
+	background-color: #dddddd;
+}
+div#page {
+	margin-top: 10%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	height: auto;
+	border: solid 2px #999999;
+	background-color: #ffffff;
+	padding: 20px; 
+}
+div#sessionid {
+	display: none;
+}
+div.label { margin: 5px; }
+div.label>span { width: 300px; }
+div.label div.updating { 
+	margin-left: 20px; width: 300px; border: solid 1px #f00; background-color: #ffeeee; 
+}
+
