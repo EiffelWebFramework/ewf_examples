@@ -103,5 +103,18 @@ handle_hover_message (req: WSF_REQUEST; res: WSF_RESPONSE)
 
 Executing the example
 ----
-
+The following video shows the application running.
 [![ScreenShot](doc/app_example_screen_cast.png)](http://screencast-o-matic.com/watch/cIXtFFVSIZ)
+
+Execute the app from EiffelStudio
+----
+The following video shows how to launch the application from EiffelStudio
+
+[![ScreenShot](doc/app_launch_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2OVSrJ)
+
+
+Debug the app from EiffelStudio using Nino Web Server
+---
+The following video shows how to debug the application from EiffelStudio using the development server Nino.
+
+[![ScreenShot](doc/app_debug_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2GVSrN)
