@@ -71,7 +71,8 @@ As we said before we need to associate URIs and URI templates with Eiffel code t
 From our setup_router we have
 
 ```Eiffel
-map_uri_template_agent_with_request_methods ("/api/message/hover/{name}", agent handle_hover_message, router.methods_GET)```
+map_uri_template_agent_with_request_methods ("/api/message/hover/{name}", agent handle_hover_message, router.methods_GET)
+```
 
 Eiffel code handling the HTTP request to _/api/message/hover/{name}_
 
