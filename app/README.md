@@ -18,7 +18,7 @@ The app example has the following features.
 
 Project Structure
 ---
-At the moment EWF does not use “convention over configuration”, so every project will have his own structure, here is the breakdown for the app example
+At the moment EWF does not use [convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration), so every project will have his own structure, here is the breakdown for the app example
 
  - **app**
     - **root**  -- root cluster, launch the app.
