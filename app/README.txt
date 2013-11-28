@@ -1,3 +1,0 @@
-Eiffel Web Example 
-
-
