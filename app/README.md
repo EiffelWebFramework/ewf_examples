@@ -12,9 +12,9 @@ The app example has the following features.
  - one button
 
 > One of the labels is updated every second with the current time.
-> One of the labels responds to a mouse hover by displaying a (constantly changing) > string it requests from the server.
+> One of the labels responds to a mouse hover by displaying a (constantly changing) string it requests from the server.
 > The two input fields return their data to the server with each keystroke.
-> If and only if the two fields are integers does the server send a message to have > the button activated.
+> If and only if the two fields are integers does the server send a message to have  the button activated.
 
 Project Structure
 ---
@@ -22,8 +22,8 @@ At the moment EWF does not use “convention over configuration”, so every pro
 
  - **app**
     - **root**  -- root cluster, launch the app.
-    - **any**   --  root application able to launch the app with either cgi, libfcgi, or nino connector.  
-    - **default** --  launch the application using nino connection.
+    	- **any**   --  root application able to launch the app with either cgi, libfcgi, or nino connector.  
+    	- **default** --  launch the application using nino connection.
     - **src**  -- Supporting source code to build EWF services, Web APIs (REST API), CRUDs, or conventional web applications.   
     - **tests**   -- Unit and integration testing 
     - **www**  -- document root containing html pages, js and css files needed by the application
@@ -36,18 +36,18 @@ Application Architecture
 
 The _APPLICATION_ class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it _cgi_, _fcgi_ or _Nino_. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
 
-Our _APPLICATION_ class inherit from _APP_SERVICE_ class, which also inherit from others, let’s describe them in a few words, before continuing with _APP_SERVICE_.
+Our _APPLICATION_ class inherit from *APP_SERVICE* class, which also inherit from others, let’s describe them in a few words, before continuing with *APP_SERVICE*.
 
-_WS_LAUNCHABLE_SERVICE_ inherit from _WS_SERVICE_ class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. 
+*WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. 
 
 ![Launcher Hierarchy](/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
 
-_WS_ROUTER_SERVICE_  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by _WS_ROUTER_.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
+*WS_ROUTER_SERVICE*  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by *WS_ROUTER*.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
 
-The classes _WSF_URI_HELPER_FOR_ROUTED_SERVICE_, _WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_SERVICE_,  are helpers to map uri and uri templates to Eiffel code.
+The classes *WSF_URI_HELPER_FOR_ROUTED_SERVICE*, *WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_SERVICE*,  are helpers to map uri and uri templates to Eiffel code.
  
 
-Back to _APP_SERVICE_, in this class we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests. We setup our mapping in  the feature _setup_router_.
+Back to *APP_SERVICE*, in this class we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests. We setup our mapping in  the feature *setup_router*.
 
 ```Eiffel
 setup_router
