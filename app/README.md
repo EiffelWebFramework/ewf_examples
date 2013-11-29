@@ -40,7 +40,7 @@ The _APPLICATION_ class is the root of our example, it will launch the applicati
 
 Our _APPLICATION_ class inherit from *APP_SERVICE* class, which also inherit from others, let’s describe them in a few words, before continuing with *APP_SERVICE*.
 
-*WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. 
+*WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. Below a [Bon diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors
 
 ![Launcher Hierarchy](/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
 
