@@ -31,6 +31,8 @@ At the moment EWF does not use [convention over configuration](http://en.wikiped
 
 Application Architecture
 --
+Before to see our custom implemtation for our example, it's recomended to see the basic application architecture and the common lifecyle that every ewf application will have. So first read the wiki page [application lifecycle] (https://github.com/EiffelWebFramework/ewf_examples/wiki/Application-Lifecycle)
+
 
 ![Application Architecture](/doc/APP_SERVICE.png "Application arhitecture")
 
