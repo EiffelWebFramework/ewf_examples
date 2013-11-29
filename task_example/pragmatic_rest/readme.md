@@ -45,3 +45,26 @@ JSON Representation
             "date_due": "2012-07-14 12:43:43"
      }
  ```
+ 
+
+How to Create a task with POST
+---
+
+POST is used for creation and the server determines the URI of the created resource. If the request POST is SUCCESS, the server will create the task and will respond with 201 CREATED, the Location header will contains the newly created task's URI, if the request POST is NOT SUCCESS, the server will respond with 400 BAD REQUEST, if the client send a bad request.  500 INTERNAL_SERVER_ERROR, when the server can’t deliver the request.
+
+
+How to Read a task or tasks with GET
+--
+Using GET to retrieve resource information or a collection resource. If the GET request is SUCCESS, we responds with 200 OK, and a representation of the task or a collection of tasks. If the GET request is not SUCCESS, we respond with 404 Resource not found. If is a Conditional GET and the resource does not change, we send a 304, Resource not modified.
+
+How to Update a task with PUT
+---
+A successful PUT request will not create a new resource, instead it will change the state of the resource identified by the current URI. If success we responds with 200 and the updated task. 404 if the task is not found 400 in case of a bad request 500 internal server error If the request is a Conditional PUT, and it does not match we respond 415, precondition failed. 
+
+How to Delete a task with DELETE
+---
+Here we use DELETE to remove a task, if the task could be removed we responds with a. 204. 404 Resource not found, 405 if consumer and service's view of the resource state is inconsistent 500 if we have an internal server error
+
+How to Delete a task with DELETE
+Here we use DELETE to remove a task, if the task could be removed we responds with a. 204. 404 Resource not found, 405 if consumer and service's view of the resource state is inconsistent 500 if we have an internal server error
+ 
