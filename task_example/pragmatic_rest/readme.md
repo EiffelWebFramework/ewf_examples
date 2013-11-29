@@ -32,8 +32,8 @@ Resource Representation
 The previous table shows a contract, the URI or URI template, allows us to identify resources, now we will chose a representation, for this particular case we will use JSON.
 
 *Note*: 
-1. A resource can have multiple URIs.
-2. A resource can have multiple Representations.
+ 1. A resource can have multiple URIs.
+ 2. A resource can have multiple Representations.
 
 JSON Representation
 ```sh
