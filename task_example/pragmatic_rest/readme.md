@@ -18,3 +18,29 @@ Task Protocol
 | PUT | tasks/{task_id}      | Update an task at the given URI with new information, providing the full representation |
 | DELETE | tasks/{task_id}     |    Logically remove the order identified by the given URI. |
 
+
+
+CRUD Pattern: URIs design
+--------------------------------
+
+URIs should be opaque to consumers.  Only the implementor of the server know the URIs structure, how to interpret and map it to a resource. Here we are using URI templates to describe a protocol, but doing that we are increasing the coupling between consumers and server. So, keep in mind this example is not a real RESTful system(or Hypermedia API), that’s why it’s called pragmatic REST.  The goal is describe it with his pros and cons and see if it meet our needs.
+
+Ideally, we should only use URIs templates for internal purposes, but describing a protocol (Contracts) using them introduce tight coupling.
+
+Resource Representation
+---
+The previous table shows a contract, the URI or URI template, allows us to identify resources, now we will chose a representation, for this particular case we will use JSON.
+
+*Note*: 
+1. A resource can have multiple URIs.
+2. A resource can have multiple Representations.
+
+JSON Representation
+```sh
+    {
+            "id": 4,
+            "description": "Fix database",
+            "completed": "False",
+            "created_at": "2012-06-14 12:43:43",
+            "date_due": "2012-07-14 12:43:43"
+     }```
