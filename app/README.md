@@ -34,7 +34,7 @@ Application Architecture
 Before to see our custom implemtation for our example, it's recomended to see the basic application architecture and the common lifecyle that every ewf application will have. So first read the wiki page [application lifecycle] (https://github.com/EiffelWebFramework/ewf_examples/wiki/Application-Lifecycle)
 
 
-![Application Architecture](/doc/APP_SERVICE.png "Application arhitecture")
+![Application Architecture](/app/doc/APP_SERVICE.png "Application arhitecture")
 
 The _APPLICATION_ class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it _cgi_, _fcgi_ or _Nino_. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
 
