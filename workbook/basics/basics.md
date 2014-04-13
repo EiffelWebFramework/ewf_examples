@@ -16,12 +16,12 @@ feature -- Basic operations
 
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
 		do
-			-- To read incoming HTTP requires, we need to use `req'
+			-- To read incoming HTTP request, we need to use `req'
 
 			-- May require talking to databases or other services.	
  
 			-- To send a response we need to setup, the status code and
-			-- the response headers and the content we want to send out client
+			-- the response headers and the content we want to send out our client
 		end
 end
 ```
@@ -65,12 +65,12 @@ feature -- Basic operations
 end
 ```
 
-So a basic EWF service inherit from WSF_DEFAULT_SERVICE (there are other options see [?]).
-And then you just need to implement the `execute' feature, get data from the request `req' and write the response in `res'
+So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
+And then you just need to implement the *execute feature*, get data from the request *req* and write the response in *res*
 
-The WSF_REQUEST lets you get at all of the incoming data; the class has features by which you can find out about information
+The **WSF_REQUEST** lets you get at all of the incoming data; the class has features by which you can find out about information
 such as request method, form data, query parameters, HTTP request headers, and the client’s hostname. 
-The WSF_RESPONSE lets you specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
+The **WSF_RESPONSE** lets you specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
 
 
 
