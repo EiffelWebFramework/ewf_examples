@@ -34,7 +34,7 @@ Application Architecture
 Before to see our custom implemtation for our example, it's recomended to see the basic application architecture and the common lifecyle that every ewf application will have. So first read the wiki page [application lifecycle] (https://github.com/EiffelWebFramework/ewf_examples/wiki/Application-Lifecycle)
 
 
-![Application Architecture](/doc/APP_SERVICE.png "Application arhitecture")
+![Application Architecture](/app/doc/APP_SERVICE.png "Application arhitecture")
 
 The _APPLICATION_ class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it _cgi_, _fcgi_ or _Nino_. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
 
@@ -42,7 +42,7 @@ Our _APPLICATION_ class inherit from *APP_SERVICE* class, which also inherit fro
 
 *WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. Below a [BON diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors.
 
-![Launcher Hierarchy](/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
+![Launcher Hierarchy](/app/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
 
 *WS_ROUTER_SERVICE*  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by *WS_ROUTER*.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
 
@@ -106,17 +106,17 @@ handle_hover_message (req: WSF_REQUEST; res: WSF_RESPONSE)
 Executing the example
 ----
 The following video shows the application running.
-[![ScreenShot](doc/app_example_screen_cast.png)](http://screencast-o-matic.com/watch/cIXtFFVSIZ)
+[![ScreenShot](/app/doc/app_example_screen_cast.png)](http://screencast-o-matic.com/watch/cIXtFFVSIZ)
 
 Execute the app from EiffelStudio
 ----
 The following video shows how to launch the application from EiffelStudio
 
-[![ScreenShot](doc/app_launch_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2OVSrJ)
+[![ScreenShot](/app/doc/app_launch_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2OVSrJ)
 
 
 Debug the app from EiffelStudio using Nino Web Server
 ---
 The following video shows how to debug the application from EiffelStudio using the development server Nino.
 
-[![ScreenShot](doc/app_debug_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2GVSrN)
+[![ScreenShot](/app/doc/app_debug_screen_cast.png)](http://screencast-o-matic.com/watch/cIXu2GVSrN)
