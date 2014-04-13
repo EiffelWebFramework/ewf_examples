@@ -164,14 +164,14 @@ feature -- Basic operations
 
 	web_page: STRING = "[ 	
 	<!DOCTYPE html>
-<html>
-	<head>
-		<title>Resume</title>
-	</head>
-	<body>
-		Hello World
-	</body>
-</html>
+	<html>
+		<head>
+			<title>Resume</title>
+		</head>
+		<body>
+			Hello World
+		</body>
+	</html>
 ]"
 
 end
