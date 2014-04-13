@@ -1,5 +1,13 @@
 ## EWF basic service
 
+##### Table of Contents  
+[Basic Structure](## EWF service structure)  
+[Service to Generate Plain Text](## A simple Service to Generate Plain Text.)  
+[Service to Generate HTML](## A Service to Generate HTML.)  
+
+
+## EWF service structure
+
 The following code describe the basic structure of an EWF basic service that handle HTTP requests.
 
 ```
