@@ -254,7 +254,7 @@ feature -- Response
 		do
 			create h.make
 			create l_msg.make_from_string (output)
-			h.put_content_type_application_json
+			h.put_content_type ("application/vnd.collection+json")
 			h.put_content_length (l_msg.count)
 			if attached req.request_time as time then
 				create hdate.make_from_date_time (time)
@@ -274,7 +274,7 @@ feature -- Response
 		do
 			create h.make
 			create l_msg.make_from_string (output)
-			h.put_content_type_application_json
+			h.put_content_type ("application/vnd.collection+json")
 			h.put_content_length (l_msg.count)
 			if attached req.request_time as time then
 				create hdate.make_from_date_time (time)
@@ -314,7 +314,7 @@ feature -- Response
 		do
 			create h.make
 			create l_msg.make_from_string (output)
-			h.put_content_type_application_json
+			h.put_content_type ("application/vnd.collection+json")
 			if attached req.request_time as time then
 				create hdate.make_from_date_time (time)
 				h.add_header ("Date:" + hdate.rfc1123_string)
