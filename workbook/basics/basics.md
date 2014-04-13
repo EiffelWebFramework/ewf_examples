@@ -1,11 +1,12 @@
 ## EWF basic service
 
 ##### Table of Contents  
-[Basic Structure](## EWF service structure)  
-[Service to Generate Plain Text](## A simple Service to Generate Plain Text.)  
-[Service to Generate HTML](## A Service to Generate HTML.)  
+[Basic Structure](#structure)  
+[Service to Generate Plain Text](#text)  
+[Service to Generate HTML](#html)  
 
 
+<a name="structure"/>
 ## EWF service structure
 
 The following code describe the basic structure of an EWF basic service that handle HTTP requests.
@@ -81,7 +82,7 @@ such as request method, form data, query parameters, HTTP request headers, and t
 The **WSF_RESPONSE** lets you specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
 
 
-
+<a name="text"/>
 ## A simple Service to Generate Plain Text.
 
 Before we continue, review the getting started guided.
@@ -121,7 +122,7 @@ feature -- Basic operations
 end
 ```
 
-
+<a name="html"/>
 ## A Service to Generate HTML.
 To generate HTML, we need
 
