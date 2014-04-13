@@ -2,6 +2,7 @@
 
 The following code describe the basic structure of an EWF basic service that handle HTTP requests.
 
+```
 class
 	SERVICE_TEMPLATE
 
@@ -23,11 +24,12 @@ feature -- Basic operations
 			-- the response headers and the content we want to send out client
 		end
 end
-
+```
 
 By default the service run on port 80, but generally this port is already busy, so we will need to use another port.
 So to achieve that we need to redefine the feature `initialize' and set up a new port number using the service options.
 
+```
 class
 	SERVICE_TEMPLATE
 inherit
@@ -61,7 +63,7 @@ feature -- Basic operations
 			-- the response headers and the content we want to send out client
 		end
 end
-
+```
 
 So a basic EWF service inherit from WSF_DEFAULT_SERVICE (there are other options see [?]).
 And then you just need to implement the `execute' feature, get data from the request `req' and write the response in `res'
@@ -76,7 +78,7 @@ The WSF_RESPONSE lets you specify response information such as HTTP status codes
 
 Before we continue, review the getting started guided.
 
-
+```
 class
 	APPLICATION
 
@@ -109,7 +111,7 @@ feature -- Basic operations
 		end
 
 end
-
+```
 
 
 ## A Service to Generate HTML.
@@ -118,6 +120,7 @@ To generate HTML, we need
 1. Change the Content-Type : "text/html"
 2. Build and HTML page
 
+```
 class
 	APPLICATION
 
@@ -163,5 +166,5 @@ feature -- Basic operations
 ]"
 
 end
-
+```
 
