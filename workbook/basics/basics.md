@@ -127,7 +127,7 @@ end
 To generate HTML, we need
 
 1. Change the Content-Type : "text/html"
-2. Build and HTML page
+2. Build an HTML page
 
 ```
 class
