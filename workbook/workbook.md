@@ -30,5 +30,5 @@ Client   <---->  EWF service <----->{Databases, Other services, etc}
 
 <a name="simple"/>
 ## Introduction
->[Basic Concepts] (/basics/basics.md).
+>[Basic Concepts] (/workbook/basics/basics.md).
 
