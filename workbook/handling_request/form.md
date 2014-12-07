@@ -31,14 +31,67 @@ EWF [WSF_REQUEST]() provides features to handling this form parsing automaticall
 ### Form Parameters
 
 	WSF_REQUEST.form_parameters: ITERABLE [WSF_VALUE]
-      -- All form parameters sent by a POST
+      			-- All form parameters sent by a POST
       
 	WSF_REQUEST.form_parameter (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
 			-- Field for name `a_name'.
 
+The values supplied to form_parameter and query_parameter are case sensitive.
+
+
 ### Reading Values
-To read a request (form) parameter, we call the feature 
->WSF_REQUEST.form_parameter (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE, with the a_name as case sensitive argument.
+
+Suppose we have the following HTML5 form.
+
+```
+<h1> EWF Handling Client Request: Form example </h1>  
+<form action="/" method="POST">
+ <fieldset> 
+    <legend>Personal details</legend> 
+    <div> 
+        <label>First Name
+	    <input id="given-name" name="given-name" type="text" placeholder="First name only" required autofocus> 
+	</label>
+   </div>
+   <div> 
+        <label>Last Name
+	    <input id="family-name" name="family-name" type="text" placeholder="Last name only" required autofocus> 
+	</label>
+    </div>
+    <div>
+	 <label>Email 
+	    <input id="email" name="email" type="email" placeholder="example@domain.com" required>
+	</label> 
+    </div> 
+    <div>  
+       <label>Languages 
+	  <input type="checkbox" name="languages" value="Spanish"> Spanish
+	  <input type="checkbox" name="languages" value="English"> English 
+	</label> 
+     </div> 
+  </fieldset>
+  <fieldset> 
+  	<div> 
+	    <button type=submit>Submit Form</button> 
+	 </div> 
+  </fieldset> 
+</form>
+```
+To read all the parameters names we simple call WSF_REQUEST.form_parameters. 
+
+```
+ req: WSF_REQUEST
+ across req.form_parameters as ic loop show_parameter_name (ic.item.key) end
+```
+To read a particular parameter, for example `given-name'
+```
+  req: WSF_REQUEST 
+  if attached {WSF_STRING} req.form_paramenter ('given-name') as l_given_name then
+  	-- Work with the parameter request
+  	-- the argument is case sensitive
+  end
+```
+
 
 
 
