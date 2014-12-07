@@ -58,7 +58,9 @@ feature {NONE} --Initialization
 				end
 				l_output.replace_substring_all ("$template", l_template)
 				representation := l_output
-				print ("%N===========%N" + l_output)
+				debug
+					print ("%N===========%N" + l_output)
+				end
 			end
 		end
 
@@ -84,7 +86,9 @@ feature {NONE} --Initialization
 				l_output.replace_substring_all ("<", "{")
 				l_output.replace_substring_all (">", "}")
 				representation := l_output
-				print ("%N===========%N" + l_output)
+				debug
+					print ("%N===========%N" + l_output)
+				end
 			end
 		end
 
