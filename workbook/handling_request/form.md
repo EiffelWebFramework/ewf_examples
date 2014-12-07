@@ -83,7 +83,7 @@ To read all the parameters names we simple call WSF_REQUEST.form_parameters.
  req: WSF_REQUEST
  across req.form_parameters as ic loop show_parameter_name (ic.item.key) end
 ```
-To read a particular parameter, a single value, for example `given-name'
+To read a particular parameter, a single value, for example `given-name', we simple call WSF_REQUEST.form_parameter (a_name)
 ```
   req: WSF_REQUEST 
   if attached {WSF_STRING} req.form_paramenter ('given-name') as l_given_name then
@@ -113,7 +113,7 @@ To read multiple values, for example in the case of `languages'
   	-- Value missing 
   end
 ```
-In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see it later.
+In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see how to do that later.
 
 
 
