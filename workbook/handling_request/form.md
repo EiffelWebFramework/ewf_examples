@@ -116,13 +116,14 @@ To read multiple values, for example in the case of `languages'
 In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see how to do that later.
 
 ### Reading Raw Data
-You can also access the data in raw format, it means you will need to parse it, and also you will not be able to use the previous features. This feature is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
+You can also access the data in raw format, it means you will need to parse it, and also you will not be able to use the previous features, by default, to enable that you need to call `req.set_raw_input_data_recorded (True)'. This feature is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
 
 To read raw data you need to do this
 
 ```
    l_raw_data:STRING
    
+   req.set_raw_input_data_recorded (True) --
    create l_raw_data.make_empty
    req.read_input_data_into (l_raw_data)
 ```
