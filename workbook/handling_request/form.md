@@ -83,14 +83,38 @@ To read all the parameters names we simple call WSF_REQUEST.form_parameters.
  req: WSF_REQUEST
  across req.form_parameters as ic loop show_parameter_name (ic.item.key) end
 ```
-To read a particular parameter, for example `given-name'
+To read a particular parameter, a single value, for example `given-name'
 ```
   req: WSF_REQUEST 
   if attached {WSF_STRING} req.form_paramenter ('given-name') as l_given_name then
-  	-- Work with the parameter request
+  	-- Work with the given parameter, for example populate an USER object
   	-- the argument is case sensitive
+  else
+        -- Value missing, check the name against the HTML form 
   end
 ```
+
+To read multiple values, for example in the case of `languages'
+
+```
+  req: WSF_REQUEST 
+  idioms: LIST[STRING]
+  	-- the argument is case sensitive
+  if attached {WSF_MULTIPLE_STRING} req.form_paramenter ('languages') as l_languages then
+  	-- Work with the given parameter, for example populate an USER object
+  	-- Get all the associated values
+  	create {ARRAYED_LIST[STRING]} idioms.make (2)
+	across l_languages as ic loop idioms.force (ic.item.value) end
+  elseif attached {WSF_STRING} req.form_paramenter ('languages') as l_language then
+        -- Value missing, check the name against the HTML form 
+        create {ARRAYED_LIST[STRING]} idioms.make (1)
+	idioms.force (l_language.value)
+  else
+  	-- Value missing 
+  end
+```
+In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see it later.
+
 
 
 
