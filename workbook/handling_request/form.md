@@ -12,13 +12,13 @@ If we use the method POST, the data is sent to the server in a different line.
 Extracting form data from the server side is one of the most tedious parts. If you do it by hand, you will need 
 to parse the input, you'll have to URL-decode the value.
 
-Here we will show you how to read input submitted by a user using a Form.
+Here we will show you how to read input submitted by a user using a Form (GET and POST).
  * How to handle missing values:
    * client side validattion, server side validations, set default if it's a valid option.
  * How to populate Eiffel objects from the request data.          
 
 ## Reading Form Data
-EWF [WSF_REQUEST]() provides features to handling this form parsing automatically.
+EWF [WSF_REQUEST]() class, provides features to handling this form parsing automatically.
 
 ### Query Parameters
 
@@ -41,7 +41,7 @@ The values supplied to form_parameter and query_parameter are case sensitive.
 
 ### Reading Values
 
-Suppose we have the following HTML5 form.
+Suppose we have the following HTML5 form using Method POST.
 
 ```
 <h1> EWF Handling Client Request: Form example </h1>  
@@ -116,7 +116,7 @@ To read multiple values, for example in the case of `languages'
 In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see how to do that later.
 
 ### Reading Raw Data
-You can also access the data in raw format, it means you will need to parse it, and also you will not be able to use the previous features, by default, to enable that you need to call `req.set_raw_input_data_recorded (True)'. This feature is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
+You can also access the data in raw format, it means you will need to parse it, and also you will not be able to use the previous features, by default, to enable that you need to call `req.set_raw_input_data_recorded (True)'. This feature (reading raw data) is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
 
 To read raw data you need to do this
 
