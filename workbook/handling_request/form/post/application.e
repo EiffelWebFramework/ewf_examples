@@ -1,5 +1,5 @@
 note
-	description : "Basic Service that Generates Plain Text"
+	description : "Reading Parameters from a HTML FORM  (method POST) "
 	date        : "$Date$"
 	revision    : "$Revision$"
 
@@ -38,7 +38,6 @@ feature -- Basic operations
 				create file.make_html ("form.html")
 				res.send (file)
 			elseif req.is_post_request_method then
-
 				 req.set_raw_input_data_recorded (True)
 
 					-- (3) Read Raw Data
@@ -67,6 +66,7 @@ feature -- Basic operations
 				l_parameter_names.append ("<br>")
 				create l_answer.make_from_string ("<h2>Parameter Names and Values</h2>")
 				l_answer.append ("<br>")
+
 				across req.form_parameters as ic loop
 					 l_parameter_names.append (ic.item.key)
 					 l_parameter_names.append ("<br>")
@@ -81,6 +81,9 @@ feature -- Basic operations
 
 				l_parameter_names.append ("<br>")
 				l_parameter_names.append_string (l_answer)
+				l_parameter_names.append ("<br>")
+				l_parameter_names.append ("<h2>Raw content</h2>")
+				l_parameter_names.append (l_raw_data)
 				res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", l_parameter_names.count.out]>>)
 				res.put_string (l_parameter_names)
 			else
