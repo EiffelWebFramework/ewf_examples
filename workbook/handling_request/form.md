@@ -1,6 +1,10 @@
 
 #Handling Requests: Form/Query Data
 
+##### Table of Contents  
+- [Reading Form Data](#read).
+  - [Query Parameters](#query).
+  - [Form Parameters](#form).
 
 An HTML Form can handle GET and POST requests.
 When we use a form with method GET, the data is attached at the end of the url for example:
@@ -17,9 +21,11 @@ Here we will show you how to read input submitted by a user using a Form (GET an
    * client side validattion, server side validations, set default if it's a valid option.
  * How to populate Eiffel objects from the request data.          
 
+<a name="read"/>
 ## Reading Form Data
 EWF [WSF_REQUEST]() class, provides features to handling this form parsing automatically.
 
+<a name="query"/>
 ### Query Parameters
 
 	WSF_REQUEST.query_parameters: ITERABLE [WSF_VALUE]
@@ -27,7 +33,7 @@ EWF [WSF_REQUEST]() class, provides features to handling this form parsing autom
 	
 	WSF_REQUEST.query_parameter (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
 			-- Query parameter for name `a_name'.
-
+<a name="form"/>
 ### Form Parameters
 
 	WSF_REQUEST.form_parameters: ITERABLE [WSF_VALUE]
