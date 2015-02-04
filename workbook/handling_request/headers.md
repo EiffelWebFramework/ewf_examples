@@ -1,6 +1,11 @@
 
 #Handling Requests: Headers
 
+[Back to Workbook] (../workbook.md) 		
+
+[Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
+
+
 ##### Introduction
 HTTP request headers are distinct from the form (query) data [Form Data](./form.md).
 Form data results directly from user input and is sent as part of the URL for [GET requests and on a separate line for POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).[Request headers](https://httpwg.github.io/specs/rfc7231.html#request.header.fields), on the other hand, are indirectly set by the browser and are sent immediately following the initial GET or POST request line. 
@@ -118,6 +123,13 @@ The "Accept" header field can be used by user agents to specify response media t
 
 <a name="example"/>
 #### Building a Table of All Request Headers
+
+
+
+
+[Back to Workbook] (../workbook.md) 		
+
+[Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
 
 
