@@ -11,7 +11,7 @@
 
 The following code describe the basic structure of an EWF basic service that handle HTTP requests.
 
-```
+```eiffel
 class
 	SERVICE_TEMPLATE
 
@@ -38,7 +38,7 @@ end
 By default the service run on port 80, but generally this port is already busy, so we will need to use another port.
 So to achieve that we need to redefine the feature `initialize' and set up a new port number using the service options.
 
-```
+```eiffel
 class
 	SERVICE_TEMPLATE
 inherit
@@ -87,7 +87,7 @@ The **WSF_RESPONSE** lets you specify response information such as HTTP status c
 
 Before we continue, review the getting started guided.
 
-```
+```eiffel
 class
 	APPLICATION
 
@@ -129,7 +129,7 @@ To generate HTML, we need
 1. Change the Content-Type : "text/html"
 2. Build an HTML page
 
-```
+```eiffel
 class
 	APPLICATION
 
