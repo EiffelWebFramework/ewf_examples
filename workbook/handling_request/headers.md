@@ -2,7 +2,7 @@
 #Handling Requests: Headers
 
 ##### Introduction
-HTTP request headers are distinct from the form (query) data [Form Data]().
+HTTP request headers are distinct from the form (query) data [Form Data](./form.md).
 Form data results directly from user input and is sent as part of the URL for [GET requests and on a separate line for POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).[Request headers](https://httpwg.github.io/specs/rfc7231.html#request.header.fields), on the other hand, are indirectly set by the browser and are sent immediately following the initial GET or POST request line. 
 
 A generic request includes the headers [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header)   fields, all of which might be important to the operation of the server, but to use then the server need to explicitly read the request headers to make use of this information.
@@ -11,10 +11,10 @@ A generic request includes the headers [Accept, Accept-Encoding, Connection, Coo
 - [Reading HTTP Headers](#read_header).
 - [Reading HTTP Request line](#read_line).
 - [Understanding HTTP headers](#understand).
-	-[Accept](#accept)
-	-[Accept-Charset](#accept_charset)
-	-[Accept-Encoding](#accept_encoding)
-	-[Accept-Language](#accept_language)
+	- [Accept](#accept)
+	- [Accept-Charset](#accept_charset)
+	- [Accept-Encoding](#accept_encoding)
+	- [Accept-Language](#accept_language)
 - [Example](#example).
 
 
