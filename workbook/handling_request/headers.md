@@ -1,6 +1,11 @@
 
 #Handling Requests: Headers
 
+[Back to Workbook] (../workbook.md) 		
+
+[Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
+
+
 ##### Introduction
 - The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the browser and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
 - Query parameters are encoded in the URL [GET requests](https://httpwg.github.io/specs/rfc7230.html#http.message).
@@ -16,6 +21,7 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 	-[Accept-Charset](#accept_charset)
 	-[Accept-Encoding](#accept_encoding)
 	-[Accept-Language](#accept_language)
+
 - [Example](#example).
 
 
@@ -141,6 +147,13 @@ The "Accept" header field can be used by user agents to specify response media t
 
 <a name="example"/>
 #### Building a Table of All Request Headers
+
+
+
+
+[Back to Workbook](../workbook.md) 		
+
+[Handling Requests: Form/Query parameters](/workbook/handling_request/form.md)
 
 
 

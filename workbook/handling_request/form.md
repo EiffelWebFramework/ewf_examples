@@ -1,5 +1,11 @@
 
 #Handling Requests: Form/Query Data
+[Back to Workbook](../workbook.md)
+
+[Introduction](/workbook/basics/basics.md)
+
+[Handling Requests: Header Fields](/workbook/handling_request/headers.md)
+
 
 ##### Table of Contents  
 - [Reading Form Data](#read).
@@ -137,4 +143,10 @@ To read raw data you need to do this
 > given-name=testr&family-name=test&dob=1976-08-26&email=test%40gmail.com&url=http%3A%2F%2Fwww.eiffelroom.com&phone=455555555555&languages=Spanish&languages=English			
 
 
+
+[Back to Workbook] (../workbook.md)
+
+[Introduction] (/workbook/basics/basics.md)
+
+[Handling Requests: Header Fields] (/workbook/handling_request/headers.md)
 
