@@ -17,10 +17,10 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 - [Reading HTTP Header fields](#read_header).
 - [Reading HTTP Request line](#read_line).
 - [Understanding HTTP header fields](#understand).
-	-[Accept](#accept)
-	-[Accept-Charset](#accept_charset)
-	-[Accept-Encoding](#accept_encoding)
-	-[Accept-Language](#accept_language)
+	- [Accept](#accept)
+	- [Accept-Charset](#accept_charset)
+	- [Accept-Encoding](#accept_encoding)
+	- [Accept-Language](#accept_language)
 
 - [Example](#example).
 
