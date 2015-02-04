@@ -7,74 +7,98 @@
 
 
 ##### Introduction
-HTTP request headers are distinct from the form (query) data [Form Data](./form.md).
-Form data results directly from user input and is sent as part of the URL for [GET requests and on a separate line for POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).[Request headers](https://httpwg.github.io/specs/rfc7231.html#request.header.fields), on the other hand, are indirectly set by the browser and are sent immediately following the initial GET or POST request line. 
+- The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the browser and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
+- Query parameters are encoded in the URL [GET requests](https://httpwg.github.io/specs/rfc7230.html#http.message).
+- Form parameters are encoded in the request message  for POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).
 
-A generic request includes the headers [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header)   fields, all of which might be important to the operation of the server, but to use then the server need to explicitly read the request headers to make use of this information.
+A request usually include the header [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header) fields, defining important information about how the server should process the request. But then, the server needs to read the request header fields to use this information.
 
 ##### Table of Contents  
-- [Reading HTTP Headers](#read_header).
+- [Reading HTTP Header fields](#read_header).
 - [Reading HTTP Request line](#read_line).
-- [Understanding HTTP headers](#understand).
-	- [Accept](#accept)
-	- [Accept-Charset](#accept_charset)
-	- [Accept-Encoding](#accept_encoding)
-	- [Accept-Language](#accept_language)
+- [Understanding HTTP header fields](#understand).
+	-[Accept](#accept)
+	-[Accept-Charset](#accept_charset)
+	-[Accept-Encoding](#accept_encoding)
+	-[Accept-Language](#accept_language)
+
 - [Example](#example).
 
 
-Here we will show how to read HTTP information that is sent from the browser to the server in the form of request headers.
-We will show the most important HTTP request headers, to learn more check [HTTP 1.1 specification](https://httpwg.github.io/specs/).
+That section explains how to read HTTP information sent by the browser via the request header fields. Mostly by defining the most important HTTP request header fields, for more information, read [HTTP 1.1 specification](https://httpwg.github.io/specs/).
+
+## Prerequisite
+The Eiffel Web Framework is using the traditional Common Gateway Interface (CGI) programming interface to access the header fields, query and form parameters.
+Among other, this means the header field are exposed with associated CGI field names:
+- the header field name are uppercased, and any dash "-" replaced by underscore "_".
+- and also prefixed by "HTTP_" except for CONTENT_TYPE and CONTENT_LENGTH. 
+- For instance "X-Server" will be known as "HTTP_X_SERVER".
 
 <a name="read_header"/>
-## Reading HTTP Headers
-EWF [WSF_REQUEST]() class, provides features to read HTTP headers, first of all EWF uses the traditional Common Gateway Interface (CGI) programming interface.
+## Reading HTTP Header fields
+EWF [WSF_REQUEST]() class provides features to access HTTP headers.
 
-Reading headers is straightforward just call the correspoding ```http_xyz``` feature or call the ```meta_string_variable``` feature of [WSF_REQUEST]() with the name of the header with the prefix "HTTP_", be sure to write it in uppercase. This call returns a STRING if the specified header was supplied in the current request, Void otherwise. 
+Reading most headers is straightforward by calling:
+- the corresponding ```http_*``` functions such as ```http_accept``` for header "Accept".
+- or indirectly using the ```meta_string_variable (a_name)``` function by passing the associated CGI field name.
+In both case, if the related header field is supplied by the request, the result is the string value, otherwise it is Void. 
 
-Always check that the result of req.meta_string_variable("HTTP_XYZ") is non-void before using it, where XYZ is the http header name.
-
+Note: always check if the result of those functions is non-void before using it.
 
 * Cookies:
-	- To retrieve all cookies from the header you can call the feature 
-	```eiffel cookies: ITERABLE [WSF_VALUE]```
+	- To iterate on all cookies value, use 
+```eiffel 
+cookies: ITERABLE [WSF_VALUE]
+```
 
-	- To retrieve an specific field you can use
-	```eiffel cookie (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
-			-- Field for name `a_name'.```
+	- To retrieve an specific cookie value,  use
+```eiffel
+cookie (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
+	-- Field for name `a_name'.
+```
 
 * Authorization
-	- To read the Authorization header use ```eiffel auth_type: detachable READABLE_STRING_8 ```
-	- http_authorization: detachable READABLE_STRING_8
-			-- Contents of the Authorization: header from the current wgi_request, if there is one.
+	- To read the Authorization header, first check its type with:
+```eiffel
+auth_type: detachable READABLE_STRING_8 
+```
+	- And its value via 
+```eiffel
+http_authorization: detachable READABLE_STRING_8
+	-- Contents of the Authorization: header from the current wgi_request, if there is one.
+```
 
 * Content_length
-	- Retrieve the content length as an string value if present
-	  ```eiffel content_length: detachable READABLE_STRING_8```
-	- If you want the value you can use ```eiffel content_length_value: NATURAL_64``` 
+	- If supplied, get the content length as an string value
+```eiffel 
+content_length: detachable READABLE_STRING_8
+```
+	- or directly as a natural value with 
+```eiffel
+content_length_value: NATURAL_64
+``` 
 
 * Content_type
-	- To retrieve the content type as an string value if is present
-		```content_type: detachable HTTP_CONTENT_TYPE```
+	- If supplied, get the content type as an string value with
+```eiffel
+content_type: detachable HTTP_CONTENT_TYPE
+```
 
-
-There is no way to only get all headers names from the request header.
-There is a way to retrieve the header data using the raw_header feature, it returns an STRING if the header data is available or Void in other case, this is convenient
-for development purposes, but is not recomended to read the data, because in other case you will need to parse it by hand.
+Due to CGI compliance, the original header names are not available, however the function ```raw_header_data``` returns it the http header data as a string value (warning: this may not be available, depending on the underlying connector). Apart from very specific cases (proxy, debugging, ...), it should not be useful.
 
 <a name="read_line"/>
 ####Retrieve information from the Request Line
 
-For example, assume we have the following request line
-
-	GET http://eiffel.org/search?q=EiffelBase  HTTP/1.1
+For convenience, the following sections refer to a request starting with line:
+```
+GET http://eiffel.org/search?q=EiffelBase  HTTP/1.1
+```
 
 Overview of the features
 
 * HTTP method 
-	- The feature ```eiffel request_method: READABLE_STRING_8 ``` allows us access the HTTP request  method, which is usually GET or POST in conventional Web Applications,
-		but with the new REST APIs other methods are also used like HEAD, PUT, DELETE, OPTIONS, or TRACE. 
-	You can also use the following feature queries to verify the current HTTP method
+	- The function ```request_method: READABLE_STRING_8 ``` gives access to the HTTP request method, (usually GET or POST in conventional Web Applications), but with the raise of REST APIs other methods are also frequently used such as HEAD, PUT, DELETE, OPTIONS, or TRACE. 
+	A few functions helps determining quickly the nature of the request method:
 	- 	```is_get_request_method: BOOLEAN
 			-- Is Current a GET request method?```
 	- 	```is_put_request_method: BOOLEAN
@@ -87,26 +111,26 @@ Overview of the features
 	In our example the request method is ```GET```		
 	
  * Query String
- 	- The query string for our request line should return ```q=EiffelBase```
+ 	- The query string for the example is ```q=EiffelBase```
  	- ```query_string: READABLE_STRING_8```
 
  * Protocol 
- 	- The feature return the third part of the request line,
-		which is generally HTTP/1.0 or HTTP/1.1.
+ 	- The feature return the third part of the request line, which is generally HTTP/1.0 or HTTP/1.1.
 	- ```server_protocol: READABLE_STRING_8```
-    In our example the request method is ```HTTP/1.1```		
+    In the example the request method is ```HTTP/1.1```
 
 
 <a name="understand"/>
 #### Understanding HTTP 1.1 Request Headers
-Access to the request headers permits our Web Applications or APIs to perform a number of optimizations and to provide a number of features not otherwise possible. This section summarizes the headers most often used; for additional details on these and other headers, see the [HTTP 1.1 specification](https://httpwg.github.io/specs/), note that [RFC 2616 is dead](https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead).
+Access to the request headers permits the web server applications or APIs to perform optimizations and provide behavior that would not be possible without them for instance such as adapting the response according to the browser preferences.
+This section summarizes the headers most often used; for more information, see the [HTTP 1.1 specification](https://httpwg.github.io/specs/), note that [RFC 2616 is dead](https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead).
 
 The "Accept" header field can be used by user agents to specify response media types that are acceptable. Accept header fields can be used to indicate that the request is specifically limited to a small set of desired types, as in the case of a request for an in-line image.
 
 <a name="accept"/>
  * [Accept](https://httpwg.github.io/specs/rfc7231.html#header.accept)
  	- The "Accept" header field can be used by user agents (browser or other clients) to specify response media types that are acceptable. Accept header fields can be used to indicate that the request is specifically limited to a small set of desired types, as in the case of a request for an in-line image.
- 	For example, assume we have an APIs Learn4Kids than can offer XML or JSON, JSON format have some advantages over XML, readability, parsing etc but supose taht not all our clients support JSON. If we have representations in both formats, check for application/json , and if it finds a match, use resource.json or in other case check for application/xml and if match, it would just use resource.xml, in other case we send an not acceptable response. Related [Content-Negotiation]()
+ 	For example, assume an APIs Learn4Kids can respond with XML or JSON data (JSON format have some advantages over XML, readability, parsing etc...), a client can precise its preference using "Accept: application/json" to request data in JSON format, or "Accept: application/xml" to get XML format. In other case the server send a not acceptable response. Note that the client can precise an ordered list of accepted content types, including "*", it will get the response and know the content type via the response header field "Content-Type". Related [Content-Negotiation]()
 
 <a name="accept_charset"/>
  * [Accept-Charset](https://httpwg.github.io/specs/rfc7231.html#header.accept-charset)
@@ -127,9 +151,9 @@ The "Accept" header field can be used by user agents to specify response media t
 
 
 
-[Back to Workbook] (../workbook.md) 		
+[Back to Workbook](../workbook.md) 		
 
-[Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
+[Handling Requests: Form/Query parameters](/workbook/handling_request/form.md)
 
 
 
