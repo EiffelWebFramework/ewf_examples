@@ -1,7 +1,7 @@
 ## EWF basic service
 
 [Back to Workbook] (../workbook.md) 		
-[Handling Requests: Form/Query Parameter] (/handling_request/form.md)
+[Handling Requests: Form/Query Parameter] (/workbook/handling_request/form.md)
 
 ##### Table of Contents  
 [Basic Structure](#structure)  
@@ -180,5 +180,5 @@ feature -- Basic operations
 end
 ```
 [Back to Workbook] (../workbook.md) 		
-[Handling Requests: Form/Query Parameter] (/handling_request/form.md)
+[Handling Requests: Form/Query Parameter] (/workbook/handling_request/form.md)
 
