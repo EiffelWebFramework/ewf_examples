@@ -1,5 +1,8 @@
 ## EWF basic service
 
+[Back to Workbook] (../workbook.md) 		
+[Handling Requests: Form/Query Parameter] (/handling_request/form.md)
+
 ##### Table of Contents  
 [Basic Structure](#structure)  
 [Service to Generate Plain Text](#text)  
@@ -176,4 +179,6 @@ feature -- Basic operations
 
 end
 ```
+[Back to Workbook] (../workbook.md) 		
+[Handling Requests: Form/Query Parameter] (/handling_request/form.md)
 
