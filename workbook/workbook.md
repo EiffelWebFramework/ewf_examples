@@ -1,10 +1,10 @@
 # EWF Workbook
 
 ##### Table of Contents  
-[EWF Core](#core)  
-[EWF Introduction](#introduction)
-[Handling Requests: Form/Query Parameter](#form_query_parameters)
-[Handling Requests: Header Fields](#header_fields)
+* [EWF Core](#core)  
+* [EWF Introduction](#introduction)
+* [Handling Requests: Form/Query Parameter](#form_query_parameters)
+* [Handling Requests: Header Fields](#header_fields)
 
 <a name="core"/>
 # EWF Core 
@@ -20,5 +20,5 @@ Before to read (or walk throught) the workbook its recommended  to read the foll
 ## Handling Requests: Form/Query Parameter
 [Handling Requests: Form/Query Parameter] (/workbook/handling_request/form.md).
 
-## Handling Requests: Form/Query Parameter
+## Handling Requests: Header Fields
 [Handling Requests: Header Fields](/workbook/handling_request/headers.md).
