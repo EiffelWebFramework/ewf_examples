@@ -9,7 +9,7 @@
 ##### Introduction
 - The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the browser and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
 - Query parameters are encoded in the URL [GET requests](https://httpwg.github.io/specs/rfc7230.html#http.message).
-- Form parameters are encoded in the request message  for POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).
+- Form parameters are encoded in the request message  for [POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).
 
 A request usually include the header [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header) fields, defining important information about how the server should process the request. But then, the server needs to read the request header fields to use this information.
 
