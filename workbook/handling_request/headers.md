@@ -21,7 +21,6 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 	- [Accept-Charset](#accept_charset)
 	- [Accept-Encoding](#accept_encoding)
 	- [Accept-Language](#accept_language)
-
 - [Example](#example).
 
 
@@ -121,6 +120,7 @@ The "Accept" header field can be used by user agents to specify response media t
 
 
 <a name="example"/>
+
 #### Building a Table of All Request Headers
 
 The following [EWF service]() code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
