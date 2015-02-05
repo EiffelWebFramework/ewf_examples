@@ -1,10 +1,6 @@
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
 #Handling Requests: Headers
-
-[Back to Workbook] (../workbook.md) 		
-
-[Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
-
 
 ##### Introduction
 - The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the browser and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
@@ -242,9 +238,6 @@ end
 ```
 
 
-[Back to Workbook](../workbook.md) 		
-
-[Handling Requests: Form/Query parameters](/workbook/handling_request/form.md)
-
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
 
