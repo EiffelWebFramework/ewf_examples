@@ -61,6 +61,9 @@ Note: always check if the result of those functions is non-void before using it.
 	- If supplied, get the content type as an string value with `content_type: detachable HTTP_CONTENT_TYPE`
 
 Due to CGI compliance, the original header names are not available, however the function `raw_header_data` returns it the http header data as a string value (warning: this may not be available, depending on the underlying connector). Apart from very specific cases (proxy, debugging, ...), it should not be useful.
+Note: CGI variables are information about the current request. Some are based on the HTTP request line and headers (e.g., form parameters, query parameters), others are derived
+from the socket itself (e.g., the name and IP address of the requesting host), and still others are taken from server installation parameters (e.g., the mapping of URLs to
+actual paths). 
 
 <a name="read_line"/>
 ####Retrieve information from the Request Line
@@ -120,7 +123,58 @@ The "Accept" header field can be used by user agents to specify response media t
 <a name="example"/>
 #### Building a Table of All Request Headers
 
+The following [EWF service]() code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
+The service accomplishes this task by calling ```req.meta_variables``` feature to get an ITERABLE[WSF_STRING] (An structure that can be iterated over using ```across...loop...end```), then it checkS if the name has the prefix ```HTTP_``` and if its true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
 
+The service also write three components of the main request line (method, URI, and protocol), and also the raw header. 
+
+
+```eiffel
+
+	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
+				-- Execute the incomming request
+			local
+				l_raw_data: STRING
+				l_page_response: STRING
+				l_rows: STRING
+			do
+				create l_page_response.make_from_string (html_template)
+				if  req.path_info.same_string ("/") then
+
+						-- HTTP method
+					l_page_response.replace_substring_all ("$http_method", req.request_method)
+						-- URI
+					l_page_response.replace_substring_all ("$uri", req.path_info)
+						-- Protocol
+					l_page_response.replace_substring_all ("$protocol", req.server_protocol)
+
+						-- Fill the table rows with HTTP Headers
+					create l_rows.make_empty
+					across req.meta_variables as ic loop
+						if ic.item.name.starts_with ("HTTP_") then
+							l_rows.append ("<tr>")
+							l_rows.append ("<td>")
+							l_rows.append (ic.item.name)
+							l_rows.append ("</td>")
+							l_rows.append ("<td>")
+							l_rows.append (ic.item.value)
+							l_rows.append ("</td>")
+							l_rows.append ("</tr>")
+						end
+					end
+
+					l_page_response.replace_substring_all ("$rows", l_rows)
+
+						-- Reading the raw header
+					if attached req.raw_header_data as l_raw_header then
+						l_page_response.replace_substring_all ("$raw_header", l_raw_header)
+					end
+					res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", l_page_response.count.out]>>)
+					res.put_string (l_page_response)
+				end
+			end
+
+```
 
 
 [Back to Workbook](../workbook.md) 		

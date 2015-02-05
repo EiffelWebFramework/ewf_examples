@@ -1,5 +1,5 @@
 note
-	description : "Basic Service that Generates Plain Text"
+	description : "Basic Service that show how to handle a GET request"
 	date        : "$Date$"
 	revision    : "$Revision$"
 
@@ -35,10 +35,10 @@ feature -- Basic operations
 			l_raw_data: STRING
 		do
 			if req.is_get_request_method then
-				if  req.path_info ~ "/" then
+				if  req.path_info.same_string ("/") then
 					create file.make_html ("form.html")
 					res.send (file)
-				elseif req.path_info ~ "/search" then
+				elseif req.path_info.same_string ("/search") then
 
 						-- (1) the parameter is case sensitive
 					if not (attached req.query_parameter ("GIVEN-NAME")) then
@@ -78,7 +78,7 @@ feature -- Basic operations
 					l_parameter_names.append_string (l_answer)
 					res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", l_parameter_names.count.out]>>)
 					res.put_string (l_parameter_names)
-				elseif req.path_info ~ "/link" then
+				elseif req.path_info.same_string ("/link") then
 						-- WSF_TABLE example
 						create l_parameter_names.make_from_string ("<h2>Parameters Name</h2>")
 					if attached {WSF_TABLE} req.query_parameter ("tab") as l_tab then
