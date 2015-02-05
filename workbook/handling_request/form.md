@@ -1,10 +1,8 @@
+Nav: [Workbook](../workbook.md) | [Introduction](/workbook/basics/basics.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md)
+
+
 
 #Handling Requests: Form/Query Data
-[Back to Workbook](../workbook.md)
-
-[Introduction](/workbook/basics/basics.md)
-
-[Handling Requests: Header Fields](/workbook/handling_request/headers.md)
 
 
 ##### Table of Contents  
@@ -144,9 +142,4 @@ To read raw data you need to do this
 
 
 
-[Back to Workbook] (../workbook.md)
-
-[Introduction] (/workbook/basics/basics.md)
-
-[Handling Requests: Header Fields] (/workbook/handling_request/headers.md)
-
+Nav: [Workbook](../workbook.md) | [Introduction](/workbook/basics/basics.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md)
