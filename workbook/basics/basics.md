@@ -1,7 +1,7 @@
-## EWF basic service
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
 
-[Back to Workbook] (../workbook.md) 		
-[Handling Requests: Form/Query Parameter] (/workbook/handling_request/form.md)
+
+## EWF basic service
 
 ##### Table of Contents  
 [Basic Structure](#structure)  
@@ -38,8 +38,8 @@ feature -- Basic operations
 end
 ```
 
-By default the service run on port 80, but generally this port is already busy, so we will need to use another port.
-So to achieve that we need to redefine the feature `initialize' and set up a new port number using the service options.
+By default the service run on port 80, but generally this port is already busy, so it is recommended to use another port.
+So to achieve that it is needed to redefine the feature `initialize' and set up a new port number using the service options.
 
 ```eiffel
 class
@@ -80,15 +80,14 @@ end
 So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
 And then you just need to implement the *execute feature*, get data from the request *req* and write the response in *res*
 
-The **WSF_REQUEST** lets you get at all of the incoming data; the class has features by which you can find out about information
-such as request method, form data, query parameters, HTTP request headers, and the client’s hostname. 
-The **WSF_RESPONSE** lets you specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
+The **WSF_REQUEST** lets obtain at all of the incoming data; the class has features by which it is possible look for information such as request method, form data, query parameters, HTTP request headers, and the client’s hostname. 
+The **WSF_RESPONSE** lets specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
 
 
 <a name="text"/>
 ## A simple Service to Generate Plain Text.
 
-Before we continue, review the getting started guided.
+Before to continue, it's recommended review the getting started guided.
 
 ```eiffel
 class
@@ -127,7 +126,7 @@ end
 
 <a name="html"/>
 ## A Service to Generate HTML.
-To generate HTML, we need
+To generate HTML, it's needed
 
 1. Change the Content-Type : "text/html"
 2. Build an HTML page
@@ -179,6 +178,5 @@ feature -- Basic operations
 
 end
 ```
-[Back to Workbook] (../workbook.md) 		
-[Handling Requests: Form/Query Parameter] (/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
 
