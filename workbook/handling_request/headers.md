@@ -95,8 +95,6 @@ Overview of the features
 Access to the request headers permits the web server applications or APIs to perform optimizations and provide behavior that would not be possible without them for instance such as adapting the response according to the browser preferences.
 This section summarizes the headers most often used; for more information, see the [HTTP 1.1 specification](https://httpwg.github.io/specs/), note that [RFC 2616 is dead](https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead).
 
-The "Accept" header field can be used by user agents to specify response media types that are acceptable. Accept header fields can be used to indicate that the request is specifically limited to a small set of desired types, as in the case of a request for an in-line image.
-
 <a name="accept"/>
  * [Accept](https://httpwg.github.io/specs/rfc7231.html#header.accept)
  	- The "Accept" header field can be used by user agents (browser or other clients) to specify response media types that are acceptable. Accept header fields can be used to indicate that the request is specifically limited to a small set of desired types, as in the case of a request for an in-line image.
