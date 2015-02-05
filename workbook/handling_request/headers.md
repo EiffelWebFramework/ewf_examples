@@ -124,7 +124,7 @@ The "Accept" header field can be used by user agents to specify response media t
 #### Building a Table of All Request Headers
 
 The following [EWF service]() code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
-The service accomplishes this task by calling ```req.meta_variables``` feature to get an ITERABLE[WSF_STRING] (An structure that can be iterated over using ```across...loop...end```), then it checkS if the name has the prefix ```HTTP_``` and if its true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
+The service accomplishes this task by calling ```req.meta_variables``` feature to get an ```ITERABLE[WSF_STRING]```, an structure that can be iterated over using ```across...loop...end```, then it checkS if the name has the prefix ```HTTP_``` and if its true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
 
 The service also write three components of the main request line (method, URI, and protocol), and also the raw header. 
 
