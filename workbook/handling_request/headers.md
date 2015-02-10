@@ -17,6 +17,7 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 	- [Accept-Charset](#accept_charset)
 	- [Accept-Encoding](#accept_encoding)
 	- [Accept-Language](#accept_language)
+
 - [Example](#example).
 
 
@@ -112,9 +113,50 @@ This section summarizes the headers most often used; for more information, see t
  * [Accept-Language](https://httpwg.github.io/specs/rfc7231.html#header.accept-language)
  	- The "Accept-Language" header field can be used by user agents (browser or other client) to indicate the set of natural languages that are preferred in the response in case  the server can produce representation in more than one language.The value of the header should be one of the standard language codes such as en, en-us, da, etc. See RFC 1766 for details (start at http://www.rfc-editor.org/ to get a current list of the RFC archive sites).
 
+<a name="connection"/>
+ * [Connection](https://httpwg.github.io/specs/rfc7230.html#header.connection)
+ 	- The "Connection" header field allows the sender to indicate desired control options for the current connection, for example if it can hanlde persistent HTTP connections.
+ 	By default HTTP/1.1 uses "persistent connections", allowing multiple requests and responses to be carried over a single connection. The "close" connection option is used to signal that a connection will not persist after the current request/response
+
+<a name="authorization"/>
+ * [Authorization](https://httpwg.github.io/specs/rfc7235.html#header.authorization)
+ 	- The header is used by user agents to identify themselfes when acessing password protected resources.
+
+<a name="content-length"/>
+ * [Content-Length](https://httpwg.github.io/specs/rfc7230.html#header.content-length)
+	- For messages that do include a payload body, the Content-Length field-value provides the framing information necessary for determining where the body (and message) ends.
+
+<a name="cookie"/>
+ * [Cookie](https://httpwg.github.io/specs/rfc6265.html)
+	-  The Cookie header contains cookies the user agent received in previous Set-Cookie headers. The origin server is free to ignore the Cookie header or use its contents for an application-defined purpose. (Related State Management).
+
+<a name="host"/>
+ * [Host](https://httpwg.github.io/specs/rfc7230.html#header.host)
+ 	- The "Host" header field in a request provides the host and port information from the target URI, enabling the origin server to distinguish among resources while servicing requests for multiple host names on a single IP address. In HTTP 1.1, browsers and other clients are required to specify this header, which indicates the host and port as given in the original URL. 
+
+<a name="if-modified-since"/>
+ * [If-Modified-Since](https://httpwg.github.io/specs/rfc7232.html#header.if-modified-since)
+	- The "If-Modified-Since" header field makes a GET or HEAD request method conditional on the selected representation's modification date being more recent than the date provided in the field-value. Transfer of the selected representation's data is avoided if that data has not changed. So, indicates that the user agents wants the page only if it has been changes after the specified date. The server sends a 304 resource not modified if not has a newer result representation available.
+
+<a name="if-unmodified-since"/>
+ * [If-Unmodified-Since](https://httpwg.github.io/specs/rfc7232.html#header.if-unmodified-since)
+	- The "If-Unmodified-Since" header field makes the request method conditional on the selected representation's last modification date being earlier than or equal to the date provided in the field-value.The the operation should succeed only if the document is older than the specified date. T
+
+Generally,If-Modified-Since is used for GET requests (“give me the document only if it is newer than my cached version”), whereas If-Unmodified-Since is used for PUT requests (“update this document only if nobody else has changed it since I generated it”). 
+
+<a name="referer"/>
+ * [Referer](https://httpwg.github.io/specs/rfc7231.html#header.referer)
+	- The "Referer" header field allows the user agent to specify a URI reference for the resource from which the target URI was obtained (i.e., the "referrer", though the field name is misspelled). A user agent MUST NOT include the fragment and userinfo components of the URI reference [RFC3986], if any, when generating the Referer field value. This header indicates the URL of the referring Web page. 
+
+For example, if you are at Web page A and click on a link to Web page B, the URL of Web page A is
+included in the Referer header when the browser requests Web page B. 
+
+<a name="user-agent"/>
+ * [User-Agent](https://httpwg.github.io/specs/rfc7231.html#header.user-agent)
+ 	- The "User-Agent" header field contains information about the user agent originating the request, which is often used by servers to help identify the scope of reported interoperability problems, to work around or tailor responses to avoid particular user agent limitations, and for analytics regarding browser or operating system use.
+
 
 <a name="example"/>
-
 #### Building a Table of All Request Headers
 
 The following [EWF service]() code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
