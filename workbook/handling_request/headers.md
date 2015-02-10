@@ -17,9 +17,20 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 	- [Accept-Charset](#accept_charset)
 	- [Accept-Encoding](#accept_encoding)
 	- [Accept-Language](#accept_language)
-
+	- [Connection](#connection)
+	- [Authorization](#authorization)
+	- [Content-length](#content-length)
+	- [Cookie](#cookie)
+	- [Host](#host)
+	- [If-Modified-Since](#if-modified-since)
+	- [If-Unmodified-Since](#if-unmodified-since)
+	- [Referer](#referer)
+	- [User-Agent](#user-agent)
 - [Example](#example).
-
+- [How to compress pages](#compress) 
+- [Detecting Browser Types](#browser_types)
+- [CGI Variables](#cgi_variables)
+ 
 
 That section explains how to read HTTP information sent by the browser via the request header fields. Mostly by defining the most important HTTP request header fields, for more information, read [HTTP 1.1 specification](https://httpwg.github.io/specs/).
 
