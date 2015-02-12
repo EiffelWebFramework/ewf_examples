@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-10-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-10-0 http://www.eiffel.com/developers/xml/configuration-1-10-0.xsd" name="example_1"  library_target="example_1">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-10-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-10-0 http://www.eiffel.com/developers/xml/configuration-1-10-0.xsd" name="cgi_variables"  library_target="cgi_variables">
 	<target name="common" abstract="true">
 		<file_rule>
 			<exclude>/EIFGENs$</exclude>
@@ -13,30 +13,30 @@
 		<library name="http" location="$ISE_LIBRARY\contrib\library\network\protocol\http\http-safe.ecf"/>
 		<library name="wsf" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\wsf-safe.ecf"/>
 	</target>
-	<target name="example_1_nino" extends="common">
+	<target name="cgi_variables_nino" extends="common">
 		<root class="APPLICATION" feature="make_and_launch"/>
 		<option warning="true" is_attached_by_default="true" void_safety="all" syntax="transitional">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<library name="default_nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\nino-safe.ecf"/>
-		<cluster name="example_1" location=".\" recursive="true"/>
+		<cluster name="cgi_variables" location=".\" recursive="true"/>
 	</target>
-	<target name="example_1_cgi" extends="common">
+	<target name="cgi_variables_cgi" extends="common">
 		<root class="APPLICATION" feature="make_and_launch"/>
 		<option warning="true" is_attached_by_default="true" void_safety="all" syntax="transitional">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<library name="default_cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\cgi-safe.ecf"/>
-		<cluster name="example_1" location=".\" recursive="true"/>
+		<cluster name="cgi_variables" location=".\" recursive="true"/>
 	</target>
-	<target name="example_1_libfcgi" extends="common">
+	<target name="cgi_variables_libfcgi" extends="common">
 		<root class="APPLICATION" feature="make_and_launch"/>
 		<option warning="true" is_attached_by_default="true" void_safety="all" syntax="transitional">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<library name="default_libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\libfcgi-safe.ecf"/>
-		<cluster name="example_1" location=".\" recursive="true"/>
+		<cluster name="cgi_variables" location=".\" recursive="true"/>
 	</target>
-	<target name="example_1" extends="example_1_nino">
+	<target name="cgi_variables" extends="cgi_variables_nino">
 	</target>
 </system>

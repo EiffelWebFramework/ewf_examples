@@ -10,9 +10,9 @@ Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/w
 A request usually include the header [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header) fields, defining important information about how the server should process the request. But then, the server needs to read the request header fields to use this information.
 
 ##### Table of Contents  
-- [Reading HTTP Header fields](#read_header).
-- [Reading HTTP Request line](#read_line).
-- [Understanding HTTP header fields](#understand).
+- [Reading HTTP Header fields](#read_header)
+- [Reading HTTP Request line](#read_line)
+- [Understanding HTTP header fields](#understand)
 	- [Accept](#accept)
 	- [Accept-Charset](#accept_charset)
 	- [Accept-Encoding](#accept_encoding)
@@ -26,10 +26,10 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 	- [If-Unmodified-Since](#if-unmodified-since)
 	- [Referer](#referer)
 	- [User-Agent](#user-agent)
-- [Example](#example).
-- [How to compress pages](#compress) 
-- [Detecting Browser Types](#browser_types)
-- [CGI Variables](#cgi_variables)
+- [Example: Request Headers](#example)
+- [Example: How to compress pages](#compress) 
+- [Example: Detecting Browser Types](#browser-types)
+- [Example: CGI Variables](#cgi_variables)
  
 
 That section explains how to read HTTP information sent by the browser via the request header fields. Mostly by defining the most important HTTP request header fields, for more information, read [HTTP 1.1 specification](https://httpwg.github.io/specs/).
@@ -288,6 +288,178 @@ end
 
 ```
 
+<a name="compress"/>
+#### How to compress pages
+To be completed.
+
+
+<a name="browser-types"/>
+#### Detecting Browser Types
+The User-Agent header identifies the specific browser that is making the request. The following code shows a EWF service that sends browser-specific responses.
+The examples uses the ideas based on the [Browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent) article.
+Basically the code check if the header `user_agent' exist and then call the ```get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32```
+feature to retrieve the current browser name or `Unknown' in other case. 
+
+```eiffel
+
+class
+	APPLICATION
+
+inherit
+	WSF_DEFAULT_SERVICE
+		redefine
+			initialize
+		end
+
+create
+	make_and_launch
+
+feature {NONE} -- Initialization
+
+	initialize
+			-- Initialize current service.
+		do
+			set_service_option ("port", 9090)
+			set_service_option ("verbose", true)
+		end
+
+feature -- Basic operations
+
+	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
+			-- Execute the incomming request
+		local
+			l_raw_data: STRING
+			l_page_response: STRING
+			l_rows: STRING
+		do
+			create l_page_response.make_from_string (html_template)
+			if  req.path_info.same_string ("/") then
+
+					-- retrieve the user-agent
+				if attached req.http_user_agent as l_user_agent then
+					l_page_response.replace_substring_all ("$user_agent", l_user_agent)
+					l_page_response.replace_substring_all ("$browser", get_browser_name (l_user_agent))
+				else
+					l_page_response.replace_substring_all ("$user_agent", "[]")
+					l_page_response.replace_substring_all ("$browser", "Unknown, the user-agent was not present.")
+				end
+				res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", l_page_response.count.out]>>)
+				res.put_string (l_page_response)
+			end
+		end
+
+
+feature -- Browser utility
+
+	get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32
+			-- Browser name.
+			--						Must contain	Must not contain	
+			--	Firefox				Firefox/xyz		Seamonkey/xyz	
+			--	Seamonkey			Seamonkey/xyz	 	
+			--	Chrome				Chrome/xyz		Chromium/xyz	
+			--	Chromium			Chromium/xyz	 	
+			--	Safari				Safari/xyz		Chrome/xyz
+			--										Chromium/xyz
+			--	Opera				OPR/xyz [1]
+			--						Opera/xyz [2]
+			--	Internet Explorer	;MSIE xyz;	 	Internet Explorer doesn't put its name in the BrowserName/VersionNumber format
+
+		do
+			if
+				a_user_agent.has_substring ("Firefox") and then
+				not a_user_agent.has_substring ("Seamonkey")
+			then
+				Result := "Firefox"
+			elseif a_user_agent.has_substring ("Seamonkey") then
+				Result := "Seamonkey"
+			elseif a_user_agent.has_substring ("Chrome") and then not a_user_agent.has_substring ("Chromium")then
+				Result := "Chrome"
+			elseif a_user_agent.has_substring ("Chromium") then
+				Result := "Chromiun"
+			elseif a_user_agent.has_substring ("Safari") and then not (a_user_agent.has_substring ("Chrome") or else a_user_agent.has_substring ("Chromium"))  then
+				Result := "Safari"
+			elseif a_user_agent.has_substring ("OPR") or else  a_user_agent.has_substring ("Opera") then
+				Result := "Opera"
+			elseif a_user_agent.has_substring ("MSIE") or else a_user_agent.has_substring ("Trident")then
+				Result := "Internet Explorer"
+ 			else
+				Result := "Unknown"
+			end
+		end
+
+
+	html_template: STRING = "[
+				<!DOCTYPE html>
+				<html>
+				<head>
+				</head>
+				
+				<body>
+				    <h1>EWF service example: Showing Browser Dectection Using User-Agent</h1> <br>
+				    
+				    <strong>User Agent:</strong> $user_agent <br>
+				   
+				    <h2>Enjoy using $browser </h2> 
+				</body>
+				</html>
+			]"
+
+
+end
+
+```
+Let see some results
+
+Internet Explorer
+---
+
+<h1>EWF service example: Showing Browser Dectection Using User-Agent</h1></br>
+
+<strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; MDDCJS; rv:11.0) like Gecko <br>
+
+<h2> Enjoy using Internet Explorer </h2>
+---
+
+Chrome
+---
+
+<h1>EWF service example: Showing Browser Dectection Using User-Agent</h1></br>
+
+<strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36  <br>
+
+<h2> Enjoy using Chrome </h2>
+---
+
+>As an exercise try to write a similar service to retrieve the OS family using the User-Agent information.
+
+<a name="cgi-variables"/>
+#### [CGI Variables](https://tools.ietf.org/html/rfc3875#section-4.1)
+Meta-variables contain data about the request, they are identified by case-insensitive names.
+
+In this section, the purpose is show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
+
+* [AUTH_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.1)
+* [CONTENT_LENGTH](https://tools.ietf.org/html/rfc3875#section-4.1.2)
+* [CONTENT_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.3)
+* [GATEWAY_INTERFACE](https://tools.ietf.org/html/rfc3875#section-4.1.4)
+* [PATH_INFO](https://tools.ietf.org/html/rfc3875#section-4.1.5)
+* [PATH_TRANSLATED](https://tools.ietf.org/html/rfc3875#section-4.1.6)
+* [QUERY_STRING](https://tools.ietf.org/html/rfc3875#section-4.1.7)
+* [REMOTE_ADDR](https://tools.ietf.org/html/rfc3875#section-4.1.8)
+* [REMOTE_HOST](https://tools.ietf.org/html/rfc3875#section-4.1.9)
+* [REMOTE_IDENT](https://tools.ietf.org/html/rfc3875#section-4.1.10)
+* [REMOTE_USER](https://tools.ietf.org/html/rfc3875#section-4.1.11)
+* [REQUEST_METHOD](https://tools.ietf.org/html/rfc3875#section-4.1.12)
+* [SCRIPT_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.13)
+* [SERVER_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.14)
+* [SERVER_PROTOCOL](https://tools.ietf.org/html/rfc3875#section-4.1.15)
+* [SERVER_SOFTWARE](https://tools.ietf.org/html/rfc3875#section-4.1.16)
+
+An ewf service that shows the CGI variables, creates a table showing the values of all the CGI variables.
+
+```eiffel
+
+```
 
 Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
