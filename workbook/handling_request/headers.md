@@ -29,7 +29,7 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 - [Example: Request Headers](#example)
 - [Example: How to compress pages](#compress) 
 - [Example: Detecting Browser Types](#browser-types)
-- [Example: CGI Variables](#cgi_variables)
+- [Example: CGI Variables](#cgi-variables)
  
 
 That section explains how to read HTTP information sent by the browser via the request header fields. Mostly by defining the most important HTTP request header fields, for more information, read [HTTP 1.1 specification](https://httpwg.github.io/specs/).
@@ -434,8 +434,6 @@ As an exercise try to write a similar service to retrieve the OS family using th
 
 <a name="cgi-variables"/>
 
-#### CGI Variables 
-
 [Meta-variables](https://tools.ietf.org/html/rfc3875#section-4.1) contain data about the request, they are identified by case-insensitive names.In this section, the purpose is show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
 
 
@@ -456,7 +454,8 @@ As an exercise try to write a similar service to retrieve the OS family using th
 	* [SERVER_PROTOCOL](https://tools.ietf.org/html/rfc3875#section-4.1.15)
 	* [SERVER_SOFTWARE](https://tools.ietf.org/html/rfc3875#section-4.1.16)
 
-An ewf service that shows the CGI variables, creates a table showing the values of all the CGI variables.
+An [ewf service](./headers/cgi_variables/application.e) that shows the CGI variables, creates a table showing the values of all the CGI variables.
+
 
 Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
