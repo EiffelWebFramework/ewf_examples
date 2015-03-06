@@ -294,11 +294,13 @@ To be completed.
 
 
 <a name="browser-types"/>
+
 #### Detecting Browser Types
+
 The User-Agent header identifies the specific browser that is making the request. The following code shows a EWF service that sends browser-specific responses.
 The examples uses the ideas based on the [Browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent) article.
-Basically the code check if the header `user_agent' exist and then call the ```get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32```
-feature to retrieve the current browser name or `Unknown' in other case. 
+Basically the code check if the header user_agent exist and then call the ```get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32```
+feature to retrieve the current browser name or Unknown in other case. 
 
 ```eiffel
 
@@ -406,7 +408,6 @@ feature -- Browser utility
 
 
 end
-
 ```
 Let see some results
 
@@ -418,7 +419,6 @@ Internet Explorer
 <strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; MDDCJS; rv:11.0) like Gecko <br>
 
 <h2> Enjoy using Internet Explorer </h2>
----
 
 Chrome
 ---
@@ -428,38 +428,35 @@ Chrome
 <strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36  <br>
 
 <h2> Enjoy using Chrome </h2>
----
 
->As an exercise try to write a similar service to retrieve the OS family using the User-Agent information.
+
+As an exercise try to write a similar service to retrieve the OS family using the User-Agent information.
 
 <a name="cgi-variables"/>
-#### [CGI Variables](https://tools.ietf.org/html/rfc3875#section-4.1)
-Meta-variables contain data about the request, they are identified by case-insensitive names.
 
-In this section, the purpose is show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
+#### CGI Variables 
 
-* [AUTH_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.1)
-* [CONTENT_LENGTH](https://tools.ietf.org/html/rfc3875#section-4.1.2)
-* [CONTENT_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.3)
-* [GATEWAY_INTERFACE](https://tools.ietf.org/html/rfc3875#section-4.1.4)
-* [PATH_INFO](https://tools.ietf.org/html/rfc3875#section-4.1.5)
-* [PATH_TRANSLATED](https://tools.ietf.org/html/rfc3875#section-4.1.6)
-* [QUERY_STRING](https://tools.ietf.org/html/rfc3875#section-4.1.7)
-* [REMOTE_ADDR](https://tools.ietf.org/html/rfc3875#section-4.1.8)
-* [REMOTE_HOST](https://tools.ietf.org/html/rfc3875#section-4.1.9)
-* [REMOTE_IDENT](https://tools.ietf.org/html/rfc3875#section-4.1.10)
-* [REMOTE_USER](https://tools.ietf.org/html/rfc3875#section-4.1.11)
-* [REQUEST_METHOD](https://tools.ietf.org/html/rfc3875#section-4.1.12)
-* [SCRIPT_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.13)
-* [SERVER_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.14)
-* [SERVER_PROTOCOL](https://tools.ietf.org/html/rfc3875#section-4.1.15)
-* [SERVER_SOFTWARE](https://tools.ietf.org/html/rfc3875#section-4.1.16)
+[Meta-variables](https://tools.ietf.org/html/rfc3875#section-4.1) contain data about the request, they are identified by case-insensitive names.In this section, the purpose is show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
+
+
+	* [AUTH_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.1).
+	* [CONTENT_LENGTH](https://tools.ietf.org/html/rfc3875#section-4.1.2)
+	* [CONTENT_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.3)
+	* [GATEWAY_INTERFACE](https://tools.ietf.org/html/rfc3875#section-4.1.4)
+	* [PATH_INFO](https://tools.ietf.org/html/rfc3875#section-4.1.5)
+	* [PATH_TRANSLATED](https://tools.ietf.org/html/rfc3875#section-4.1.6)
+	* [QUERY_STRING](https://tools.ietf.org/html/rfc3875#section-4.1.7)
+	* [REMOTE_ADDR](https://tools.ietf.org/html/rfc3875#section-4.1.8)
+	* [REMOTE_HOST](https://tools.ietf.org/html/rfc3875#section-4.1.9)
+	* [REMOTE_IDENT](https://tools.ietf.org/html/rfc3875#section-4.1.10)
+	* [REMOTE_USER](https://tools.ietf.org/html/rfc3875#section-4.1.11)
+	* [REQUEST_METHOD](https://tools.ietf.org/html/rfc3875#section-4.1.12)
+	* [SCRIPT_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.13)
+	* [SERVER_NAME](https://tools.ietf.org/html/rfc3875#section-4.1.14)
+	* [SERVER_PROTOCOL](https://tools.ietf.org/html/rfc3875#section-4.1.15)
+	* [SERVER_SOFTWARE](https://tools.ietf.org/html/rfc3875#section-4.1.16)
 
 An ewf service that shows the CGI variables, creates a table showing the values of all the CGI variables.
-
-```eiffel
-
-```
 
 Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
 
