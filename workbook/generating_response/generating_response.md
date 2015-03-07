@@ -161,6 +161,7 @@ Note: use ```res.set_status_code({HTTP_STATUS_CODE}.bad_request)``` rather than 
 
 
 <a name="example_1"/>
+### Example Staus Codes
 Basic Service that builds a
  simple web page to show the most common status codes
 ```eiffel
@@ -311,6 +312,7 @@ end
 
 
 <a name="example_2"/>
+### Example Generic Search Engine
 The following example shows a basic EWF service that builds a generic front end for the most used search engines. This example shows how
 redirection works, and we will use a tools to play with the API to show differents responses.
 
