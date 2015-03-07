@@ -35,11 +35,11 @@ feature -- Basic operations
 --			res.put_string (web_page)
 
 				-- (2) Using put_header_line
-			res.set_status_code ({HTTP_STATUS_CODE}.ok)
-			res.put_header_line ("Content-Type:text/html")
+--			res.set_status_code ({HTTP_STATUS_CODE}.ok)
+--			res.put_header_line ("Content-Type:text/html")
 			res.put_header_line ("Content-Length:"+ web_page.count.out)
 			res.put_header_line ("Content-Type:text/plain")
-	
+
 			res.put_string (web_page)
 		end
 

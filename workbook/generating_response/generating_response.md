@@ -616,3 +616,396 @@ The response header fields allow the server to pass additional information about
 
 ### How to set response headers.
 
+HTTP allows multiple occurrences of the same header name, the features  ```put_XYZ``` replace existing headers with the same name and
+features ```add_XYZ``` add headers that can lead to duplicated entries.
+
+
+```eiffel
+	add_header_line (h: READABLE_STRING_8)
+			-- Add header `h'
+			-- This can lead to duplicated header entries
+		require
+			header_not_committed: not header_committed
+
+	add_header_text (a_text: READABLE_STRING_8)
+			-- Add the multiline header `a_text'
+			-- Does not replace existing header with same name
+			-- This could leads to multiple header with the same name
+		require
+			header_not_committed: not header_committed
+			a_text_ends_with_single_crlf: a_text.count > 2 implies not a_text.substring (a_text.count - 2, a_text.count).same_string ("%R%N")
+			a_text_does_not_end_with_double_crlf: a_text.count > 4 implies not a_text.substring (a_text.count - 4, a_text.count).same_string ("%R%N%R%N")
+		ensure
+			status_set: status_is_set
+			message_writable: message_writable
+
+	put_header_line (h: READABLE_STRING_8)
+			-- Put header `h'
+			-- Replace any existing value
+		require
+			header_not_committed: not header_committed
+
+	put_header_text (a_text: READABLE_STRING_8)
+			-- Put the multiline header `a_text'
+			-- Overwite potential existing header
+		require
+			header_not_committed: not header_committed
+			a_text_ends_with_single_crlf: a_text.count > 2 implies not a_text.substring (a_text.count - 2, a_text.count).same_string ("%R%N")
+			a_text_does_not_end_with_double_crlf: a_text.count > 4 implies not a_text.substring (a_text.count - 4, a_text.count).same_string ("%R%N%R%N")
+		ensure
+			message_writable: message_writable
+
+helpers
+
+	add_header (a_status_code: INTEGER_32; a_headers: detachable ARRAY [TUPLE [name: READABLE_STRING_8; value: READABLE_STRING_8]])
+			-- Put headers with status `a_status', and headers from `a_headers'
+		require
+			a_status_code_valid: a_status_code > 0
+			status_not_committed: not status_committed
+			header_not_committed: not header_committed
+		ensure
+			status_code_set: status_code = a_status_code
+			status_set: status_is_set
+			message_writable: message_writable
+
+	add_header_lines (a_lines: ITERABLE [READABLE_STRING_8])
+			-- Add headers from `a_lines'
+		require
+			header_not_committed: not header_committed
+
+	put_header (a_status_code: INTEGER_32; a_headers: detachable ARRAY [TUPLE [name: READABLE_STRING_8; value: READABLE_STRING_8]])
+			-- Put headers with status `a_status', and headers from `a_headers'
+		require
+			a_status_code_valid: a_status_code > 0
+			status_not_committed: not status_committed
+			header_not_committed: not header_committed
+		ensure
+			status_code_set: status_code = a_status_code
+			status_set: status_is_set
+			message_writable: message_writable
+
+	put_header_lines (a_lines: ITERABLE [READABLE_STRING_8])
+			-- Put headers from `a_lines'
+		require
+			header_not_committed: not header_committed
+
+```
+
+The other way to build headers is using the class [HTTP_HEADER](), that provide routines to build a header. It's recomended to 
+take a look at constants classes such as [HTTP_MIME_TYPES](),[HTTP_HEADER_NAMES](),[HTTP_STATUS_CODE](),[HTTP_REQUEST_METHODS](), or 
+[HTTP_CONSTANTS]() which groups them for convenience.
+
+
+```eiffel
+	custom_answer (req: WSF_REQUEST; res: WSF_RESPONSE; output: STRING)
+		local
+			h: HTTP_HEADER
+			l_msg: STRING
+		do
+			create h.make
+			create l_msg.make_from_string (output)
+			h.put_content_type_text_html
+			h.put_content_length (l_msg.count)
+			h.put_current_date
+			res.set_status_code ({HTTP_STATUS_CODE}.bad_gateway)
+			res.put_header_text (h.string)
+			res.put_string (l_msg)
+		end
+```
+The class [HTTP_HEADER]() also supplies a number of convenience routines for specifying common headers, in fact the features are inherited from the class [HTTP_HEADER_MODIFIER].
+
+
+```eiffel
+deferred class interface
+	HTTP_HEADER_MODIFIER
+
+feature -- Access
+
+	date_to_rfc1123_http_date_format (dt: DATE_TIME): STRING_8
+			-- String representation of `dt' using the RFC 1123
+
+	item alias "[]" (a_header_name: READABLE_STRING_8): detachable READABLE_STRING_8 assign force
+			-- First header item found for `a_name' if any
+	
+feature -- Status report
+
+	has (a_name: READABLE_STRING_8): BOOLEAN
+			-- Has header item for `n'?
+			-- Was declared in HTTP_HEADER_MODIFIER as synonym of has_header_named.
+
+	has_content_length: BOOLEAN
+			-- Has header "Content-Length"
+
+	has_content_type: BOOLEAN
+			-- Has header "Content-Type"
+
+	has_header_named (a_name: READABLE_STRING_8): BOOLEAN
+			-- Has header item for `n'?
+			-- Was declared in HTTP_HEADER_MODIFIER as synonym of has.
+
+	has_transfer_encoding_chunked: BOOLEAN
+			-- Has "Transfer-Encoding: chunked" header
+	
+feature -- Access: deferred
+
+	new_cursor: INDEXABLE_ITERATION_CURSOR [READABLE_STRING_8]
+			-- Fresh cursor associated with current structure.
+	
+feature -- Authorization
+
+	put_authorization (a_authorization: READABLE_STRING_8)
+			-- Put `a_authorization' with "Authorization" header
+			-- The Authorization header is constructed as follows:
+			--  1. Username and password are combined into a string "username:password".
+			--  2. The resulting string literal is then encoded using Base64.
+			--  3. The authorization method and a space, i.e. "Basic " is then put before the encoded string.
+			-- ex: Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+	
+feature -- Content related header
+
+	add_content_type (a_content_type: READABLE_STRING_8)
+			-- same as put_content_type, but allow multiple definition of "Content-Type"
+
+	add_content_type_with_charset (a_content_type: READABLE_STRING_8; a_charset: READABLE_STRING_8)
+			-- Same as put_content_type_with_charset, but allow multiple definition of "Content-Type".
+
+	add_content_type_with_name (a_content_type: READABLE_STRING_8; a_name: READABLE_STRING_8)
+			-- same as put_content_type_with_name, but allow multiple definition of "Content-Type"	
+
+	add_content_type_with_parameters (a_content_type: READABLE_STRING_8; a_params: detachable ARRAY [TUPLE [name: READABLE_STRING_8; value: READABLE_STRING_8]])
+			-- Add header line "Content-Type:" + type `a_content_type' and extra paramaters `a_params'.
+
+	put_content_disposition (a_type: READABLE_STRING_8; a_params: detachable READABLE_STRING_8)
+			-- Put "Content-Disposition" header
+
+	put_content_encoding (a_encoding: READABLE_STRING_8)
+			-- Put "Content-Encoding" header of value `a_encoding'.
+
+	put_content_language (a_lang: READABLE_STRING_8)
+			-- Put "Content-Language" header of value `a_lang'.
+
+	put_content_length (a_length: INTEGER_32)
+			-- Put "Content-Length:" + length `a_length'.
+
+	put_content_transfer_encoding (a_mechanism: READABLE_STRING_8)
+			-- Put "Content-Transfer-Encoding" header with `a_mechanism'
+
+	put_content_type (a_content_type: READABLE_STRING_8)
+			-- Put header line "Content-Type:" + type `a_content_type'
+
+	put_content_type_with_charset (a_content_type: READABLE_STRING_8; a_charset: READABLE_STRING_8)
+			-- Put content type `a_content_type' with `a_charset' as "charset" parameter.
+
+	put_content_type_with_name (a_content_type: READABLE_STRING_8; a_name: READABLE_STRING_8)
+			-- Put content type `a_content_type' with `a_name' as "name" parameter.	
+
+	put_content_type_with_parameters (a_content_type: READABLE_STRING_8; a_params: detachable ARRAY [TUPLE [name: READABLE_STRING_8; value: READABLE_STRING_8]])
+			-- Put header line "Content-Type:" + type `a_content_type' and extra paramaters `a_params'
+
+	put_transfer_encoding (a_encoding: READABLE_STRING_8)
+			-- Put "Transfer-Encoding" header with `a_encoding' value.
+
+	put_transfer_encoding_binary
+			-- Put "Transfer-Encoding: binary" header
+
+	put_transfer_encoding_chunked
+			-- Put "Transfer-Encoding: chunked" header
+	
+feature -- Content-type helpers
+
+	put_content_type_application_javascript
+
+	put_content_type_application_json
+
+	put_content_type_application_pdf
+
+	put_content_type_application_x_www_form_encoded
+
+	put_content_type_application_zip
+
+	put_content_type_image_gif
+
+	put_content_type_image_jpg
+
+	put_content_type_image_png
+
+	put_content_type_image_svg_xml
+
+	put_content_type_message_http
+
+	put_content_type_multipart_alternative
+
+	put_content_type_multipart_encrypted
+
+	put_content_type_multipart_form_data
+
+	put_content_type_multipart_mixed
+
+	put_content_type_multipart_related
+
+	put_content_type_multipart_signed
+
+	put_content_type_text_css
+
+	put_content_type_text_csv
+
+	put_content_type_text_html
+
+	put_content_type_text_javascript
+
+	put_content_type_text_json
+
+	put_content_type_text_plain
+
+	put_content_type_text_xml
+
+	put_content_type_utf_8_text_plain
+	
+feature -- Cookie
+
+	put_cookie (key, value: READABLE_STRING_8; expiration, path, domain: detachable READABLE_STRING_8; secure, http_only: BOOLEAN)
+			-- Set a cookie on the client's machine
+			-- with key 'key' and value 'value'.
+			-- Note: you should avoid using "localhost" as `domain' for local cookies
+			--       since they are not always handled by browser (for instance Chrome)
+		require
+			make_sense: (key /= Void and value /= Void) and then (not key.is_empty and not value.is_empty)
+			domain_without_port_info: domain /= Void implies domain.index_of (':', 1) = 0
+
+	put_cookie_with_expiration_date (key, value: READABLE_STRING_8; expiration: DATE_TIME; path, domain: detachable READABLE_STRING_8; secure, http_only: BOOLEAN)
+			-- Set a cookie on the client's machine
+			-- with key 'key' and value 'value'.
+		require
+			make_sense: (key /= Void and value /= Void) and then (not key.is_empty and not value.is_empty)
+	
+feature -- Cross-Origin Resource Sharing
+
+	put_access_control_allow_all_origin
+			-- Put "Access-Control-Allow-Origin: *" header.
+
+	put_access_control_allow_credentials (b: BOOLEAN)
+			-- Indicates whether or not the response to the request can be exposed when the credentials flag is true.
+			-- When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials.
+			-- Note that simple GET requests are not preflighted, and so if a request is made for a resource with credentials,
+			-- if this header is not returned with the resource, the response is ignored by the browser and not returned to web content.
+			-- ex: Access-Control-Allow-Credentials: true | false
+
+	put_access_control_allow_headers (a_headers: READABLE_STRING_8)
+			-- Put "Access-Control-Allow-Headers" header. with value `a_headers'
+			-- Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.
+			-- ex: Access-Control-Allow-Headers: <field-name>[, <field-name>]*
+
+	put_access_control_allow_iterable_headers (a_fields: ITERABLE [READABLE_STRING_8])
+			-- Put "Access-Control-Allow-Headers" header. with value `a_headers'
+			-- Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.
+			-- ex: Access-Control-Allow-Headers: <field-name>[, <field-name>]*
+
+	put_access_control_allow_methods (a_methods: ITERABLE [READABLE_STRING_8])
+			-- If `a_methods' is not empty, put `Access-Control-Allow-Methods' header with list `a_methods' of methods
+			-- `a_methods' specifies the method or methods allowed when accessing the resource.
+			-- This is used in response to a preflight request.
+			-- ex: Access-Control-Allow-Methods: <method>[, <method>]*
+
+	put_access_control_allow_origin (a_origin: READABLE_STRING_8)
+			-- Put "Access-Control-Allow-Origin: " + `a_origin' header.
+			-- `a_origin' specifies a URI that may access the resource
+	
+feature -- Date
+
+	put_current_date
+			-- Put current date time with "Date" header
+
+	put_date (a_date: READABLE_STRING_8)
+			-- Put "Date: " header
+
+	put_last_modified (a_utc_date: DATE_TIME)
+			-- Put UTC date time `dt' with "Last-Modified" header
+
+	put_utc_date (a_utc_date: DATE_TIME)
+			-- Put UTC date time `a_utc_date' with "Date" header
+			-- using RFC1123 date formating.
+	
+feature -- Header change: deferred
+
+	add_header (h: READABLE_STRING_8)
+			-- Add header `h'
+			-- if it already exists, there will be multiple header with same name
+			-- which can also be valid
+		require
+			h_not_empty: h /= Void and then not h.is_empty
+
+	put_header (h: READABLE_STRING_8)
+			-- Add header `h' or replace existing header of same header name
+		require
+			h_not_empty: h /= Void and then not h.is_empty
+	
+feature -- Header change: general
+
+	add_header_key_value (a_header_name, a_value: READABLE_STRING_8)
+			-- Add header `a_header_name:a_value'.
+			-- If it already exists, there will be multiple header with same name
+			-- which can also be valid
+		ensure
+			added: has_header_named (a_header_name)
+
+	force (a_value: detachable READABLE_STRING_8; a_header_name: READABLE_STRING_8)
+			-- Put header `a_header_name:a_value' or replace existing header of name `a_header_name'.
+
+	put_header_key_value (a_header_name, a_value: READABLE_STRING_8)
+			-- Add header `a_header_name:a_value', or replace existing header of same header name/key
+		ensure
+			added: has_header_named (a_header_name)
+
+	put_header_key_values (a_header_name: READABLE_STRING_8; a_values: ITERABLE [READABLE_STRING_8]; a_separator: detachable READABLE_STRING_8)
+			-- Add header `a_header_name: a_values', or replace existing header of same header values/key.
+			-- Use Comma_space as default separator if `a_separator' is Void or empty.
+		ensure
+			added: has_header_named (a_header_name)
+	
+feature -- Method related
+
+	put_allow (a_methods: ITERABLE [READABLE_STRING_8])
+			-- If `a_methods' is not empty, put `Allow' header with list `a_methods' of methods
+	
+feature -- Others	
+
+	put_cache_control (a_cache_control: READABLE_STRING_8)
+			-- Put "Cache-Control" header with value `a_cache_control'
+
+	put_expires (a_seconds: INTEGER_32)
+			-- Put "Expires" header to `a_seconds' seconds
+
+	put_expires_date (a_utc_date: DATE_TIME)
+			-- Put "Expires" header with UTC date time value
+			-- formatted following RFC1123 specification.
+
+	put_expires_string (a_expires: STRING_8)
+			-- Put "Expires" header with `a_expires' string value
+
+	put_pragma (a_pragma: READABLE_STRING_8)
+			-- Put "Pragma" header with value `a_pragma'
+
+	put_pragma_no_cache
+			-- Put "Pragma" header with "no-cache" a_pragma
+	
+feature -- Redirection
+
+	put_location (a_uri: READABLE_STRING_8)
+			-- Tell the client the new location `a_uri'
+			-- using "Location" header.
+		require
+			a_uri_valid: not a_uri.is_empty
+
+	put_refresh (a_uri: READABLE_STRING_8; a_timeout_in_seconds: INTEGER_32)
+			-- Tell the client to refresh page with `a_uri' after `a_timeout_in_seconds' in seconds
+			-- using "Refresh" header.
+		require
+			a_uri_valid: not a_uri.is_empty
+	
+end -- class HTTP_HEADER_MODIFIER
+
+
+
+
+## HTTP 1.1 Response Headers
+
