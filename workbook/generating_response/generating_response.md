@@ -17,8 +17,7 @@ Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/wor
 <a name="format"/>
 ## Format of the HTTP response
 
-As we saw in the previous documents, a request from a user-agent (browser or other client) consists of an HTTP command (usually GET or POST), zero or more request headers (one or
-more in HTTP 1.1, since Host is required), a blank line, and only in the case of POST/PUT requests, payload data. A typical request looks like the following.
+As we saw in the previous documents, a request from a user-agent (browser or other client) consists of an HTTP command (usually GET or POST), zero or more request headers (one or more in HTTP 1.1, since Host is required), a blank line, and only in the case of POST/PUT requests, payload data. A typical request looks like the following.
 
 ```
 	GET /url[query_string] HTTP/1.1
@@ -93,7 +92,7 @@ Example
 			res.put_string (l_msg)
 		end
 ```
-Both features takes an INTEGER (the status code) as an formal argument, you can use 200, 300, 500 etc directly, but instead of using explicit numbers, it's recommended to use the constants defined in the class [HTTP_STATUS_CODE](). The name of each constant is based from the standard [HTTP 1.1]().
+Both features takes an INTEGER (the status code) as an formal argument, you can use 200, 300, 500 etc directly, but instead of using explicit numbers, it's recommended to use the constants defined in the class [HTTP_STATUS_CODE](). The name of each constant is based from the standard [HTTP 1.1](https://httpwg.github.io/).
 
 <a name="redirect"/>
 ## How to redirect to a particular location.
@@ -162,8 +161,7 @@ Note: use ```res.set_status_code({HTTP_STATUS_CODE}.bad_request)``` rather than 
 
 <a name="example_1"/>
 ### Example Staus Codes
-Basic Service that builds a
- simple web page to show the most common status codes
+Basic Service that builds a simple web page to show the most common status codes
 ```eiffel
 class
 	APPLICATION
@@ -1005,9 +1003,16 @@ feature -- Redirection
 			a_uri_valid: not a_uri.is_empty
 	
 end -- class HTTP_HEADER_MODIFIER
-
+```
 
 
 
 ## HTTP 1.1 Response Headers
+
+There are four categories for response header fields:
+ - [Control Data](https://httpwg.github.io/specs/rfc7231.html#response.control.data) : Supply control data that supplements the status code, directs caching, or instructs the client where to go next.
+ 	 - Age,Cache-Control,Expires,Date,Location,Retry-After,Vary,Warning.
+ - [Validator](https://httpwg.github.io/specs/rfc7231.html#response.validator): Validator header fields convey metadata about the selected representation. In responses to safe requests, validator fields describe the selected representation chosen by the origin server while handling the response.
+ - [Authentication Challenges](https://httpwg.github.io/specs/rfc7231.html#response.auth): Indicate what mechanisms are available for the client to provide authentication credentials in future requests.
+ - [Response Context](https://httpwg.github.io/specs/rfc7231.html#response.context): Provide more information about the target resource for potential use in later requests.
 
