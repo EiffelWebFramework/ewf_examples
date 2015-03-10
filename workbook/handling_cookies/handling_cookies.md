@@ -1,12 +1,13 @@
 # Handling Cookies
 
-	- [Cookie](#cookie)
-		- [Cookie Porperties](#properties)
-	- [Wrshoulite and Read Cookies]	
-		- [How to set a cookie](#set_cookie)
-		- [How to read a cookie](#read_cookie)
-    - [Examples](#examples)		
+- [Cookie](#cookie)
+	- [Cookie Porperties](#properties)
+- [Write and Read Cookies](#set_get)
+	- [How to set a cookie](#set_cookie)
+	- [How to read a cookie](#read_cookie)
+- [Examples](#examples)		
 
+<a name="cookie"/>
 ## [Cookie](http://httpwg.github.io/specs/rfc6265.html)
 A cookie is a piece of data that can be stored in a browser's cache. If you visit a web site and then revisit it, the cookie data can be used to identify you as a return visitor. Cookies enable state information, such as an online shopping cart, to be remembered. A cookie can be short term, holding data for a single web session, that is, until you close the browser, or a cookie can be longer term, holding data for a week or a year.
 
@@ -16,7 +17,7 @@ Cookies are used a lot in web client-server communication.
 	 
 - Personalized response to the client based on their preference, for example we can set background color as cookie in client browser and then use it to customize response background color, image etc.
 
-
+<a name="properties"/>
 ### Cookie properties
 
  - Comment: describe the purpose of the cookie. Note that server doesn’t receive this information when client sends cookie in request header. 
@@ -28,7 +29,7 @@ Cookies are used a lot in web client-server communication.
  - Value: Value of th cookie as string.
  - HttpOnly: Checks whether this Cookie has been marked as HttpOnly. 
 
-
+<a name="set_get"/>
 ## Write and Read Cookies.
 
 To send a cookie to the client we should use the [HTTP_HEADER] class, and call ```h.put_cookie``` feature or 
@@ -52,7 +53,7 @@ WSF_REQUEST.cookie (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
 feature.
 
 
-
+<a name="set_cookie"/>
 ### How to set Cookies
 Here we have the feature definitions to set cookies
 
@@ -96,7 +97,7 @@ Example of use:
 				res.put_string (web_page)
 		end		
 ```
-
+<a name="read_cookie"/>
 ### How to read Cookies
 
 Reading a particular cookie
