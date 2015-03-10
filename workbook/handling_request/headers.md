@@ -1,4 +1,5 @@
-Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
+
 
 #Handling Requests: Headers
 
@@ -457,6 +458,7 @@ As an exercise try to write a similar service to retrieve the OS family using th
 An [ewf service](./headers/cgi_variables/application.e) that shows the CGI variables, creates a table showing the values of all the CGI variables.
 
 
-Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
+
 
 
