@@ -45,8 +45,8 @@ feature -- Basic operations
 			if req.path_info.same_string ("/") then
 				create l_header.make
 				create l_answer.make_from_string (web_page)
-				if l_cookies.is_empty then
-						-- First access the the home page
+				if  req.cookie ("_EWF_Cookie") = Void then
+						-- First access the the home page, find a cookie with specific name `_EWF_Cookie'
 					l_answer.replace_substring_all ("$header_title", "Hey, thanks for access our cool site, this is your first acess")
 					l_answer.replace_substring_all ("$cookies", l_cookies)
 					create l_time.make_now_utc
@@ -66,7 +66,7 @@ feature -- Basic operations
 				create l_header.make
 				create l_answer.make_from_string (visit_page)
 				if req.cookie ("_visits") = Void then
-						-- First access the the home page
+						-- First access the the visit page, find a cookie with specific name `_visits'
 					l_answer.replace_substring_all ("$visit", "1")
 					l_answer.replace_substring_all ("$cookies", l_cookies)
 					create l_time.make_now_utc
@@ -82,16 +82,19 @@ feature -- Basic operations
 						l_header.put_cookie_with_expiration_date ("_visits", (l_visit.value.to_integer + 1).out,l_time.date_time, "/visitors", Void, False, True)
 					end
 				end
+				create l_time.make_now_utc
+				l_time.date_time.second_add (120)
 				l_header.put_content_type_text_html
-				l_header.put_cookie ("_Framework", "EWF","360", "/", Void, False, True)
+					-- This cookie expires in 120 seconds, its valid for 120 seconds
+				l_header.put_cookie_with_expiration_date ("_Framework", "EWF",l_time.date_time, "/", Void, False, True)
+					-- This is a session cookie, valid only to the current browsing session.
+				l_header.put_cookie ("Session", "Cookie",Void, "/", Void, False, True)
 				l_header.put_content_length (l_answer.count)
 				res.add_header_text (l_header.string)
 				res.put_string (l_answer)
 			end
 
 		end
-
-
 
 feature -- Home Page
 
