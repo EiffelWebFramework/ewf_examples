@@ -1,3 +1,5 @@
+Nav: [Workbook](../workbook.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
+
 # Handling Cookies
 
 - [Cookie](#cookie)
@@ -114,3 +116,8 @@ Reading all the cookies
 		print (ic.item.name)
 	end
 ```
+
+
+
+
+Nav: [Workbook](../workbook.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
