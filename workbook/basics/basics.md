@@ -1,4 +1,4 @@
-Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
 
 
 ## EWF basic service
@@ -178,5 +178,5 @@ feature -- Basic operations
 
 end
 ```
-Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) |  [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
 
