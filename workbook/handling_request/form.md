@@ -1,5 +1,4 @@
-Nav: [Workbook](../workbook.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
-
+Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md) 
 
 
 #Handling Requests: Form/Query Data
@@ -142,5 +141,5 @@ To read raw data you need to do this
 
 
 
-Nav: [Workbook](../workbook.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md) |  [Generating Responses](/workbook/generating_response/generating_response.md)
+Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md) 
 
