@@ -4,9 +4,9 @@ Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/wor
 ## EWF basic service
 
 ##### Table of Contents  
-[Basic Structure](#structure)  
-[Service to Generate Plain Text](#text)  
-[Service to Generate HTML](#html)  
+- [Basic Structure](#structure)  
+- [Service to Generate Plain Text](#text)  
+- [Service to Generate HTML](#html)  
 
 
 <a name="structure"/>
@@ -127,11 +127,11 @@ end
 ##### Source code
 The source code is available on Github. You can get it by running the command:
 
->git clone https://github.com/EiffelWebFramework/ewf_examples.git
+```git clone https://github.com/EiffelWebFramework/ewf_examples.git```
 
 The Simple Service to Generate Plain Text example is located in the directory $PATH/ewf_examples/workbook/basics/simple, where $PATH is where you run ```git clone``` . Just double click on the simple.ecf file and select the simple_nino target or if you prefer the command line, run the command:
 
->estudio -config simple.ecf -target simple_nino
+````estudio -config simple.ecf -target simple_nino```
 
 <a name="html"/>
 ## A Service to Generate HTML.
