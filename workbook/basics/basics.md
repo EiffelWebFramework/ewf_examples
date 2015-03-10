@@ -86,10 +86,10 @@ The **SERVICE_TEMPLATE** class is the root of our example, it will launch the ap
 
 Our **SERVICE_TEMPLATE** class inherit from _WSF_DEFAULT_SERVICE_ class, which also inherit from others, let’s describe them in a few words.
 
-**WS_LAUNCHABLE_SERVICE** inherit from **WS_SERVICE** class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ). So it allow us to launch our application using different kind of connectors. Below a BON diagram showing the different kind of connectors.
+**WS_LAUNCHABLE_SERVICE** inherit from **WS_SERVICE** class, which is the low level entry point in EWF, handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ). So it allow us to launch our application using different kind of connectors. Below a BON diagram showing the different kind of connectors.
 
 So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
-And then you just need to implement the *execute feature*, get data from the request *req* and write the response in *res*.
+And then you just need to implement the **execute** feature, get data from the request *req* and write the response in *res*.
 
 <a name="text"/>
 ## A simple Service to Generate Plain Text.
