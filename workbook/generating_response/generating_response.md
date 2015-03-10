@@ -1,5 +1,5 @@
 
-Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/workbook/handling_request/form.md)
+Nav: [Workbook](../workbook.md) | [Handling Requests: Header Fields](/workbook/handling_request/headers.md) | [Handling Cookies](/workbook/handling_cookies/handling_cookies.md) 
 
 
 ## EWF Generating Response
@@ -1016,3 +1016,6 @@ There are four categories for response header fields:
  - [Authentication Challenges](https://httpwg.github.io/specs/rfc7231.html#response.auth): Indicate what mechanisms are available for the client to provide authentication credentials in future requests.
  - [Response Context](https://httpwg.github.io/specs/rfc7231.html#response.context): Provide more information about the target resource for potential use in later requests.
 
+
+
+| [Handling Requests: Header Fields](/workbook/handling_request/headers.md) | [Handling Cookies](/workbook/handling_cookies/handling_cookies.md)
