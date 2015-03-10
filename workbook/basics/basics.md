@@ -79,12 +79,17 @@ feature -- Basic operations
 end
 ```
 
-So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
-And then you just need to implement the *execute feature*, get data from the request *req* and write the response in *res*
-
 The **WSF_REQUEST** lets obtain at all of the incoming data; the class has features by which it is possible look for information such as request method, form data, query parameters, HTTP request headers, and the client’s hostname. 
 The **WSF_RESPONSE** lets specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
 
+The **SERVICE_TEMPLATE** class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it cgi, fcgi or Nino. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
+
+Our **SERVICE_TEMPLATE** class inherit from _WSF_DEFAULT_SERVICE_ class, which also inherit from others, let’s describe them in a few words.
+
+**WS_LAUNCHABLE_SERVICE** inherit from **WS_SERVICE** class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ). So it allow us to launch our application using different kind of connectors. Below a BON diagram showing the different kind of connectors.
+
+So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
+And then you just need to implement the *execute feature*, get data from the request *req* and write the response in *res*.
 
 <a name="text"/>
 ## A simple Service to Generate Plain Text.
