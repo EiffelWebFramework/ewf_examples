@@ -5,6 +5,9 @@
 * [EWF Introduction](#introduction)
 * [Handling Requests: Form/Query Parameter](#form_query_parameters)
 * [Handling Requests: Header Fields](#header_fields)
+* [Generating Responses](/workbook/generating_response/generating_response.md)
+* [Handling Cookies](/workbook/handling_cookies/handling_cookies.md) 
+* 
 
 <a name="core"/>
 # EWF Core 
@@ -22,3 +25,10 @@ Before to read (or walk throught) the workbook its recommended  to read the foll
 
 ## Handling Requests: Header Fields
 [Handling Requests: Header Fields](/workbook/handling_request/headers.md).
+
+## Generating Response
+[Generating Responses](/workbook/generating_response/generating_response.md)
+
+## Handling Cookies
+[Handling Cookies](/workbook/handling_cookies/handling_cookies.md) 
+
