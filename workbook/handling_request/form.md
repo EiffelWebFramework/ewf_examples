@@ -15,7 +15,7 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
   - [How to read multiple values](#multiple_values)
   - [How to read table values](#table_values)
 - [Reading raw data](#raw_data)
-
+- [Examples](#examples)
  
 
 An HTML Form can handle GET and POST requests.
@@ -197,6 +197,19 @@ To read raw data you need to do this
 ```
 
 > given-name=testr&family-name=test&dob=1976-08-26&email=test%40gmail.com&url=http%3A%2F%2Fwww.eiffelroom.com&phone=455555555555&languages=Spanish&languages=English			
+
+<a name=examples>
+## Examples
+The source code is available on Github. You can get it by running the command:
+
+```git clone https://github.com/EiffelWebFramework/ewf_examples.git```
+
+The GET example is located in the directory $PATH/ewf_examples/workbook/form/get, and the post example is located in the directory $PATH/ewf_examples/workbook/form/post where $PATH is where you run git clone . To run open it using Eiffel Studio or just run theg following command
+
+```estudio -config  <ecf_name>.ecf -target <target_name>```
+
+>Note: replace <ecf_name> and<target_name> with the corresponding values.
+
 
 
 
