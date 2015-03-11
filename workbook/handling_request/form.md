@@ -10,7 +10,11 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
   - [Form Parameters](#form).
   - [Uniform Read](#uniform)
 - [Reading Parameters and Values](#reading_pv) 
-
+  - [How to read all parameters names](#all_names)
+  - [How to read single values](#single_values)
+  - [How to read multiple values](#multiple_values)
+  - [How to read table values](#table_values)
+- [Reading raw data](#raw_date)
 An HTML Form can handle GET and POST requests.
 When we use a form with method GET, the data is attached at the end of the url for example:
 
@@ -103,13 +107,17 @@ Suppose we have the following HTML5 form using Method POST. This HTML5 form has 
   </fieldset> 
 </form>
 ```
+<a name="all_names">
+### How to read all parameter names
 To read all the parameters names we simple call WSF_REQUEST.form_parameters. 
 
 ```
  req: WSF_REQUEST
  across req.form_parameters as ic loop show_parameter_name (ic.item.key) end
 ```
-To read a particular parameter, a single value, for example `given-name', we simple call WSF_REQUEST.form_parameter (a_name)
+<a name="single_value">
+### How to read single values
+To read a particular parameter, a single value, for example `given-name', we simple call WSF_REQUEST.form_parameter (a_name) and we check if it's attached to WSF_STRING (represents a String parameter)
 ```
   req: WSF_REQUEST 
   if attached {WSF_STRING} req.form_paramenter ('given-name') as l_given_name then
@@ -119,8 +127,10 @@ To read a particular parameter, a single value, for example `given-name', we sim
         -- Value missing, check the name against the HTML form 
   end
 ```
+<a name="multiple_values">
+### How to read multiple values
 
-To read multiple values, for example in the case of `languages'
+To read multiple values, for example in the case of `languages', we simple call WSF_REQUEST.form_parameter (a_name) and we check if it's attached to WSF_MULTIPLE_STRING (represents a String parameter)
 
 ```
   req: WSF_REQUEST 
@@ -139,9 +149,13 @@ To read multiple values, for example in the case of `languages'
   	-- Value missing 
   end
 ```
-In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. We will see how to do that later.
+In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. 
 
-### Reading Raw Data
+<a name="table_values">
+### How to read multiple values
+
+<a name="raw_date">
+## Reading Raw Data
 You can also access the data in raw format, it means you will need to parse and url-decode it, and also you will not be able to use the previous features, by default, to enable that you need to call `req.set_raw_input_data_recorded (True)'. This feature (reading raw data) is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
 
 To read raw data you need to do this
