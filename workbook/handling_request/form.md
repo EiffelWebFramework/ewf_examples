@@ -8,6 +8,7 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
 - [Reading Form Data](#read).
   - [Query Parameters](#query).
   - [Form Parameters](#form).
+  - [Uniform Read](#uniform)
 
 An HTML Form can handle GET and POST requests.
 When we use a form with method GET, the data is attached at the end of the url for example:
@@ -46,6 +47,19 @@ EWF [WSF_REQUEST]() class, provides features to handling this form parsing autom
 			-- Field for name `a_name'.
 
 The values supplied to form_parameter and query_parameter are case sensitive.
+
+<a name="uniform"/>
+### Read Data
+The previous features, let you read the data one way for GET request and a different way for POST request. WSF_REQUEST provide a feature to read all the data in a uniform way.
+
+	WSF_REQUEST.item (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE
+			-- Variable named `a_name' from any of the variables container
+			-- and following a specific order: form_, query_ and path_ parameters
+
+So, you use **WSF_REQUEST.item** feature exactly the same way for GET and POST request.
+
+>Note: if a query parameter has the same name as a form paramenter req.item will retrieve the form paramenter. Remember the precedence: form > query > path 
+
 
 
 ### Reading Values
