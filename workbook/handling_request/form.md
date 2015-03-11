@@ -155,7 +155,32 @@ To read multiple values, for example in the case of `languages', we simple call 
 In this case we are handling strings values, but in some cases you will need to do a conversion, betweend the strings that came from the request to map them to your domain model. 
 
 <a name="table_values">
-### How to read multiple values
+### How to read table values
+This is particularly useful when you have a request with the following format
+
+``` <a href="/link?tab[a]=1&tab[b]=2&tab[c]=foo"> ```
+
+To read table values, for example in the case of `tab', we simple call WSF_REQUEST.form_parameter (a_name) and we check if it's attached to WSF_TABLE.
+
+```
+if attached {WSF_TABLE} req.query_parameter ("tab") as l_tab then
+	l_parameter_names.append ("<br>")
+	l_parameter_names.append (l_tab.name)
+	from
+		l_tab.values.start
+	until
+		l_tab.values.after
+	loop
+		l_parameter_names.append ("<br>")
+		l_parameter_names.append (l_tab.values.key_for_iteration)
+		if attached {WSF_STRING} l_tab.value (l_tab.values.key_for_iteration) as l_value then
+			l_parameter_names.append ("=")
+			l_parameter_names.append (l_value.value)
+		end
+		l_tab.values.forth
+	end
+end	
+```
 
 <a name="raw_data">
 ## Reading Raw Data
