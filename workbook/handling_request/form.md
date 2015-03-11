@@ -5,17 +5,19 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
 
 
 ##### Table of Contents  
-- [Reading Form Data](#read).
-  - [Query Parameters](#query).
-  - [Form Parameters](#form).
+- [Reading Form Data](#read)
+  - [Query Parameters](#query)
+  - [Form Parameters](#form)
   - [Uniform Read](#uniform)
 - [Reading Parameters and Values](#reading_pv) 
   - [How to read all parameters names](#all_names)
   - [How to read single values](#single_values)
   - [How to read multiple values](#multiple_values)
   - [How to read table values](#table_values)
-- [Reading raw data](#raw_date)
+- [Reading raw data](#raw_data)
 - 
+
+ 
 
 An HTML Form can handle GET and POST requests.
 When we use a form with method GET, the data is attached at the end of the url for example:
@@ -117,7 +119,7 @@ To read all the parameters names we simple call WSF_REQUEST.form_parameters.
  req: WSF_REQUEST
  across req.form_parameters as ic loop show_parameter_name (ic.item.key) end
 ```
-<a name="single_value">
+<a name="single_values">
 ### How to read single values
 To read a particular parameter, a single value, for example `given-name', we simple call WSF_REQUEST.form_parameter (a_name) and we check if it's attached to WSF_STRING (represents a String parameter)
 ```
@@ -156,7 +158,7 @@ In this case we are handling strings values, but in some cases you will need to 
 <a name="table_values">
 ### How to read multiple values
 
-<a name="raw_date">
+<a name="raw_data">
 ## Reading Raw Data
 You can also access the data in raw format, it means you will need to parse and url-decode it, and also you will not be able to use the previous features, by default, to enable that you need to call `req.set_raw_input_data_recorded (True)'. This feature (reading raw data) is useful if you are reading POST data with JSON or XML formats, but it's not convinient for HTML forms.
 
