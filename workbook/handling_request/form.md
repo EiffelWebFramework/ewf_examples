@@ -9,6 +9,7 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
   - [Query Parameters](#query).
   - [Form Parameters](#form).
   - [Uniform Read](#uniform)
+- [Reading Parameters and Values](#reading_pv) 
 
 An HTML Form can handle GET and POST requests.
 When we use a form with method GET, the data is attached at the end of the url for example:
@@ -61,10 +62,12 @@ So, you use **WSF_REQUEST.item** feature exactly the same way for GET and POST r
 >Note: if a query parameter has the same name as a form paramenter req.item will retrieve the form paramenter. Remember the precedence: form > query > path 
 
 
+<a name="reading_pv">
+## Reading Parameters and Values
 
-### Reading Values
+Suppose we have the following HTML5 form using Method POST. This HTML5 form has client side form validation using the new HTML5 attribute, you can do the same using Javascript. So in this case if the user does not fill the fields as expected the form will not be submitted to the server.
 
-Suppose we have the following HTML5 form using Method POST.
+>Note: You want to validate on the server side because you can protect against the malicious user, who can easily bypass your JavaScript and submit dangerous input to the server.
 
 ```
 <h1> EWF Handling Client Request: Form example </h1>  
