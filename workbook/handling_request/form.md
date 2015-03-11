@@ -15,7 +15,6 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
   - [How to read multiple values](#multiple_values)
   - [How to read table values](#table_values)
 - [Reading raw data](#raw_data)
-- 
 
  
 
