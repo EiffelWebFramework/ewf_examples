@@ -286,7 +286,6 @@ feature -- Basic operations
 				</html>
 			]"
 end
-
 ```
 
 <a name="compress"/>
@@ -304,7 +303,6 @@ Basically the code check if the header user_agent exist and then call the ```get
 feature to retrieve the current browser name or Unknown in other case. 
 
 ```eiffel
-
 class
 	APPLICATION
 
@@ -406,30 +404,29 @@ feature -- Browser utility
 				</body>
 				</html>
 			]"
-
-
 end
 ```
-Let see some results
+Let see some results, we will show the html returned
 
 Internet Explorer
 ---
-
+```
 <h1>EWF service example: Showing Browser Dectection Using User-Agent</h1></br>
 
 <strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; MDDCJS; rv:11.0) like Gecko <br>
 
 <h2> Enjoy using Internet Explorer </h2>
+```
 
 Chrome
 ---
-
+```
 <h1>EWF service example: Showing Browser Dectection Using User-Agent</h1></br>
 
 <strong>User Agent:</strong> Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36  <br>
 
 <h2> Enjoy using Chrome </h2>
-
+```
 
 As an exercise try to write a similar service to retrieve the OS family using the User-Agent information.
 
