@@ -15,6 +15,7 @@ Nav: [Workbook](../workbook.md) | [Basic Concepts] (/workbook/basics/basics.md) 
   - [How to read multiple values](#multiple_values)
   - [How to read table values](#table_values)
 - [Reading raw data](#raw_data)
+- [Upload Files](#upload)
 - [Examples](#examples)
  
 
@@ -197,6 +198,97 @@ To read raw data you need to do this
 ```
 
 > given-name=testr&family-name=test&dob=1976-08-26&email=test%40gmail.com&url=http%3A%2F%2Fwww.eiffelroom.com&phone=455555555555&languages=Spanish&languages=English			
+
+<a name=upload></a>
+## Upload Files
+How can we read data when the date come from an uploaded file/s?. 
+HTML supports a form element ```<input type="File" ... > ``` to upload a single file and ```<input type="File" ... multiplr> ``` to upload multiple files.
+
+So supose we have the following form
+
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EWF Handling Client Request: File Upload Example</title>
+  </head>
+  <body>
+    <h1> EWF Handling Client Request: File Upload Example</h1>  
+    <form action="/upload"  enctype="multipart/form-data" method="POST">
+       <fieldset> 
+          <legend>Upload file/s</legend> 
+          <div> 
+              <label>File
+              <input name="file-name[]" type="file" multiple> 
+          </label>
+        <fieldset> 
+            <div> 
+              <button type=submit>Send</button> 
+            </div> 
+        </fieldset> 
+    </form> 
+  </body> 
+</html>
+```
+
+The class WSF_REQUEST has defines mechanism to work with uploaded files. We can call the query
+
+```
+WSF_REQUEST.has_uploaded_file: BOOLEAN
+      -- Has any uploaded file?
+```
+
+to check if the request form parameters has any uploaded file, and we can call the feature
+
+```
+WSF_REQUEST.uploaded_files: ITERABLE [WSF_UPLOADED_FILE]
+      -- uploaded files values
+      --| filename: original path from the user
+      --| type: content type
+      --| tmp_name: path to temp file that resides on server
+      --| tmp_base_name: basename of `tmp_name'
+      --| error: if /= 0 , there was an error : TODO ...
+      --| size: size of the file given by the http request
+```
+to iterate over the uploaded files if any, and the details in the class [WSF_UPLOADED_FILE].
+
+The following snipet code show how to work with Uploaded files using EWF [WSF_REQUEST] class, in the example
+we build a simple html answer with basic information, if there is not uploaded files, we send a 400 status code
+and a simple message.
+
+```eiffel
+
+  if  req.path_info.same_string ("/upload") then
+            -- Check if we have an uploaded file
+          if req.has_uploaded_file then
+              -- iterate over all the uploaded files
+            create l_answer.make_from_string ("<h1>Uploaded File/s</h1><br>")
+            across  req.uploaded_files as ic loop
+              l_answer.append ("<strong>FileName:</strong>")
+              l_answer.append (ic.item.filename)
+              l_answer.append ("<br><strong>Size:</strong>")
+              l_answer.append (ic.item.size.out)
+              l_answer.append ("<br>")
+            end
+            res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-type","text/html"],["Content-lenght", l_answer.count.out]>>)
+            res.put_string (l_answer)
+          else
+              -- Here we should handle unexpected errors.
+            create l_answer.make_from_string ("<strong>No uploaded files</strong><br>")
+            create l_answer.append ("Back to <a href='/'>Home</a>")
+            res.put_header ({HTTP_STATUS_CODE}.bad_request, <<["Content-type","text/html"],["Content-lenght", l_answer.count.out]>>)
+            res.put_string (l_answer)
+          end
+    else
+          -- Handle error
+    end
+```
+The source code is available on Github. You can get it by running the command:
+
+```git clone https://github.com/EiffelWebFramework/ewf_examples.git```
+
+The example is located in the directory $PATH/ewf_examples/workbook/upload_file where $PATH is where you run git clone.
+
 
 <a name=examples>
 ## Examples
