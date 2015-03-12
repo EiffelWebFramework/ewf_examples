@@ -171,7 +171,7 @@ included in the Referer header when the browser requests Web page B.
 <a name="example"/>
 #### Building a Table of All Request Headers
 
-The following [EWF service](workbook/handling_request/headers/header_fields/application.e) code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
+The following [EWF service](./headers/header_fields/application.e) code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
 The service accomplishes this task by calling ```req.meta_variables``` feature to get an ```ITERABLE[WSF_STRING]```, an structure that can be iterated over using ```across...loop...end```, then it checkS if the name has the prefix ```HTTP_``` and if its true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
 
 The service also write three components of the main request line (method, URI, and protocol), and also the raw header. 
@@ -297,7 +297,7 @@ To be completed.
 
 #### Detecting Browser Types
 
-The User-Agent header identifies the specific browser that is making the request. The following code shows a [EWF service](workbook/handling_request/headers/browser_name/application.e) that sends browser-specific responses.
+The User-Agent header identifies the specific browser that is making the request. The following code shows a [EWF service](./headers/browser_name/application.e) that sends browser-specific responses.
 The examples uses the ideas based on the [Browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent) article.
 Basically the code check if the header user_agent exist and then call the ```get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32```
 feature to retrieve the current browser name or Unknown in other case. 
