@@ -4,11 +4,11 @@ Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/w
 #Handling Requests: Headers
 
 ##### Introduction
-- The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the browser and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
+- The [HTTP request header fields (also known as "headers")](https://httpwg.github.io/specs/rfc7231.html#request.header.fields) are set by the client (usually web browser) and sent in the header of the http request text (see http protocol), as opposed to form or query parameters [Form Data]().
 - Query parameters are encoded in the URL [GET requests](https://httpwg.github.io/specs/rfc7230.html#http.message).
-- Form parameters are encoded in the request message  for [POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).
+- Form parameters are encoded in the request message for [POST/PUT requests.](https://httpwg.github.io/specs/rfc7230.html#http.message).
 
-A request usually include the header [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header) fields, defining important information about how the server should process the request. But then, the server needs to read the request header fields to use this information.
+A request usually includes the header fields [Accept, Accept-Encoding, Connection, Cookie, Host, Referer, and User-Agent](https://httpwg.github.io/specs/rfc7231.html#request.header), defining important information about how the server should process the request. And then, the server needs to read the request header fields to use those informations.
 
 ##### Table of Contents  
 - [Reading HTTP Header fields](#read_header)
@@ -35,27 +35,27 @@ A request usually include the header [Accept, Accept-Encoding, Connection, Cooki
 
 That section explains how to read HTTP information sent by the browser via the request header fields. Mostly by defining the most important HTTP request header fields, for more information, read [HTTP 1.1 specification](https://httpwg.github.io/specs/).
 
-## Prerequisite
+## Prerequisites
 The Eiffel Web Framework is using the traditional Common Gateway Interface (CGI) programming interface to access the header fields, query and form parameters.
-Among other, this means the header field are exposed with associated CGI field names:
+Among other, this means the header fields are exposed with associated CGI field names:
 - the header field name are uppercased, and any dash "-" replaced by underscore "_".
 - and also prefixed by "HTTP_" except for CONTENT_TYPE and CONTENT_LENGTH. 
 - For instance `X-Server` will be known as `HTTP_X_SERVER`.
 
-<a name="read_header"/>
+<a name="read_header"></a>
 ## Reading HTTP Header fields
 EWF [WSF_REQUEST]() class provides features to access HTTP headers.
 
 Reading most headers is straightforward by calling:
 - the corresponding `http_*` functions such as `http_accept` for header "Accept".
 - or indirectly using the `meta_string_variable (a_name)` function by passing the associated CGI field name.
-In both case, if the related header field is supplied by the request, the result is the string value, otherwise it is Void. 
+In both cases, if the related header field is supplied by the request, the result is a string value, otherwise it is Void. 
 
 Note: always check if the result of those functions is non-void before using it.
 
 * Cookies:
-	- To iterate on all cookies value, use `cookies: ITERABLE [WSF_VALUE]`
-	- To retrieve an specific cookie value,  use `cookie (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE`
+	- To iterate on all cookies valued, use `cookies: ITERABLE [WSF_VALUE]`
+	- To retrieve a specific cookie value,  use `cookie (a_name: READABLE_STRING_GENERAL): detachable WSF_VALUE`
 
 * Authorization
 	- To read the Authorization header, first check its type with: `auth_type: detachable READABLE_STRING_8`
@@ -68,12 +68,10 @@ Note: always check if the result of those functions is non-void before using it.
 * Content_type
 	- If supplied, get the content type as an string value with `content_type: detachable HTTP_CONTENT_TYPE`
 
-Due to CGI compliance, the original header names are not available, however the function `raw_header_data` returns it the http header data as a string value (warning: this may not be available, depending on the underlying connector). Apart from very specific cases (proxy, debugging, ...), it should not be useful.
-Note: CGI variables are information about the current request. Some are based on the HTTP request line and headers (e.g., form parameters, query parameters), others are derived
-from the socket itself (e.g., the name and IP address of the requesting host), and still others are taken from server installation parameters (e.g., the mapping of URLs to
-actual paths). 
+Due to CGI compliance, the original header names are not available, however the function `raw_header_data` may return the http header data as a string value (warning: this may not be available, depending on the underlying connector). Apart from very specific cases (proxy, debugging, ...), it should not be useful.
+Note: CGI variables are information about the current request (and also about the server). Some are based on the HTTP request line and headers (e.g., form parameters, query parameters), others are derived from the socket itself (e.g., the name and IP address of the requesting host), and still others are taken from server installation parameters (e.g., the mapping of URLs to actual paths). 
 
-<a name="read_line"/>
+<a name="read_line"></a>
 ####Retrieve information from the Request Line
 
 For convenience, the following sections refer to a request starting with line:
@@ -103,79 +101,77 @@ Overview of the features
     In the example the request method is `HTTP/1.1`
 
 
-<a name="understand"/>
+<a name="understand"></a>
 #### Understanding HTTP 1.1 Request Headers
 Access to the request headers permits the web server applications or APIs to perform optimizations and provide behavior that would not be possible without them for instance such as adapting the response according to the browser preferences.
 This section summarizes the headers most often used; for more information, see the [HTTP 1.1 specification](https://httpwg.github.io/specs/), note that [RFC 2616 is dead](https://www.mnot.net/blog/2014/06/07/rfc2616_is_dead).
 
-<a name="accept"/>
+<a name="accept"></a>
  * [Accept](https://httpwg.github.io/specs/rfc7231.html#header.accept)
- 	- The "Accept" header field can be used by user agents (browser or other clients) to specify response media types that are acceptable. Accept header fields can be used to indicate that the request is specifically limited to a small set of desired types, as in the case of a request for an in-line image.
- 	For example, assume an APIs Learn4Kids can respond with XML or JSON data (JSON format have some advantages over XML, readability, parsing etc...), a client can precise its preference using "Accept: application/json" to request data in JSON format, or "Accept: application/xml" to get XML format. In other case the server send a not acceptable response. Note that the client can precise an ordered list of accepted content types, including "*", it will get the response and know the content type via the response header field "Content-Type". Related [Content-Negotiation]()
+ 	- The "Accept" header field can be used by user agents (browser or other clients) to define response media types that are acceptable. Accept header fields can be used to indicate that the request is limited to a small set of desired types, as in the case of a request for an inline image.
+ 	For example, assume an APIs Learn4Kids can respond with XML or JSON data (JSON format have some advantages over XML, readability, parsing etc...), a client can define its preference using "Accept: application/json" to request data in JSON format, or "Accept: application/xml" to get XML format. In other case the server sends a not acceptable response. Note that the client can define an ordered list of accepted content types, including "*", the client will get the response and know the content type via the response header field "Content-Type". Related [Content-Negotiation]()
 
-<a name="accept_charset"/>
+<a name="accept_charset"></a>
  * [Accept-Charset](https://httpwg.github.io/specs/rfc7231.html#header.accept-charset)
-	- The "Accept-Charset" header field can be sent by a user agent (browser or other clients) to indicate what charsets are acceptable in textual response content(e.g., ISO-8859-1).
+	- The "Accept-Charset" header field can be sent by a user agent (browser or other clients) to indicate which charsets are acceptable in textual response content (e.g., ISO-8859-1).
 
-<a name="accept_encoding"/>
+<a name="accept_encoding"></a>
  * [Accept-Encoding](https://httpwg.github.io/specs/rfc7231.html#header.accept-encoding)
-	- The "Accept-Encoding" header field can be used by user agents (browser or other clients) to indicate what response content-codings (`gzip`, `compress`) are acceptable in the response. An "identity" token is used as a synonym for "no encoding" in order to communicate when no encoding is preferred. If the server receives this header, it is free to encode the page by using one of the content-encodings specified (usually to reduce transmission time), sending the `Content-Encoding` response header to indicate that it has done so.
+	- The "Accept-Encoding" header field can be used by user agents (browser or other clients) to indicate which response content-codings (`gzip`, `compress`) are acceptable in the response. An "identity" token is used as a synonym for "no encoding" in order to communicate when no encoding is preferred. If the server receives this header, it is free to encode the page by using one of the content-encodings specified (usually to reduce transmission time), sending the `Content-Encoding` response header to indicate that it has done so.
 
-<a name="accept_language"/>
+<a name="accept_language"></a>
  * [Accept-Language](https://httpwg.github.io/specs/rfc7231.html#header.accept-language)
- 	- The "Accept-Language" header field can be used by user agents (browser or other client) to indicate the set of natural languages that are preferred in the response in case  the server can produce representation in more than one language.The value of the header should be one of the standard language codes such as en, en-us, da, etc. See RFC 1766 for details (start at http://www.rfc-editor.org/ to get a current list of the RFC archive sites).
+ 	- The "Accept-Language" header field can be used by user agents (browser or other client) to indicate the set of natural languages that are preferred in the response in case the server can produce representation in more than one language. The value of the header should be one of the standard language codes such as en, en-us, da, etc. See RFC 1766 for details (start at http://www.rfc-editor.org/ to get a current list of the RFC archive sites).
 
-<a name="connection"/>
+<a name="connection"></a>
  * [Connection](https://httpwg.github.io/specs/rfc7230.html#header.connection)
  	- The "Connection" header field allows the sender to indicate desired control options for the current connection, for example if it can hanlde persistent HTTP connections.
- 	By default HTTP/1.1 uses "persistent connections", allowing multiple requests and responses to be carried over a single connection. The "close" connection option is used to signal that a connection will not persist after the current request/response
+ 	By default HTTP/1.1 uses "persistent connections", allowing multiple requests and responses to be carried over a single connection. The "close" connection option is used to signal that a connection will not persist after the current request/response.
 
-<a name="authorization"/>
+<a name="authorization"></a>
  * [Authorization](https://httpwg.github.io/specs/rfc7235.html#header.authorization)
- 	- The header is used by user agents to identify themselfes when acessing password protected resources.
+ 	- The header is used by user agents to authenticate themselves when accessing password protected resources.
 
-<a name="content-length"/>
+<a name="content-length"></a>
  * [Content-Length](https://httpwg.github.io/specs/rfc7230.html#header.content-length)
-	- For messages that do include a payload body, the Content-Length field-value provides the framing information necessary for determining where the body (and message) ends.
+	- For messages that includes a payload body, the Content-Length field-value provides the framing information necessary to determine where the body (and message) ends.
 
-<a name="cookie"/>
+<a name="cookie"></a>
  * [Cookie](https://httpwg.github.io/specs/rfc6265.html)
-	-  The Cookie header contains cookies the user agent received in previous Set-Cookie headers. The origin server is free to ignore the Cookie header or use its contents for an application-defined purpose. (Related State Management).
+	-  The Cookie header contains cookies received by the user agent in previous Set-Cookie headers. The origin server is free to ignore the Cookie header or use its contents for an application-specific purpose. (Related State Management).
 
-<a name="host"/>
+<a name="host"></a>
  * [Host](https://httpwg.github.io/specs/rfc7230.html#header.host)
- 	- The "Host" header field in a request provides the host and port information from the target URI, enabling the origin server to distinguish among resources while servicing requests for multiple host names on a single IP address. In HTTP 1.1, browsers and other clients are required to specify this header, which indicates the host and port as given in the original URL. 
+ 	- The "Host" header field provides the host and port information from the target URI, enabling the origin server to distinguish among resources while serving requests for multiple host names on a single IP address. In HTTP 1.1, browsers and other clients are required to specify this header, which indicates the host and port as given in the original URL. 
 
-<a name="if-modified-since"/>
+<a name="if-modified-since"></a>
  * [If-Modified-Since](https://httpwg.github.io/specs/rfc7232.html#header.if-modified-since)
-	- The "If-Modified-Since" header field makes a GET or HEAD request method conditional on the selected representation's modification date being more recent than the date provided in the field-value. Transfer of the selected representation's data is avoided if that data has not changed. So, indicates that the user agents wants the page only if it has been changes after the specified date. The server sends a 304 resource not modified if not has a newer result representation available.
+	- The "If-Modified-Since" header field makes a GET or HEAD request method conditional on the selected representation's modification date being more recent than the date provided in the field-value. Transfering of the selected representation's data is avoided if that data has not changed. So, indicates that the user agents wants the page only if it has been changes after the specified date. The server sends a 304 resource not modified if not has a newer result representation available.
 
-<a name="if-unmodified-since"/>
+<a name="if-unmodified-since"></a>
  * [If-Unmodified-Since](https://httpwg.github.io/specs/rfc7232.html#header.if-unmodified-since)
-	- The "If-Unmodified-Since" header field makes the request method conditional on the selected representation's last modification date being earlier than or equal to the date provided in the field-value.The the operation should succeed only if the document is older than the specified date. T
+	- The "If-Unmodified-Since" header field makes the request method conditional on the selected representation's last modification date being earlier than or equal to the date provided in the field-value. The operation should succeed only if the document is older than the specified date.
 
-Generally,If-Modified-Since is used for GET requests (“give me the document only if it is newer than my cached version”), whereas If-Unmodified-Since is used for PUT requests (“update this document only if nobody else has changed it since I generated it”). 
+Generally, If-Modified-Since is used for GET requests (“give me the document only if it is newer than my cached version”), whereas If-Unmodified-Since is used for PUT requests (“update this document only if nobody else has changed it since I generated it”). 
 
-<a name="referer"/>
+<a name="referer"></a>
  * [Referer](https://httpwg.github.io/specs/rfc7231.html#header.referer)
 	- The "Referer" header field allows the user agent to specify a URI reference for the resource from which the target URI was obtained (i.e., the "referrer", though the field name is misspelled). A user agent MUST NOT include the fragment and userinfo components of the URI reference [RFC3986], if any, when generating the Referer field value. This header indicates the URL of the referring Web page. 
 
 For example, if you are at Web page A and click on a link to Web page B, the URL of Web page A is
 included in the Referer header when the browser requests Web page B. 
 
-<a name="user-agent"/>
+<a name="user-agent"></a>
  * [User-Agent](https://httpwg.github.io/specs/rfc7231.html#header.user-agent)
- 	- The "User-Agent" header field contains information about the user agent originating the request, which is often used by servers to help identify the scope of reported interoperability problems, to work around or tailor responses to avoid particular user agent limitations, and for analytics regarding browser or operating system use.
+ 	- The "User-Agent" header field contains information about the user agent of the request, which is often used by servers to help identify the scope of reported interoperability problems, to work around or tailor responses to avoid particular user agent limitations, and for analytics regarding browser or operating system use or device.
 
-
-<a name="example"/>
+<a name="example"></a>
 #### Building a Table of All Request Headers
 
 The following [EWF service](./headers/header_fields/application.e) code simply uses an ```html_template``` to fill a table (names and values) with all the headers fields it receives.
-The service accomplishes this task by calling ```req.meta_variables``` feature to get an ```ITERABLE[WSF_STRING]```, an structure that can be iterated over using ```across...loop...end```, then it checkS if the name has the prefix ```HTTP_``` and if its true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
+The service accomplishes this task by calling ```req.meta_variables``` feature to get an ```ITERABLE [WSF_STRING]```, an structure that can be iterated over using ```across...loop...end```, then it checks if the name has the prefix ```HTTP_``` and if it is true, put the header name and value in a row. (the name in the left cell, the value in the right cell).
 
-The service also write three components of the main request line (method, URI, and protocol), and also the raw header. 
-
+The service also writes three components of the main request line (method, URI, and protocol), and also the raw header. 
 
 ```eiffel
 class
@@ -260,10 +256,10 @@ feature -- Basic operations
 				<body>
 				    <h1>EWF service example: Showing Request Headers</h1>
 				   
-				    <strong>HTTP METHOD:</strong>$http_method<br>
+				    <strong>HTTP METHOD:</strong>$http_method<br/>
 				    <strong>URI:</strong>$uri<br>
-				    <strong>PROTOCOL:</strong>$protocol<br>
-				    <strong>REQUEST TIME:</strong>$time<br>
+				    <strong>PROTOCOL:</strong>$protocol<br/>
+				    <strong>REQUEST TIME:</strong>$time<br/>
 				     
 				    <br> 
 					<table>
@@ -288,18 +284,18 @@ feature -- Basic operations
 end
 ```
 
-<a name="compress"/>
+<a name="compress"></a>
 #### How to compress pages
 To be completed.
 
 
-<a name="browser-types"/>
+<a name="browser-types"></a>
 
 #### Detecting Browser Types
 
-The User-Agent header identifies the specific browser that is making the request. The following code shows a [EWF service](./headers/browser_name/application.e) that sends browser-specific responses.
+The User-Agent header identifies the specific browser/client that is sending the request. The following code shows a [EWF service](./headers/browser_name/application.e) that sends browser-specific responses.
 The examples uses the ideas based on the [Browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Browser_detection_using_the_user_agent) article.
-Basically the code check if the header user_agent exist and then call the ```get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32```
+Basically the code check if the header user_agent exist and then call the ```browser_name (a_user_agent: READABLE_STRING_8): READABLE_STRING_32```
 feature to retrieve the current browser name or Unknown in other case. 
 
 ```eiffel
@@ -339,7 +335,7 @@ feature -- Basic operations
 					-- retrieve the user-agent
 				if attached req.http_user_agent as l_user_agent then
 					l_page_response.replace_substring_all ("$user_agent", l_user_agent)
-					l_page_response.replace_substring_all ("$browser", get_browser_name (l_user_agent))
+					l_page_response.replace_substring_all ("$browser", browser_name (l_user_agent))
 				else
 					l_page_response.replace_substring_all ("$user_agent", "[]")
 					l_page_response.replace_substring_all ("$browser", "Unknown, the user-agent was not present.")
@@ -352,7 +348,7 @@ feature -- Basic operations
 
 feature -- Browser utility
 
-	get_browser_name (a_user_agent: READABLE_STRING_8):READABLE_STRING_32
+	browser_name (a_user_agent: READABLE_STRING_8): READABLE_STRING_32
 			-- Browser name.
 			--						Must contain	Must not contain	
 			--	Firefox				Firefox/xyz		Seamonkey/xyz	
@@ -428,11 +424,11 @@ Chrome
 <h2> Enjoy using Chrome </h2>
 ```
 
-As an exercise try to write a similar service to retrieve the OS family using the User-Agent information.
+As an exercise, try to write a similar service to retrieve the OS family using the User-Agent information.
 
-<a name="cgi-variables"/>
+<a name="cgi-variables"></a>
 
-[Meta-variables](https://tools.ietf.org/html/rfc3875#section-4.1) contain data about the request, they are identified by case-insensitive names.In this section, the purpose is show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
+[Meta-variables](https://tools.ietf.org/html/rfc3875#section-4.1) contains data about the request, they are identified by case-insensitive names. In this section, the purpose is to show a similar example to HEADERS FIELDS, but in this case building a table showing the standard CGI variables.
 
 
 	* [AUTH_TYPE](https://tools.ietf.org/html/rfc3875#section-4.1.1).
@@ -452,7 +448,7 @@ As an exercise try to write a similar service to retrieve the OS family using th
 	* [SERVER_PROTOCOL](https://tools.ietf.org/html/rfc3875#section-4.1.15)
 	* [SERVER_SOFTWARE](https://tools.ietf.org/html/rfc3875#section-4.1.16)
 
-An [ewf service](./headers/cgi_variables/application.e) that shows the CGI variables, creates a table showing the values of all the CGI variables.
+An [EWF service](./headers/cgi_variables/application.e) that shows the CGI variables, creates a table showing the values of all the CGI variables.
 
 
 Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query parameters] (/workbook/handling_request/form.md) | [Generating Responses](/workbook/generating_response/generating_response.md)
