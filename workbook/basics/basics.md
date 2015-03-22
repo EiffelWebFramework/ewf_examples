@@ -14,7 +14,7 @@ Nav: [Workbook](../workbook.md) | [Handling Requests: Form/Query Parameter](/wor
 <a name="structure"/>
 ## EWF service structure
 
-The following code describe the basic structure of an EWF basic service that handle HTTP requests.
+The following code describes the basic structure of an EWF basic service that handles HTTP requests.
 
 ```eiffel
 class
@@ -40,8 +40,8 @@ feature -- Basic operations
 end
 ```
 
-By default the service run on port 80, but generally this port is already busy, so it is recommended to use another port.
-So to achieve that it is needed to redefine the feature `initialize' and set up a new port number using the service options.
+When using the "nino" connector, by default the service listens on port 80, but often this port is already used by other applications, so it is recommended to use another port.
+To define another port, redefine the feature `initialize' and set up a new port number using the service options (see below).
 
 ```eiffel
 class
@@ -79,26 +79,26 @@ feature -- Basic operations
 end
 ```
 
-The **WSF_REQUEST** lets obtain at all of the incoming data; the class has features by which it is possible look for information such as request method, form data, query parameters, HTTP request headers, and the client’s hostname. 
-The **WSF_RESPONSE** lets specify response information such as HTTP status codes (10x,20x, 30x, 40x, and 50x) and response headers (Content-Type,Content-Length, etc.).
+The **WSF_REQUEST** gives access to the incoming data; the class provides features to get information such as request method, form data, query parameters, uploaded files, HTTP request headers, and hostname of the client among others. 
+The **WSF_RESPONSE** provides features to define the response with information such as HTTP status codes (10x,20x, 30x, 40x, and 50x), response headers (Content-Type, Content-Length, etc.) and obviously the body of the message itself.
 
-The **SERVICE_TEMPLATE** class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it cgi, fcgi or Nino. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
+**SERVICE_TEMPLATE** is the root class of our example, it launches the application, using the corresponding connector, Which connector? this depends how you want to run it cgi, fcgi or nino. For development is recommended to use Nino, a standalone web server written in Eiffel, and run the execution within the EiffelStudio debugger. For production fcgi (or cgi) using Apache or another popular web server.
 
-Our **SERVICE_TEMPLATE** class inherit from _WSF_DEFAULT_SERVICE_ class, which also inherit from others, let’s describe them in a few words.
+The **SERVICE_TEMPLATE** class inherits from _WSF_DEFAULT_SERVICE_ class, and this one also inherits from other interfaces. Let’s describe them in a few words.
 
 ![Service Template Hierarchy](/workbook/SERVICE_TEMPLATE.png "Service Template")
 
-**WS_LAUNCHABLE_SERVICE** inherit from **WS_SERVICE** class, which is the low level entry point in EWF, handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ). So it allow us to launch our application using different kind of connectors. Below a [BON diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors.
+**WS_LAUNCHABLE_SERVICE** inherit from **WS_SERVICE** class, which is the low level entry point in EWF, handling each incoming request with a single procedure ```execute (req: WSF_REQUEST; res: WSF_RESPONSE) ...```. And also provides a way to launch our application using different kind of connectors. Below a [BON diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors.
 
 ![Launcher Hierarchy](/app/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
 
-So a basic EWF service inherit from **WSF_DEFAULT_SERVICE** (there are other options see [?]).
-And then you just need to implement the **execute** feature, get data from the request *req* and write the response in *res*.
+A basic EWF service inherits from **WSF_DEFAULT_SERVICE** (for other options see [?]).
+And then you only need to implement the **execute** feature, get data from the request *req* and write the response in *res*.
 
 <a name="text"/>
 ## A simple Service to Generate Plain Text.
 
-Before to continue, it's recommended review the getting started guided.
+Before to continue, it is recommended to review the getting started guided.
 
 ```eiffel
 class
@@ -134,17 +134,17 @@ feature -- Basic operations
 
 end
 ```
-<a name=source_1>
+<a name="source_1"></a>
 ##### Source code
 The source code is available on Github. You can get it by running the command:
 
 ```git clone https://github.com/EiffelWebFramework/ewf_examples.git```
 
-The Simple Service to Generate Plain Text example is located in the directory $PATH/ewf_examples/workbook/basics/simple, where $PATH is where you run ```git clone``` . Just double click on the simple.ecf file and select the simple_nino target or if you prefer the command line, run the command:
+The example of simple service that generate plain text response is located in the directory $PATH/ewf_examples/workbook/basics/simple, where $PATH is where you run ```git clone``` . Just double click on the simple.ecf file and select the simple_nino target or if you prefer the command line, run the command:
 
 ```estudio -config simple.ecf -target simple_nino```
 
-<a name="html"/>
+<a name="html"></a>
 ## A Service to Generate HTML.
 To generate HTML, it's needed
 
@@ -203,7 +203,7 @@ The source code is available on Github. You can get it by running the command:
 
 ```git clone https://github.com/EiffelWebFramework/ewf_examples.git```
 
-The  Service to Generate HTML example is located in the directory $PATH/ewf_examples/workbook/basics/simple_html, where $PATH is where you run ```git clone``` . Just double click on the simple_html.ecf file and select the simple_html_nino target or if you prefer the command line, run the command:
+The example of the service that generates HTML is located in the directory $PATH/ewf_examples/workbook/basics/simple_html, where $PATH is where you run ```git clone``` . Just double click on the simple_html.ecf file and select the simple_html_nino target or if you prefer the command line, run the command:
 
 ```estudio -config simple_html.ecf -target simple_html_nino```
 
