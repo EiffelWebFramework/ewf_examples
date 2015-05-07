@@ -1,0 +1,19 @@
+Options +ExecCGI +Includes +FollowSymLinks -Indexes
+
+<IfModule mod_fcgid.c>
+	AddHandler fcgid-script .ews
+	FcgidWrapper C:/home/server/Apache24/htdocs/service.exe .ews
+</IfModule>
+
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteBase /
+  RewriteRule ^$ service.ews [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !$service.ews
+  RewriteRule ^(.*)$ service.ews/$1 
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+</IfModule>
