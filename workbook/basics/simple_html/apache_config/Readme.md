@@ -18,7 +18,7 @@ and copy the _mod_fcgid.so_ to C:/home/server/Apache24/modules
 
 ####Compile the project simple_html using the fcgi connector.
 
-	ec ­config simple_html.ecf ­target simple_html_fcgi ­finalize ­c_compile ­project_path .
+	ec -config simple_html.ecf -target simple_html_fcgi -finalize -c_compile -project_path .
 
 Copy the genereted exe to C:/home/server/Apache24/fcgi-bin folder.	
 
