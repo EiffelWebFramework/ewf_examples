@@ -7,7 +7,7 @@
 
 Check if you have _libfcgi.dll_ in your PATH.
 
-Add to httpd.conf the content, you can get the configuration file [here](/config.conf) 
+Add to httpd.conf the content, you can get the configuration file [here](config.conf) 
 
 ```
 LoadModule fcgid_module modules/mod_fcgid.so
