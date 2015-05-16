@@ -1,7 +1,7 @@
-#Run simple_html with FCGI and Apache on Windows.
+##Run simple_html with FCGI and Apache on Windows.
 
 
-##Compile the project
+###Compile the project simple_html using the fcgi connector.
 
 	ec ­config simple_html.ecf ­target simple_html_fcgi ­finalize ­c_compile ­project_path .
 
