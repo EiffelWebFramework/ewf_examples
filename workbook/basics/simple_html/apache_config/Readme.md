@@ -1,13 +1,13 @@
-Run simple_html with FCGI and Apache on Windows.
+#Run simple_html with FCGI and Apache on Windows.
 
 
-Compile the project
+##Compile the project
 
 	ec ­config simple_html.ecf ­target simple_html_fcgi ­finalize ­c_compile ­project_path .
 
-Check if you have libfcgi.dll in your PATH.
+Check if you have _libfcgi.dll_ in your PATH.
 
-Add to httpd.conf the content 
+Add to httpd.conf the content, you can get the configuration file [here](/config.conf) 
 
 ```
 LoadModule fcgid_module modules/mod_fcgid.so
@@ -21,7 +21,6 @@ LoadModule fcgid_module modules/mod_fcgid.so
   </Directory>
   ScriptAlias /simple "C:/home/server/Apache24/fcgi-bin/simple_html.exe"
 </IfModule>
-
 ```
 
 
