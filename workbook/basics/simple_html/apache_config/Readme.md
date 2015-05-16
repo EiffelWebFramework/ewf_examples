@@ -4,7 +4,7 @@
 
 ####Prerequisites
 
-* This tutorial was written for people working under Windows environment, and using Apache Server with FCGI conntector. 
+* This tutorial was written for people working under Windows environment, and using Apache Server with FCGI connector
 * Compile the ewf application from command line.
 * Assuming you have installed Apache Server under C:/home/server/Apache24.
 * Assuming you have placed your current project under C:/home/server/Apache24/fcgi-bin.
