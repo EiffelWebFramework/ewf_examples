@@ -2,7 +2,7 @@
 
 
 
-Prerequisites
+####Prerequisites
 
 * This tutorial was written for people working under Windows environment, and using Apache Server with FCCI server. 
 * Compile the ewf application from command line.
@@ -11,7 +11,7 @@ Prerequisites
 * Assuming you have setted the Listen to 8888, the defautl value is 80 .
 
 
-###Compile the project simple_html using the fcgi connector.
+####Compile the project simple_html using the fcgi connector.
 
 	ec ­config simple_html.ecf ­target simple_html_fcgi ­finalize ­c_compile ­project_path .
 
@@ -35,11 +35,11 @@ LoadModule fcgid_module modules/mod_fcgid.so
 </IfModule>
 ```
 
-Test if your httpd.cong is ok
-	httpd -t
+Test if your httpd.conf is ok
+>httpd -t
 
 Luanch the server
-	httpd
+>httpd
 
 Check the application
-    http://localhost:8888/simple
+>http://localhost:8888/simple
