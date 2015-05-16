@@ -11,6 +11,11 @@
 * Assuming you have setted the Listen to 8888, the defautl value is 80 .
 
 
+
+####FCGI module
+If you don't have the FCGI module installed, you can get it from https://www.apachelounge.com/download/, download the   module based on your platform [modules-2.4-win64-VC11.zip](https://www.apachelounge.com/download/VC11/modules/modules-2.4-win64-VC11.zip) or [modules-2.4-win32-VC11.zip](https://www.apachelounge.com/download/VC11/modules/modules-2.4-win32-VC11.zip), uncompress it
+and copy the _mod_fcgid.so_ to C:/home/server/Apache24/modules
+
 ####Compile the project simple_html using the fcgi connector.
 
 	ec ­config simple_html.ecf ­target simple_html_fcgi ­finalize ­c_compile ­project_path .
