@@ -25,7 +25,7 @@ Copy the genereted exe to C:/home/server/Apache24/fcgi-bin folder.
 Check if you have _libfcgi.dll_ in your PATH.
 
 
-####Apache configuaration
+####Apache configuration
 Add to httpd.conf the content, you can get the configuration file [here](config.conf) 
 
 ```
