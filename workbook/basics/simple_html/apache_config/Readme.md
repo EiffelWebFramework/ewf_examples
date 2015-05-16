@@ -1,4 +1,4 @@
-##Run simple_html with FCGI and Apache on Windows.
+##Run simple_html example on Apache with FCGI on Windows.
 
 
 
