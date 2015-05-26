@@ -1,5 +1,20 @@
 note
-	description : "Basic Service that Generate HTML using a Default Document Root"
+	description : "[
+		Basic Service that generates HTML using a Default Document Root
+		]"
+	synopsis: "[
+		The {WSF_DEFAULT_SERVICE} is used and initialized without the need of an "ewi.ini"
+		configuration file. Instead, the service has its options set by a direct call(s) on
+		`set_service_option'—here, setting the listening "port" to 9090. There are other
+		`service_options' "settings" one can make. See _______ for more information on those
+		settings, valid options, and valid values.
+		
+		The way {WSF_DEFAULT_SERVICE} is being used, means we will be using the Nino HTTPD
+		Web Server to catch client browser requests and to send responses back. Therefore,
+		the compiled (Finalized) EXE will have its "root" directory or folder located at
+		whatever directory it is executed in or where a Windows shortcut links is pointed
+		at using the "Start-in" setting.
+		]"
 	date        : "$Date$"
 	revision    : "$Revision$"
 
@@ -19,6 +34,11 @@ feature {NONE} -- Initialization
 
 	initialize
 			-- Initialize current service.
+		note
+			synopsis: "[
+				The call to `set_service_option' (below) is in place of using an `ewf.ini'
+				(or other *.ini) file.
+				]"
 		do
 			set_service_option ("port", 9090)
 		end
@@ -26,7 +46,29 @@ feature {NONE} -- Initialization
 feature -- Basic operations
 
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
-			-- Execute the incomming request
+			-- Execute the incoming request.
+		note
+			synopsis: "[
+				If one examines the `web_page' feature first, one will note that the web page contains an image.
+				The cycle-of-action here is:
+				
+				(1) The client browser makes a request for the `web_page'.
+				(2) Our Eiffel web server responds by sending the page.
+				(3) The client browser parses the response and notices the resource—that is—the JPG file.
+					The browser makes a subsequent request for the resource.
+				(4) Our Eiffel web service see this request (i.e. the "else" condition) and responds by
+					sending the JPG file back to the client in a final response, so the client can
+					render our image file into the `web_page'.
+				
+				First—We look to the incoming request to determine what router path the request is targeted at. If
+				the request is about the base or root path of the service location (e.g. "/"), then we construct
+				a response (e.g. {WSF_FILE_RESPONSE} baed on it.
+				
+				Elsewise, we use an {EXECUTION_ENVIRONMENT} to construct a path (`p') from the `current_working_path'
+				and whatever subordinate pathing is held in the incoming `req' (request). From here, we create the
+				`fr' file response, giving it the type of the file (e.g. JPG) and the path, where the file is located.
+				This response is then sent through the `res' response object.
+				]"
 		local
 			fr: WSF_FILE_RESPONSE
 			e: EXECUTION_ENVIRONMENT
