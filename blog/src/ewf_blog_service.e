@@ -6,7 +6,7 @@ note
 	revision: "$Revision$"
 
 class
-	EWF_YOU_TYPE_IT
+	EWF_BLOG_SERVICE
 
 inherit
 
@@ -33,9 +33,7 @@ feature {NONE} -- Launch operation
 
 	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
 		local
-			l_retry: BOOLEAN
-			l_message: STRING
-			launcher: APPLICATION_LAUNCHER [EWF_YOU_TYPE_IT_EXECUTION]
+			launcher: APPLICATION_LAUNCHER [EWF_BLOG_EXECUTION]
 		do
 			create launcher
 			launcher.launch (opts)
