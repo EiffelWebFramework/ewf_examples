@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {APP_FS_DATABASE}."
-	author: ""
 	date: "$Date: 2013-06-11 16:19:59 -0300 (mar 11 de jun de 2013) $"
 	revision: "$Revision: 33 $"
 

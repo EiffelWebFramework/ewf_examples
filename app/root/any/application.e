@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {APPLICATION}."
-	author: ""
 	date: "$Date: 2013-06-12 08:55:42 -0300 (mié 12 de jun de 2013) $"
 	revision: "$Revision: 36 $"
 
@@ -25,7 +24,6 @@ feature {NONE} -- Initialization
 			if is_standalone then
 				set_service_option ("port", 9090)
 				set_service_option ("verbose", True)
---				create {WSF_SERVICE_LAUNCHER_OPTIONS_FROM_INI} service_options.make_from_file_and_defaults ("server.ini", service_options)
 			end
 			Precursor
 		end
@@ -62,17 +60,18 @@ feature {NONE} -- Launcher
 
 	is_libfcgi: BOOLEAN
 
-	launch (a_service: WSF_SERVICE; opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
+	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
 		local
-			launcher: WSF_SERVICE_LAUNCHER
+			launcher: WSF_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]
 		do
 			if is_cgi then
-				create {WSF_CGI_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_CGI_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
 			elseif is_libfcgi then
-				create {WSF_LIBFCGI_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_LIBFCGI_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
 			else
-				create {WSF_NINO_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_NINO_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
 			end
 		end
+
 
 end
