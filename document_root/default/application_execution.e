@@ -28,7 +28,7 @@ feature -- Basic operations
 				response.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", web_page.count.out]>>)
 				response.put_string (web_page)
 			else
-					-- Basic example to show how to serve files from our default document root.
+					-- Basic example to show how to serve files from our default application root.
 				create e
 				p := e.current_working_path.appended (request.request_uri)
 				create fr.make_with_content_type_and_path ({HTTP_CONSTANTS}.image_jpg, p)

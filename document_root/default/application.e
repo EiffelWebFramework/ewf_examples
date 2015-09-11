@@ -1,5 +1,5 @@
 note
-	description : "Basic Service that Generate HTML using a Default Document Root"
+	description : "Basic Service that Generate HTML using a Default Application Root"
 	date        : "$Date$"
 	revision    : "$Revision$"
 
