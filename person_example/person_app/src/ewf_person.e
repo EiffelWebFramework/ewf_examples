@@ -9,12 +9,12 @@ class
 	EWF_PERSON
 
 inherit
+
 	PERSON_REST_SERVER
 		redefine
 			initialize
 		end
 
-	APPLICATION_LAUNCHER
 
 create
 	make_and_launch
@@ -24,9 +24,18 @@ feature {NONE} -- Initialization
 	initialize
 			-- Initialize current service.
 		do
-
 			set_service_option ("port", 9090)
 			Precursor
+		end
+
+feature {NONE} -- Launch operation
+
+	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
+		local
+			launcher: APPLICATION_LAUNCHER [EWF_PERSON_EXECUTION]
+		do
+			create launcher
+			launcher.launch (opts)
 		end
 
 

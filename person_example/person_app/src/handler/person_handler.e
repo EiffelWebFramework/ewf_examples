@@ -25,19 +25,20 @@ inherit
 
 	WSF_SELF_DOCUMENTED_HANDLER
 
-	PERSON_EXPOSER_PERSISTENCE
-		rename
-			make as make_te_persistance
-		end
 
 create
 	make
 
 feature {NONE}
-	make
+	make (a_storage: PERSON_EXPOSER_PERSISTENCE)
 		do
-			make_te_persistance
+			storage := a_storage
+		ensure
+			storage_set: storage = a_storage
 		end
+
+	storage:  PERSON_EXPOSER_PERSISTENCE
+		-- person storage
 
 feature -- Execute
 
@@ -138,7 +139,7 @@ feature -- HTTP Methods
 			create etag_utils
 			create etj.make
 			from
-				l_list := all_persons
+				l_list := storage.all_persons
 				l_list.start
 				create l_items.make_empty
 			until
@@ -346,13 +347,13 @@ feature {NONE} -- Implementation Repository Layer
 	retrieve_person (name: READABLE_STRING_GENERAL): detachable PERSON_EXPOSER
 			-- get the person by username if it exist, in other case, Void
 		do
-			Result := person_by_username (name)
+			Result := storage.person_by_username (name)
 		end
 
 	new_person (a_person: PERSON_EXPOSER)
 			-- save the task to the repository
 		do
-			new (a_person)
+			storage.new (a_person)
 		end
 
 	is_valid_to_delete (username: READABLE_STRING_GENERAL): BOOLEAN
@@ -374,13 +375,13 @@ feature {NONE} -- Implementation Repository Layer
 	update_person (a_person: PERSON_EXPOSER)
 			-- update the a_person to the repository
 		do
-			update (a_person)
+			storage.update (a_person)
 		end
 
 	delete_person (a_person :PERSON_EXPOSER)
 			-- delete a person
 		do
-			delete (a_person)
+			storage.delete (a_person)
 		end
 
 	extract_person_request (l_post: STRING): detachable PERSON_EXPOSER
