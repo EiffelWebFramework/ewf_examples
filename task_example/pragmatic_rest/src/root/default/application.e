@@ -23,16 +23,7 @@ feature {NONE} -- Initialization
 		do
 			set_service_option ("port", 9999)
 			set_service_option ("verbose", True)
-			Precursor
 		end
 
-feature {NONE} -- Launcher
-
-	launch (a_service: WSF_SERVICE; opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
-		local
-			launcher: WSF_SERVICE_LAUNCHER
-		do
-			create {WSF_DEFAULT_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
-		end
 
 end
