@@ -9,12 +9,14 @@
 		<option warning="true" full_class_checking="false" is_attached_by_default="true" void_safety="transitional" syntax="transitional">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
+		<setting name="concurrency" value="thread"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="http" location="$ISE_LIBRARY\contrib\library\network\protocol\http\http-safe.ecf"/>
 		<library name="smarty" location="$ISE_LIBRARY\contrib\library\text\template\smarty\smarty-safe.ecf"/>
 		<library name="time" location="$ISE_LIBRARY\library\time\time-safe.ecf"/>
 		<library name="wsf" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\wsf-safe.ecf"/>
 		<library name="json" location="$ISE_LIBRARY/contrib/library/text/parser/json/library/json-safe.ecf" readonly="false"/>
+		<library name="zlib" location="$ISE_LIBRARY\unstable\library\compression\zlib\zlib-safe.ecf" readonly="false"/>
 	</target>
 	<target name="youtypeit_any" extends="common">
 		<root class="EWF_YOU_TYPE_IT" feature="make_and_launch"/>
@@ -24,9 +26,9 @@
 		<cluster name="launcher" location=".\launcher\any\" recursive="true"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
-	<target name="youtypeit_nino" extends="common">
+	<target name="youtypeit_standalone" extends="common">
 		<root class="EWF_YOU_TYPE_IT" feature="make_and_launch"/>
-		<library name="default_nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\nino-safe.ecf"/>
+		<library name="default_standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\standalone-safe.ecf"/>
 		<cluster name="launcher" location=".\launcher\default\" recursive="true"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
@@ -42,6 +44,6 @@
 		<cluster name="launcher" location=".\launcher\default\" recursive="true"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
-	<target name="youtypeit" extends="youtypeit_nino">
+	<target name="youtypeit" extends="youtypeit_standalone">
 	</target>
 </system>
