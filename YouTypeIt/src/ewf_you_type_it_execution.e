@@ -234,7 +234,7 @@ feature {NONE} -- Initialization
  			h.put_content_type_text_html
 
 				-- Compress data iff is supported.
- 			if attached apply_compression (req, h, l_msg) as l_compress_content then
+ 			if attached generated_compressed_output (req, h, l_msg) as l_compress_content then
  				l_msg := l_compress_content
  			end
 
@@ -329,7 +329,7 @@ feature {NONE} -- Initialization
 
 feature -- Support Compress
 
-	apply_compression (req: WSF_REQUEST; h: HTTP_HEADER; l_msg: STRING): detachable STRING
+	generated_compressed_output (req: WSF_REQUEST; h: HTTP_HEADER; l_msg: STRING): detachable STRING
 			-- If the client support compression and the server support one of the algorithms
 			-- compress it and update the response header.
 		do

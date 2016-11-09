@@ -39,7 +39,7 @@ feature -- process
 			end
 				-- Compression
 			create h.make
-			if attached apply_file_compression (req, f, h) as l_content  then
+			if attached generated_compressed_output (req, f, h) as l_content  then
 				h.put_content_type (ct)
 				h.put_content_length (l_content.count)
 
@@ -87,7 +87,7 @@ feature -- Process File
 
 feature -- Support Compress
 
-	apply_file_compression (req: WSF_REQUEST; f:FILE; h: HTTP_HEADER): detachable STRING
+	generated_compressed_output (req: WSF_REQUEST; f:FILE; h: HTTP_HEADER): detachable STRING
 			-- If the client support compression and the server support one of the algorithms
 			-- compress it and update the response header.
 		local
