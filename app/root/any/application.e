@@ -30,7 +30,7 @@ feature {NONE} -- Initialization
 
 	initialize_launcher_nature
 			-- Initialize the launcher nature
-			-- either cgi, libfcgi, or nino.
+			-- either cgi, libfcgi, or standalone.
 			--| We could extend with more connector if needed.
 			--| and we could use WSF_DEFAULT_SERVICE_LAUNCHER to configure this at compilation time.
 		local
@@ -69,7 +69,7 @@ feature {NONE} -- Launcher
 			elseif is_libfcgi then
 				create {WSF_LIBFCGI_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
 			else
-				create {WSF_NINO_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
+				create {WSF_STANDALONE_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]} launcher.make_and_launch (opts)
 			end
 		end
 

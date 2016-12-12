@@ -29,11 +29,11 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Launcher
 
-	launch (a_service: WSF_SERVICE; opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
+	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
 		local
-			launcher: WSF_SERVICE_LAUNCHER
+			launcher: WSF_DEFAULT_SERVICE_LAUNCHER [APP_SERVICE_EXECUTION]
 		do
-			create {WSF_DEFAULT_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+			create launcher.make_and_launch (opts)
 		end
 
 end

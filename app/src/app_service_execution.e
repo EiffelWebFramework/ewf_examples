@@ -42,15 +42,15 @@ feature {NONE} -- Initialization
 			doc: WSF_ROUTER_SELF_DOCUMENTATION_HANDLER
 		do
 			create doc.make (router)
-			router.handle_with_request_methods ("/api/doc", doc, router.methods_GET)
-			map_uri_template_agent_with_request_methods ("/api/message/time/now", agent handle_time_now_utc, router.methods_GET)
-			map_uri_template_agent_with_request_methods ("/api/message/hover/{name}", agent handle_hover_message, router.methods_GET)
-			map_uri_template_agent_with_request_methods ("/api/session/{session}/item/{name}", agent handle_interface_id_set_value, router.methods_POST)
---			map_uri_template_agent_with_request_methods ("/api/session/{session}/item/{name}", agent handle_interface_id_get_text, router.methods_GET)
+			router.handle ("/api/doc", doc, router.methods_GET)
+			map_uri_template_agent ("/api/message/time/now", agent handle_time_now_utc, router.methods_GET)
+			map_uri_template_agent ("/api/message/hover/{name}", agent handle_hover_message, router.methods_GET)
+			map_uri_template_agent ("/api/session/{session}/item/{name}", agent handle_interface_id_set_value, router.methods_POST)
+--			map_uri_template_agent ("/api/session/{session}/item/{name}", agent handle_interface_id_get_text, router.methods_GET)
 			map_uri_template_agent ("/api/{operation}", agent handle_api, router.all_allowed_methods)
 			create fhdl.make_hidden ("www")
 			fhdl.set_directory_index (<<"index.html">>)
-			router.handle_with_request_methods ("", fhdl, router.methods_GET)
+			router.handle ("", fhdl, router.methods_GET)
 		end
 
 feature -- Access
