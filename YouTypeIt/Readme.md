@@ -3,7 +3,6 @@ Example from RESTful Web APIs [http://restfulwebapis.org/ytiwpi.html]
 
 EiffelWeb code for the examples in O'Reilly's "RESTful Web APIs".
 
-
 You Type It, We Post It
 -----------------------
 <table>
@@ -17,7 +16,7 @@ You Type It, We Post It
 
 
 Web Site, Programmable API
------------------------
+---
 
 <table>
     <tr>
