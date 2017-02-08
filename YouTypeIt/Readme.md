@@ -50,5 +50,6 @@ Post a new message using the API, to do that we will need to send a POST request
 In the image we can see the response status 201, that means the resource was created.  
 ![alt tab](./img/POST_API.png) 
 
-Finally we can get the root resouce and we will see the previous created message as part of it
+Finally we can get the root resource and we will see the previous created message as part of it, also you can navigate to a particular
+message doing a request like that `GET GET http://localhost:8888/api/${messsageid}` where messageid is the unique id representing a message.
 ![alt tab](./img/GET_AFTER_POST.png) 
