@@ -11,10 +11,10 @@ You Type It, We Post It
         <td>A microblogging website with a programmable
             Collection+JSON API</td>
     </tr>
- </table>
+</table>
 
-You Type It, We Post It
------------------------
+WebSite, Programmable API URIs
+------------------------------
 
 <table>
     <tr>
