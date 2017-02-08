@@ -33,6 +33,8 @@ Using the Collection+JSON API
 -----------------------------
 To test the programmable API you can use an HTTP client (curl for example) or Postman []
  
+ 
+![alt tab](./img/GET_API_ROOT.png) 
 ``` 
 {
   "template" : {
