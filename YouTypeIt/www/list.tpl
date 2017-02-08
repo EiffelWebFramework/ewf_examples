@@ -14,7 +14,7 @@
         </p>
         
         <form action="{$host/}/messages" method="post">
-            <input type="text" name="message" value="" required="true" maxlength="6"/>
+            <input type="text" name="message" value="" required="true"/>
             <input type="submit" />
         </form>
 

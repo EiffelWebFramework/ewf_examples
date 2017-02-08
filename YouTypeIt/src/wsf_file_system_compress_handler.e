@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {WSF_FILE_SYSTEM_COMPRESS_HANDLER}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

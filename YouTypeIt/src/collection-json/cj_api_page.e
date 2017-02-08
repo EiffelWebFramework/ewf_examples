@@ -24,7 +24,6 @@ feature {NONE} --Initialization
 			p: PATH
 			l_item: STRING
 			l_template: STRING
-			l_message: MESSAGES
 		do
 			create p.make_current
 			p := p.appended ("/www")
@@ -68,9 +67,7 @@ feature {NONE} --Initialization
 			-- Initialize `Current'.
 		local
 			p: PATH
-			l_item: STRING
 			l_template: STRING
-			l_message: MESSAGES
 		do
 			create p.make_current
 			p := p.appended ("/www")

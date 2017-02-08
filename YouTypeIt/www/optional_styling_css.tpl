@@ -1,9 +1,9 @@
     <!-- Bootstrap core CSS -->
-    <!--
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
-    -->
-    <link href="{$host/}/bootstrap.min.css" rel="stylesheet" />
     
+    <!--
+    <link href="{$host/}/bootstrap.min.css" rel="stylesheet" />
+    -->
     <!-- Custom styles for this template -->
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->

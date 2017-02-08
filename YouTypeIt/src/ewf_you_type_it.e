@@ -34,8 +34,6 @@ feature {NONE} -- Launch operation
 
 	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
 		local
-			l_retry: BOOLEAN
-			l_message: STRING
 			launcher: APPLICATION_LAUNCHER [EWF_YOU_TYPE_IT_EXECUTION]
 		do
 			create launcher

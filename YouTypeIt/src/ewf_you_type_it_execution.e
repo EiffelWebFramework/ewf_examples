@@ -24,6 +24,8 @@ inherit
 
 	SHARED_COMPRESSION
 
+	JSON_PARSER_ACCESS
+
 
 create
 	make
@@ -46,20 +48,20 @@ feature {NONE} -- Initialization
  		do
 
  				 -- HTML uri/uri templates.
- 			map_uri_agent_with_request_methods ("/", agent handle_home_page, router.methods_GET)
- 			map_uri_agent_with_request_methods ("/about", agent handle_about_page, router.methods_GET)
- 			map_uri_agent_with_request_methods ("/messages", agent handle_messages_page, router.methods_get_post)
- 			map_uri_template_agent_with_request_methods ("/messages/{id}", agent handle_item_page, router.methods_get)
+ 			map_uri_agent ("/", agent handle_home_page, router.methods_GET)
+ 			map_uri_agent ("/about", agent handle_about_page, router.methods_GET)
+ 			map_uri_agent ("/messages", agent handle_messages_page, router.methods_get_post)
+ 			map_uri_template_agent ("/messages/{id}", agent handle_item_page, router.methods_get)
 
  				 -- API collection+json uri/uri templates.
- 			map_uri_agent_with_request_methods ("/api", agent handle_api_page, router.methods_get_post)
- 			map_uri_template_agent_with_request_methods ("/api/{id}", agent handle_api_item, router.methods_get_post)
+ 			map_uri_agent ("/api", agent handle_api_page, router.methods_get_post)
+ 			map_uri_template_agent ("/api/{id}", agent handle_api_item, router.methods_get_post)
 
  			create doc.make (router)
  			create fhdl.make_hidden ("www")
  			fhdl.set_directory_index (<<"index.html">>)
- 			router.handle_with_request_methods ("/", fhdl, router.methods_GET)
- 			router.handle_with_request_methods ("/apis/doc", doc, router.methods_GET)
+ 			router.handle ("/", fhdl, router.methods_GET)
+ 			router.handle ("/apis/doc", doc, router.methods_GET)
  		end
 
  feature  -- Handle HTML pages
@@ -147,8 +149,8 @@ feature {NONE} -- Initialization
  						end
  					elseif req.is_post_request_method then
  							l_post := retrieve_data (req)
- 							create parser.make_parser (l_post)
- 							if attached {JSON_OBJECT} parser.parse as jv and parser.is_parsed then
+ 							create parser.make_with_string (l_post)
+ 							if attached {JSON_OBJECT} parser.next_parsed_json_value as jv and parser.is_valid then
  								create l_time.make_now_utc
  								if attached {JSON_OBJECT}jv.item ("template") as l_template and then
  									attached {JSON_ARRAY}l_template.item ("data") as l_data and then
@@ -190,15 +192,15 @@ feature {NONE} -- Initialization
  						end
  					elseif req.is_post_request_method then
  							l_post := retrieve_data (req)
- 							create parser.make_parser (l_post)
- 							if attached {JSON_OBJECT} parser.parse as jv and parser.is_parsed then
+ 							create parser.make_with_string (l_post)
+ 							if attached {JSON_OBJECT} parser.next_parsed_json_value as jv and parser.is_valid then
  								create l_time.make_now_utc
  								if attached {JSON_OBJECT}jv.item ("template") as l_template and then
  									attached {JSON_ARRAY}l_template.item ("data") as l_data and then
  									attached {JSON_OBJECT} l_data.i_th (1) as l_form_data and then
  									attached {JSON_VALUE} l_form_data.item ("value") as l_value then
  										database.put (l_value.representation, l_time)
- 										compute_response_api_create (req, res, req.absolute_script_url ("/api/"+l_time.time.compact_time.out))
+ 										compute_response_api_create (req, res, req.absolute_script_url ("/api"+ "/"+l_time.time.compact_time.out))
  								end
  							end
  					else
@@ -305,6 +307,7 @@ feature {NONE} -- Initialization
  			end
  			res.set_status_code ({HTTP_STATUS_CODE}.see_other)
  			res.put_header_text (h.string)
+ 			res.put_string (l_msg)
  		end
 
 
@@ -325,6 +328,7 @@ feature {NONE} -- Initialization
  			end
  			res.set_status_code ({HTTP_STATUS_CODE}.created)
  			res.put_header_text (h.string)
+ 			res.put_string (l_msg)
  		end
 
 feature -- Support Compress
