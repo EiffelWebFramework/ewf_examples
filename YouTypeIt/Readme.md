@@ -13,10 +13,8 @@ You Type It, We Post It
     </tr>
  </table>
 
-
-
 Web Site, Programmable API
----
+--------------------------
 
 <table>
     <tr>
