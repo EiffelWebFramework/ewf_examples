@@ -31,10 +31,13 @@ WebSite, Programmable API URIs
 
 Using the Collection+JSON API
 -----------------------------
-To test the programmable API you can use an HTTP client (curl for example) or Postman []
+To test the programmable API you can use an HTTP client (curl for example) or Postman [https://www.getpostman.com/]
  
- 
+In the following image we show how to access the root of the programable API.  `GET http://localhost:8888/api` 
+as a response we get a response with Collection+JSON format. 
 ![alt tab](./img/GET_API_ROOT.png) 
+
+Post a new message using the API, to do that we will need to send a POST request using the Collection+JSON template format
 ``` 
 {
   "template" : {
@@ -44,3 +47,8 @@ To test the programmable API you can use an HTTP client (curl for example) or Po
   }
 }
 ```
+In the image we can see the response status 201, that means the resource was created.  
+![alt tab](./img/POST_API.png) 
+
+Finally we can get the root resouce and we will see the previous created message as part of it
+![alt tab](./img/GET_AFTER_POST.png) 
