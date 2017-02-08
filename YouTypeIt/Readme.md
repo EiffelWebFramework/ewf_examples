@@ -13,8 +13,8 @@ You Type It, We Post It
     </tr>
  </table>
 
-WebSite, Programmable API URIs
---------------------------------
+You Type It, We Post It
+-----------------------
 
 <table>
     <tr>
