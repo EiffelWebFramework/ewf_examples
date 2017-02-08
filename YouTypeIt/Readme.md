@@ -9,11 +9,12 @@ You Type It, We Post It
     <tr>
         <td>/YouTypeIt/</td>
         <td>A microblogging website with a programmable
-            Collection+JSON API.</td>
+            Collection+JSON API</td>
     </tr>
  </table>
 
-##WebSite, Programmable API URIs
+WebSite, Programmable API URIs
+--------------------------------
 
 <table>
     <tr>
