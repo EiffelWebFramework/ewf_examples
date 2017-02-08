@@ -3,20 +3,18 @@ Example from RESTful Web APIs [http://restfulwebapis.org/ytiwpi.html]
 
 EiffelWeb code for the examples in O'Reilly's "RESTful Web APIs".
 
-
 You Type It, We Post It
 -----------------------
 <table>
     <tr>
         <td>/YouTypeIt/</td>
         <td>A microblogging website with a programmable
-            Collection+JSON API.</td>
+            Collection+JSON API</td>
     </tr>
- </table>
+</table>
 
-
-Web Site, Programmable API
--------------------------- 
+WebSite, Programmable API URIs
+------------------------------
 
 <table>
     <tr>
@@ -35,6 +33,7 @@ Using the Collection+JSON API
 -----------------------------
 To test the programmable API you can use an HTTP client (curl for example) or Postman []
  
+``` 
 {
   "template" : {
     "data" : [
@@ -42,3 +41,4 @@ To test the programmable API you can use an HTTP client (curl for example) or Po
     ]
   }
 }
+```
