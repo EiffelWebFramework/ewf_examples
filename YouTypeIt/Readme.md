@@ -36,7 +36,7 @@ Using the Collection+JSON API
 -----------------------------
 To test the programmable API you can use an HTTP client (curl for example) or Postman []
  
-<code> 
+``` 
 {
   "template" : {
     "data" : [
@@ -44,4 +44,4 @@ To test the programmable API you can use an HTTP client (curl for example) or Po
     ]
   }
 }
-</code>
+```
