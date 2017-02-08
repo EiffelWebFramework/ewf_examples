@@ -13,8 +13,8 @@ You Type It, We Post It
     </tr>
  </table>
 
-Web Site, Programmable API
---------------------------
+WebSite, Programmable API URIs
+------------------------------
 <table>
     <tr>
         <td>http/localhost:8888</td>
