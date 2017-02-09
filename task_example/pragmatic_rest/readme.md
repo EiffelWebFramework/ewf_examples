@@ -155,9 +155,7 @@ command `GET an specific task`.
 
 CREATE a new task
 ---
-command: `-- CREATE a new Task
-#>curl -X POST -i -H "Accept: application/json" -d "{\"description\": \"Fix database\",\"completed\": \"False\"}" http://localhost:9999/tasks
-`
+command: `curl -X POST -i -H "Accept: application/json" -d "{\"description\": \"Fix database\",\"completed\": \"False\"}" http://localhost:9999/tasks`
 
 Update a task
 ---
