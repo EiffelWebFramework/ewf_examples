@@ -47,3 +47,12 @@ Identifying the State Transitions
  * Details of an error, if exists.
 
 
+
+## Hypermedia API using Collection+JSON
+[Hypermedia API](./hypermedia_cj/readme.md) 
+
+<a name="deployment"></a>
+
+## Pragmatic REST
+[Pragmatic REST](./pragmatic_rest/readme.md) 
+
