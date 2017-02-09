@@ -140,5 +140,30 @@ ask Protocol
 
 GET all tasks
 ---
-command: `curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks`
+command: `curl -X GET -i -H "Accept: application/json" http://localhost:9999/tasks`
 
+GET an specific task
+---
+command: `curl -X GET -i -H "Accept: application/json" http://localhost:9999/tasks/{id}`
+Where {id} is the task id.
+
+DELETE a task
+---
+command: `curl -X DELETE -i -H "Accept: application/json" http://localhost:9999/tasks/{id}`
+Where {id} is the task id, before to use this command you can check if the task exist using the
+command `GET an specific task`.
+
+CREATE a new task
+---
+command: `-- CREATE a new Task
+#>curl -X POST -i -H "Accept: application/json" -d "{\"description\": \"Fix database\",\"completed\": \"False\"}" http://localhost:9999/tasks
+`
+
+Update a task
+---
+command: `curl -X PUT -i -H "Accept: application/json" -d "{\"id\":15,\"description
+\":\"Fix database Oracle\",\"completed\":\"False\",\"created_at\":\"1970-01-01 0
+0:00:00\",\"date_due\":\"2013-07-23 00:00:00\"}" http://localhost:9999/tasks/{id}`
+
+Where {id} is the task id, before to use this command you can check if the task exist using the
+command `GET an specific task`.
