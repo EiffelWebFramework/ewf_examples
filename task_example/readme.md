@@ -40,10 +40,10 @@ end -- class TASK
 Identifying the State Transitions
 ----
 
-#The collection of tasks
-#A single task in the list
-#A list of possible queries that can be executed against the tasks list
-#A template or blueprint for adding or editing tasks
-#Details of an error, if exists.
+# The collection of tasks
+# A single task in the list
+# A list of possible queries that can be executed against the tasks list
+# A template or blueprint for adding or editing tasks
+# Details of an error, if exists.
 
 
