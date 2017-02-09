@@ -9,10 +9,9 @@ class
 
 inherit
 	PRAGMATIC_REST_SERVER
-		rename
-			launch as launch_ds
 		redefine
-			initialize
+			initialize,
+			launch
 		end
 	SHARED_EXECUTION_ENVIRONMENT
 

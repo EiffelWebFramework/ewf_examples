@@ -8,10 +8,12 @@ class
 	APPLICATION
 
 inherit
-	HYPERMEDIA_REST_SERVICE
+	HYPERMEDIA_REST_SERVER
 		redefine
-			initialize
+			initialize,
+			launch
 		end
+	SHARED_EXECUTION_ENVIRONMENT
 
 create
 	make_and_launch
@@ -57,17 +59,19 @@ feature {NONE} -- Launcher
 
 	is_libfcgi: BOOLEAN
 
-	launch (a_service: WSF_SERVICE; opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
+
+	launch (opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
 		local
-			launcher: WSF_SERVICE_LAUNCHER
+			launcher: WSF_SERVICE_LAUNCHER[HYPERMEDIA_REST_EXECUTION]
 		do
 			if is_cgi then
-				create {WSF_CGI_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_CGI_SERVICE_LAUNCHER[HYPERMEDIA_REST_EXECUTION]} launcher.make_and_launch (opts)
 			elseif is_libfcgi then
-				create {WSF_LIBFCGI_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_LIBFCGI_SERVICE_LAUNCHER[HYPERMEDIA_REST_EXECUTION]} launcher.make_and_launch (opts)
 			else
-				create {WSF_NINO_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
+				create {WSF_STANDALONE_SERVICE_LAUNCHER[HYPERMEDIA_REST_EXECUTION]} launcher.make_and_launch (opts)
 			end
 		end
+
 
 end

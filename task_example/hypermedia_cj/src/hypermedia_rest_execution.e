@@ -5,39 +5,23 @@ note
 	EIS: "name=REST APIs", "src=http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven", "protocol=url"
 	EIS: "name=Hypermedia Controls", "src=http://blueprintforge.com/blog/2012/01/01/a-short-explanation-of-hypermedia-controls-in-restful-services/", "protocol=url"
 
-deferred class
-	HYPERMEDIA_REST_SERVICE
+class
+	HYPERMEDIA_REST_EXECUTION
 
 inherit
 
-	WSF_LAUNCHABLE_SERVICE
+	WSF_FILTERED_ROUTED_EXECUTION
+		rename
+			execute as execute_router
 		redefine
 			initialize
 		end
 
-	WSF_FILTERED_SERVICE
-		redefine
-			execute
-		end
-
-
-	WSF_ROUTED_SKELETON_SERVICE
-		rename
-			execute as execute_router
-		undefine
-			requires_proxy
-		end
-
-	WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_SERVICE
+	WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_EXECUTION
 
 	WSF_HANDLER_HELPER
 
 	WSF_NO_PROXY_POLICY
-
-	WSF_FILTER
-		rename
-			execute as execute_router
-		end
 
 	SHARED_EXECUTION_ENVIRONMENT
 		export
@@ -45,6 +29,9 @@ inherit
 		end
 
 	COLLECTION_JSON_HELPER
+
+create
+	make
 
 
 feature {NONE} -- Initialization
@@ -54,8 +41,6 @@ feature {NONE} -- Initialization
 			Precursor
 			initialize_router
 			initialize_filter
-			create {WSF_SERVICE_LAUNCHER_OPTIONS_FROM_INI} service_options.make_from_file ("server.ini")
-----			make_and_launch
 		end
 
 	setup_router
@@ -71,20 +56,20 @@ feature {NONE} -- Initialization
 			create l_options_filter.make (router)
 			create task_handler
 			l_options_filter.set_next (task_handler)
-			map_uri_template_agent_with_request_methods (api_uri, agent handle_root, router.methods_GET)
+			map_uri_template_agent (api_uri, agent handle_root, router.methods_GET)
 
 			create l_methods
 			l_methods.enable_options
 			l_methods.enable_get
 			l_methods.enable_post
-			router.handle_with_request_methods (task_uri, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
+			router.handle (task_uri, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
 
 			create l_methods
 			l_methods.enable_options
 			l_methods.enable_get
 			l_methods.enable_delete
 			l_methods.enable_put
-			router.handle_with_request_methods (task_id_uri_template.template, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
+			router.handle (task_id_uri_template.template, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
 
 			create search_handler
 			create l_options_filter.make (router)
@@ -92,13 +77,13 @@ feature {NONE} -- Initialization
 			create l_methods
 			l_methods.enable_options
 			l_methods.enable_get
-			router.handle_with_request_methods (query_uri_template.template, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
+			router.handle (query_uri_template.template, create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
 
 			create doc.make_hidden (router)
 			create fhdl.make_hidden ("www")
 			fhdl.set_directory_index (<<"index.html">>)
-			router.handle_with_request_methods (root_uri, fhdl, router.methods_GET)
-			router.handle_with_request_methods ("/api/doc", doc, router.methods_GET)
+			router.handle (root_uri, fhdl, router.methods_GET)
+			router.handle ("/api/doc", doc, router.methods_GET)
 		end
 
 	setup_filter
@@ -133,13 +118,6 @@ feature -- Root Handler
 				res.put_header_text (h.string)
 				res.put_string (l_msg)
 			end
-		end
-
-feature -- Execution
-
-	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
-		do
-			Precursor (req, res)
 		end
 
 note

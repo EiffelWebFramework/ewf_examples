@@ -8,7 +8,7 @@ class
 	APPLICATION
 
 inherit
-	HYPERMEDIA_REST_SERVICE
+	HYPERMEDIA_REST_SERVER
 		redefine
 			initialize
 		end
@@ -21,16 +21,8 @@ feature {NONE} -- Initialization
 	initialize
 			-- Initialize current service.
 		do
-			Precursor
+			create {WSF_SERVICE_LAUNCHER_OPTIONS_FROM_INI} service_options.make_from_file ("server.ini")
 		end
 
-feature {NONE} -- Launcher
-
-	launch (a_service: WSF_SERVICE; opts: detachable WSF_SERVICE_LAUNCHER_OPTIONS)
-		local
-			launcher: WSF_SERVICE_LAUNCHER
-		do
-			create {WSF_DEFAULT_SERVICE_LAUNCHER} launcher.make_and_launch (a_service, opts)
-		end
 
 end

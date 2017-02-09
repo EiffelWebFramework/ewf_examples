@@ -65,8 +65,9 @@ feature -- Collection + JSON
 			parser: JSON_PARSER
 		do
 			initialize_converters (json)
-			create parser.make_parser (post)
-			if attached parser.parse_object as cj and parser.is_parsed then
+			create parser.make_with_string (post)
+			parser.parse_content
+			if attached {JSON_OBJECT} parser.parsed_json_value as cj and parser.is_valid then
 				if attached {CJ_COLLECTION} json.object (cj, "CJ_COLLECTION") as l_col then
 					Result := l_col
 				end
@@ -78,8 +79,9 @@ feature -- Collection + JSON
 			parser: JSON_PARSER
 		do
 			initialize_converters (json)
-			create parser.make_parser (post)
-			if attached parser.parse_object as cj and parser.is_parsed then
+			create parser.make_with_string (post)
+			parser.parse_content
+			if attached {JSON_OBJECT} parser.parsed_json_value as cj and parser.is_valid then
 				if attached {CJ_TEMPLATE} json.object (cj.item ("template"), "CJ_TEMPLATE") as l_col then
 					Result := l_col
 				end

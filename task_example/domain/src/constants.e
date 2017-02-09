@@ -9,4 +9,6 @@ class
 
 feature -- Access
 	date_format :STRING = "yyyy-[0]mm-[0]dd [0]hh:[0]mi:[0]ss"
+
+	date_format_2 :STRING = "yyyy-[0]mm-[0]dd"
 end

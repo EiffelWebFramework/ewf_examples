@@ -46,8 +46,6 @@ feature -- HTTP Methods
 
 	do_get (req: WSF_REQUEST; res: WSF_RESPONSE)
 			-- <Precursor>
-		local
-			id: INTEGER_64
 		do
 			if attached req.path_info as path_info then
 				if attached {WSF_STRING} req.path_parameter ("option") as l_all and then l_all.value.same_string("all") then
