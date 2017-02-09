@@ -10,6 +10,8 @@ inherit
 
 	SHARED_EJSON
 
+	JSON_PARSER_ACCESS
+
 create
 	make
 
@@ -41,8 +43,8 @@ feature -- From JSON to Exposure
 		local
 			parser : JSON_PARSER
 		do
-			create parser.make_parser (a_json)
-			if attached parser.parse as jv and parser.is_parsed then
+			create parser.make_with_string (a_json)
+			if attached parser.next_parsed_json_value as jv and parser.is_valid then
 				if attached {TASK} json.object (jv, "TASK") as res then
 					create Result.from_domain (res)
 				end

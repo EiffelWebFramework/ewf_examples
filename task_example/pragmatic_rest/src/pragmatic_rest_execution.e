@@ -20,7 +20,7 @@ inherit
 
 create
 	make
-	
+
 feature {NONE} -- Initialization
 
 	initialize
@@ -48,7 +48,7 @@ feature {NONE} -- Initialization
 			l_methods.enable_options
 			l_methods.enable_get
 			l_methods.enable_post
-			router.handle_with_request_methods ("/tasks", create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
+			router.handle ("/tasks", create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
 
 
 			create l_methods
@@ -56,15 +56,15 @@ feature {NONE} -- Initialization
 			l_methods.enable_get
 			l_methods.enable_delete
 			l_methods.enable_put
-			router.handle_with_request_methods ("/tasks/{task_id}", create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
+			router.handle ("/tasks/{task_id}", create {WSF_URI_TEMPLATE_AGENT_HANDLER}.make (agent l_options_filter.execute), l_methods)
 
 			create doc.make_hidden (router)
 
 			create fhdl.make_hidden ("www")
 			fhdl.set_directory_index (<<"index.html">>)
-			router.handle_with_request_methods ("/", fhdl, router.methods_GET)
+			router.handle ("/", fhdl, router.methods_GET)
 
-			router.handle_with_request_methods ("/api/doc", doc, router.methods_GET)
+			router.handle ("/api/doc", doc, router.methods_GET)
 		end
 
 	setup_filter

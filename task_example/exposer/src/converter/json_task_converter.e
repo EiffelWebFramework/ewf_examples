@@ -74,31 +74,31 @@ feature -- Conversion
  feature {NONE} -- Implementation
 	id_key: JSON_STRING
         once
-            create Result.make_json ("id")
+            create Result.make_from_escaped_json_string ("id")
         end
 
 
 	description_key: JSON_STRING
         once
-            create Result.make_json ("description")
+            create Result.make_from_escaped_json_string ("description")
         end
 
 
    completed_key: JSON_STRING
         once
-            create Result.make_json ("completed")
+            create Result.make_from_escaped_json_string ("completed")
         end
 
    created_at_key : JSON_STRING
 	 	once
-    		create Result.make_json ("created_at")
+    		create Result.make_from_escaped_json_string ("created_at")
     	end
 
 
 	date_due_key : JSON_STRING
 
     	once
-    		create Result.make_json ("date_due")
+    		create Result.make_from_escaped_json_string ("date_due")
     	end
 
 end
