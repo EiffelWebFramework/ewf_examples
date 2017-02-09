@@ -118,7 +118,7 @@ Curl Client
 ---
 <table>
     <tr>
-        <td>(./client)</td>
+        <td>[client](./client)</td>
         <td>Examples using CURL as a REST client</td>
     </tr>
 </table>
