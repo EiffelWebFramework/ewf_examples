@@ -11,6 +11,7 @@ WebSite
     </tr>
 </table>
 
+![alt tab] (./img/EWF_TODO_WITH_ANGULARJS.png)
 
 Pragmatic REST Implementation
 ===
