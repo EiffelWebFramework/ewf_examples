@@ -1,3 +1,17 @@
+EiffelWeb code with AngularJS
+===
+
+
+WebSite
+---
+<table>
+    <tr>
+        <td>http/localhost:9999</td>
+        <td>TODO web site with AngularJS</td>
+    </tr>
+</table>
+
+
 Pragmatic REST Implementation
 ===
 This is an implementation of CRUD pattern for manipulate resources, this is the first step to use the HTTP protocol as an application protocol instead of a transport protocol. 
@@ -96,3 +110,35 @@ Here we use DELETE to remove a task, if the task could be removed we responds wi
 How to Delete a task with DELETE
 Here we use DELETE to remove a task, if the task could be removed we responds with a. 204. 404 Resource not found, 405 if consumer and service's view of the resource state is inconsistent 500 if we have an internal server error
  
+
+How to test the Task Protocol using an HTTP client
+---
+You can use Curl, Postman, etc  in this example we will show you how to use `CURL` as a `REST CLIENT`
+
+Command example: `curl -X HTTP_METHOD -i -H "headers" -d "parameters" url` 
+
+Where
+```
+i – show response headers
+H – pass request headers to the resource
+X – pass a HTTP method name
+d – pass in parameters enclosed in quotes; multiple parameters are separated by ‘&’
+```
+
+Task Protocol
+
+```
+ask Protocol
+{
+        "id": 4,
+        "description": "Fix database",
+        "completed": "False",
+        "created_at": "2012-06-14 12:43:43",
+        "date_due": "2012-07-14 12:43:43"
+ }
+```
+
+GET all tasks
+---
+command: `curl -X GET -i -H "Accept: application/json" http://localhost:9090/tasks`
+
