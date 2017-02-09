@@ -10,7 +10,6 @@ WebSite
         <td>TODO web site with AngularJS</td>
     </tr>
 </table>
-
 ![alt tab] (./img/EWF_TODO_WITH_ANGULARJS.png)
 
 Pragmatic REST Implementation
@@ -39,7 +38,6 @@ At the moment EWF does not use [convention over configuration](http://en.wikiped
       - **PRAGMATIC_REST_SERVER**
    - **www**  -- document root containing html pages, js and css files needed by the application
    - **api_rest-safe.ecf** -- Eiffel configuration file
-
 
 
 
@@ -115,6 +113,15 @@ Here we use DELETE to remove a task, if the task could be removed we responds wi
 How to test the Task Protocol using an HTTP client
 ---
 You can use Curl, Postman, etc  in this example we will show you how to use `CURL` as a `REST CLIENT`
+
+Curl Client
+---
+<table>
+    <tr>
+        <td>client</td>
+        <td>Examples using CURL as a REST client</td>
+    </tr>
+</table>
 
 Command example: `curl -X HTTP_METHOD -i -H "headers" -d "parameters" url` 
 
