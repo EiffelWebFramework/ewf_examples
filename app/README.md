@@ -34,15 +34,21 @@ Application Architecture
 Before to see the custom implementation for our example, it's recomended to see the basic application architecture and the common lifecyle that every ewf application will have. So first read the wiki page [application lifecycle] (https://github.com/EiffelWebFramework/ewf_examples/wiki/Application-Lifecycle)
 
 
-![Application Architecture](/app/doc/APP_SERVICE.png "Application arhitecture")
+![Application Architecture](/app/doc/APP_SERVICE_NEW.png "Application arhitecture")
 
-The _APPLICATION_ class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how you want to run it _cgi_, _fcgi_ or _Nino_. For development is recommended to use Nino, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
+The _APPLICATION_ class is the root of our example, it will launch the application, using the corresponding connector, which connector? it will depend how do you want to run it _cgi_, _fcgi_ or _Standalone_. For development is recommended to use `Standalone`, a standalone web server build on Eiffel. For production fcgi or cgi using Apache or another popular web server.
 
 Our _APPLICATION_ class inherit from *APP_SERVICE* class, which also inherit from others, let’s describe them in a few words, before continuing with *APP_SERVICE*.
 
-*WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF handling each incoming request, and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ).  So it allow us to launch our application using different kind of connectors. Below a [BON diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors.
+*WS_LAUNCHABLE_SERVICE* inherit from *WS_SERVICE* class, which is the low level entry point in EWF to implement the main entry of your web service. 
+
+*WSF_DEFAULT_SERVICE_LAUNCHER* is the default launcher for a *WSF_SERVICE* based on *WSF_STANDALONE_SERVICE_LAUNCHER*. 
+EiffelWeb allow us to launch our application using different kind of connectors. Below a [BON diagram] (http://www.bon-method.com/index_normal.htm) showing the different kind of connectors.
 
 ![Launcher Hierarchy](/app/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
+
+
+*WSF_EXECUTION* is th low level request execution and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request )
 
 *WS_ROUTER_SERVICE*  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by *WS_ROUTER*.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
 
