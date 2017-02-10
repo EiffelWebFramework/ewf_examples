@@ -38,4 +38,10 @@ State Transitions
 ---
 The following diagram shows the possible states that we represent in our Hypermedia API.
 
+![alt tab](./img/State transitions.png)
+
+Every state in this diagram corresponds to a particular page, that a user can browse, so the current page you are visiting, represents the `Application State`.  So every transition fom one `Application State` to another corresponds to links you decided to follow or forms you fill out. In some cases not all transitions are available from all states.
+
+Application state is kept on the client, but the server can manipulate it by sending representations in this case Collection+JSON, (an Hypermedia media type) that describe the possible state transitions. `Resource state` is kept on the server, but the client can manipulate it by sending the server a representation.
+
 
