@@ -55,7 +55,11 @@ EiffelWeb allow us to launch our application using different kind of connectors.
 The classes *WSF_URI_HELPER_FOR_ROUTED_SERVICE*, *WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_SERVICE*,  are helpers to map uri and uri templates to Eiffel code.
  
 
-In the classs *APP_SERVICE_EXECUTION*, we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests. We setup our mapping in the feature *setup_router*.
+In the classs *APP_SERVICE_EXECUTION*, we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests.
+
+![App_service_execution](/app/doc/APP_SERVICE_EXECUTION.png "APP_SERVICE_EXECUTION")
+
+We setup our mapping in the feature *setup_router*.
 
 ```Eiffel
 setup_router
