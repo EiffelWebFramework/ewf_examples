@@ -17,21 +17,25 @@ Project Structure
 At the moment EWF does not use [convention over configuration](http://en.wikipedia.org/wiki/Convention_over_configuration), so every project will have his own structure, here is the breakdown for the app example
 
 
- - **pragmatic_rest**
+ - **hypermedia_cj**
    - **src**  -- Source code cluster.
       - **root**   --  root application able to launch the app with either cgi, libfcgi, or nino connector.  
         - **any**     -- launch the app with either cgi, libfcgi, or nino connector.     
         - **default** -- launch the application using nino connection.
-      - **handler** -- Handlers to manage specific uris defined in *PRAGMATIC_REST_SERVER*. 
+      - **handler** -- Handlers to manage specific uris defined in *HYPERMEDIA_REST_SERVER*. 
       - **utils**   -- Utils classes.
+      - **converter**   -- Utils classes to convert an Eiffel object to JSON.
       - **HYPERMEDIA_REST_SERVER**
    - **www**  -- document root containing html pages, js and css files needed by the application
-   - **api_rest-safe.ecf** -- Eiffel configuration file
-
-
+   - **api_hyper-safe.ecf** -- Eiffel configuration file
 
 
 Application Architecture
 --
 Before to see our custom implemtation for our example, it's recomended to see the basic application architecture and the common lifecyle that every ewf application will have. So first read the wiki page [application lifecycle] (https://github.com/EiffelWebFramework/ewf_examples/wiki/Application-Lifecycle)
+
+State Transitions
+---
+The following diagram shows the possible states that we represent in our Hypermedia API.
+
 
