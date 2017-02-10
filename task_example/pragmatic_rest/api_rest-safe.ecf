@@ -30,7 +30,7 @@
 	<target name="api_rest_standalone" extends="common">
 		<root class="APPLICATION" feature="make_and_launch"/>
 		<library name="default_standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\standalone-safe.ecf"/>
-		<library name="nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\nino-safe.ecf"/>
+		<library name="standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\standalone-safe.ecf"/>
 		<cluster name="src" location="src\" recursive="true">
 				<file_rule>
 					<exclude>/root/any$</exclude>
