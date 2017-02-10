@@ -14,6 +14,7 @@ inherit
 		redefine
 			initialize
 		end
+	SHARED_DATABASE
 
 	ARGUMENTS
 
@@ -27,6 +28,8 @@ feature {NONE} -- Initialization
 		do
 			Precursor
 			set_service_option ("port", 9090)
+			if attached initialize_database then
+			end
 		end
 
 feature {NONE} -- Launch operation

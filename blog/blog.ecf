@@ -21,14 +21,14 @@
 		<root class="EWF_BLOG_SERVICE" feature="make_and_launch"/>
 		<library name="cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\cgi-safe.ecf"/>
 		<library name="libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\libfcgi-safe.ecf"/>
-		<library name="nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\nino-safe.ecf"/>
+		<library name="standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\standalone-safe.ecf"/>
 		<cluster name="launcher" location=".\launcher\any\" recursive="true"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
-	<target name="blog_nino" extends="common">
+	<target name="blog_standalone" extends="common">
 		<root class="EWF_BLOG_SERVICE" feature="make_and_launch"/>
-		<library name="default_nino" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\nino-safe.ecf"/>
 		<cluster name="launcher" location=".\launcher\default\" recursive="true"/>
+		<library name="dft_standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\standalone-safe.ecf"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
 	<target name="blog_cgi" extends="common">
@@ -43,6 +43,6 @@
 		<cluster name="launcher" location=".\launcher\default\" recursive="true"/>
 		<cluster name="src" location=".\src\" recursive="true"/>
 	</target>
-	<target name="blog" extends="blog_nino">
+	<target name="blog" extends="blog_standalone">
 	</target>
 </system>

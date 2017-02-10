@@ -19,6 +19,8 @@ inherit
 
 	WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_EXECUTION
 
+	SHARED_DATABASE
+
 	SHARED_EJSON
 
 
@@ -43,10 +45,9 @@ feature {NONE} -- Initialization
 
 				-- HTML uri/uri templates.
 			map_uri_agent ("/", agent handle_root_api, router.methods_GET)
-			map_uri_template_agent_with_request_methods ("/rels/{rel}", agent handle_rels, router.methods_GET)
+			map_uri_template_agent ("/rels/{rel}", agent handle_rels, router.methods_GET)
 			map_uri_agent ("/blogs", agent handle_blogs, router.methods_get_post)
 
---			map_uri_agent_with_request_methods ("/blogs", agent handle_blogs_page, router.methods_GET)
 
 
 
@@ -60,24 +61,10 @@ feature {NONE} -- Initialization
 			create doc.make (router)
 			create fhdl.make_hidden ("www")
 			fhdl.set_directory_index (<<"browser.html">>)
-			router.handle_with_request_methods ("/", fhdl, router.methods_GET)
+			router.handle ("/", fhdl, router.methods_GET)
 
 		end
 
-feature -- Database Access
-
-	database: DATABASE
-		note
-            option: stable
-        attribute
-        	Result := initialize_database
-        end
-
-	initialize_database:  DATABASE
-			-- Initialize database
-		once ("THREAD")
-			create Result.make
-		end
 
 feature -- Handle HTML pages
 
