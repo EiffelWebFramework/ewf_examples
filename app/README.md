@@ -48,14 +48,14 @@ EiffelWeb allow us to launch our application using different kind of connectors.
 ![Launcher Hierarchy](/app/doc/WSF_SERVICE_LAUNCHER.png "Launcher")
 
 
-*WSF_EXECUTION* is th low level request execution and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request )
+*WSF_EXECUTION* is th low level request execution and from which one we have access to the query and form parameters, input data, headers, etc ( everything from an HTTP request ). Note that per incoming request we will have an instance of WSF_EXECUTION to handle the execute concurrently.
 
-*WS_ROUTER_SERVICE*  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by *WS_ROUTER*.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
+*WSF_ROUTED_EXECUTION*  class,  enable our service to dispatch http requests  to the underlying code responsible to handle the execution.  In particular the request dispatcher is handled by *WS_ROUTER*.  Basically we map URI and URI templates with Eiffel code and this is the responsibility of a dispatcher.
 
 The classes *WSF_URI_HELPER_FOR_ROUTED_SERVICE*, *WSF_URI_TEMPLATE_HELPER_FOR_ROUTED_SERVICE*,  are helpers to map uri and uri templates to Eiffel code.
  
 
-Back to *APP_SERVICE*, in this class we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests. We setup our mapping in  the feature *setup_router*.
+In the classs *APP_SERVICE_EXECUTION*, we define how we map uris and uri templates and will allow us to route HTTP request to the corresponding piece of code to handle the incoming requests. We setup our mapping in the feature *setup_router*.
 
 ```Eiffel
 setup_router
